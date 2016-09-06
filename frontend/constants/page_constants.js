@@ -1,0 +1,6 @@
+
+
+module.exports = {
+  POST_RECEIVED: "POST_RECEIVED",
+  ACCOUNTS_RECEIVED: "ACCOUNTS_RECEIVED"
+}
