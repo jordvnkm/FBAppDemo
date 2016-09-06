@@ -1,0 +1,8 @@
+
+
+module.exports = {
+  LOGIN: "LOGIN",
+  ERROR: "ERROR",
+  LOGOUT: "LOGOUT",
+  USERS_RECEIVED: "USERS_RECEIVED"
+}

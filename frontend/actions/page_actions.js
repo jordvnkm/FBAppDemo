@@ -5,16 +5,14 @@ const ErrorConstants = require("../constants/error_constants");
 
 const PageActions = {
   postMessage: function(params){
-    console.log(params);
     PageApiUtil.postMessage(params, PageActions.receiveMessage, PageActions.handleError);
   },
 
   receivePost: function(post){
-    console.log(post);
-    // AppDispatcher.dispatch({
-    //   actionType: PageConstants.POST_RECEIVED,
-    //   post: post
-    // });
+    AppDispatcher.dispatch({
+      actionType: PageConstants.POST_RECEIVED,
+      post: post
+    });
   },
 
   fetchAllAccounts: function(){

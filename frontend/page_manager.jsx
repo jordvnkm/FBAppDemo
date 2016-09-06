@@ -10,10 +10,12 @@ const IndexRoute = reactRouter.IndexRoute;
 
 const App = require("./components/app");
 const LoginPage = require("./components/login_page");
+const HomePage = require("./components/home_page");
 
 let routes = (<Router history={hashHistory}>
   <Route path="/" component = {App}>
     <IndexRoute component={LoginPage}/>
+    <Route path="user/:fbId" component={HomePage}></Route>
   </Route>
 </Router> );
 
