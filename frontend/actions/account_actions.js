@@ -9,11 +9,10 @@ const AccountActions = {
   },
 
   receiveAllAccounts: function(accounts){
-    console.log(accounts);
-    // AppDispatcher.dispatch({
-    //   actionType: PageConstants.ACCOUNTS_RECEIVED,
-    //   accounts: accounts.data
-    // })
+    AppDispatcher.dispatch({
+      actionType: AccountConstants.ACCOUNTS_RECEIVED,
+      accounts: accounts
+    })
   },
 
   handleError: function(error){

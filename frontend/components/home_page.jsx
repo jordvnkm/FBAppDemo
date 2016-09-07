@@ -5,6 +5,10 @@ const AccountActions = require("../actions/account_actions");
 const hashHistory = require("react-router").hashHistory;
 const UserActions = require("../actions/user_actions");
 
+
+const AccountsIndex = require("./accounts_index");
+
+
 const HomePage = React.createClass({
   getInitialState: function(){
     return {accounts: [], currentUser: UserStore.currentUser()};
@@ -30,17 +34,22 @@ const HomePage = React.createClass({
     this.accountListener.remove();
   },
 
+  userChange: function(){
+    this.setState({currentUser: UserStore.currentUser()});
+  },
+
+
+  accountChange: function(){
+    console.log(AccountStore.getAccounts());
+    this.setState({accounts: AccountStore.getAccounts()});
+  },
+
   loginOrCreateUser: function(response){
     let user = {fb_id: response.authResponse.userID};
     UserActions.logIn(user);
     AccountActions.fetchAllAccounts();
   },
 
-  userChange: function(){
-    let id = UserStore.currentUser().fb_id;
-    console.log(id);
-    this.setState({currentUser: UserStore.currentUser()});
-  },
 
   statusChangeCallback: function(response){
     if (response.status === 'connected'){
@@ -88,6 +97,7 @@ const HomePage = React.createClass({
     return (
       <div>
         hello from homepage
+        <AccountsIndex accounts={this.state.accounts}/>
       </div>
     );
   }

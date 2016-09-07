@@ -1,7 +1,6 @@
 
 const AccountApiUtil = {
   fetchAllAccounts: function(successCB, errorCB){
-    console.log("here");
     FB.api('/me/accounts', function(response) {
       if (!response){
         errorCB("No response from fetch all accounts")

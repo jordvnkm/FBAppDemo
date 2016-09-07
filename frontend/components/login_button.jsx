@@ -41,7 +41,6 @@ const LoginButton = React.createClass({
   // },
 
   loginOrCreateUser: function(response){
-    console.log(typeof response.authResponse.userID);
     let user = {fb_id: response.authResponse.userID};
     UserActions.logIn(user);
 
