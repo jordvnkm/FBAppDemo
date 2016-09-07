@@ -17,7 +17,8 @@ ActiveRecord::Schema.define(version: 20160906173841) do
   enable_extension "plpgsql"
 
   create_table "users", force: :cascade do |t|
-    t.integer "fb_id", null: false
+    t.string "fb_id",         null: false
+    t.string "session_token", null: false
   end
 
 end

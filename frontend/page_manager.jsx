@@ -7,6 +7,7 @@ const Router = reactRouter.Router;
 const Route = reactRouter.Route;
 const hashHistory = reactRouter.hashHistory;
 const IndexRoute = reactRouter.IndexRoute;
+const UserActions = require("./actions/user_actions");
 
 const App = require("./components/app");
 const LoginPage = require("./components/login_page");
@@ -21,5 +22,8 @@ let routes = (<Router history={hashHistory}>
 
 
 document.addEventListener("DOMContentLoaded", () => {
+  if (window.currentUser){
+    UserActions.receiveCurrentUser(window.currentUser);
+  }
   ReactDOM.render(routes, document.getElementById("content"));
 })

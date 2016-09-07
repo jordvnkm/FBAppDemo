@@ -4,8 +4,15 @@ class Api::SessionsController < ApplicationController
     @user = Api::User.find_by(fb_id: params[:user][:fb_id])
 
     if @user.nil?
-      @errors = ['invalid facebook id']
-      render 'api/shared/error', status: 401
+      @user = Api::User.new(fb_id: params[:user][:fb_id])
+      
+      if @user.save
+        login_user(@user)
+        render 'api/users/show'
+      else
+        @errors = @user.errors.full_messages
+        render "api/shared/error", status: 422
+      end
     else
       login_user(@user)
       render 'api/users/show'

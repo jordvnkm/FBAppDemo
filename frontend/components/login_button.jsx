@@ -1,6 +1,9 @@
 const React = require("react");
 const hashHistory = require("react-router").hashHistory;
 const PageActions = require("../actions/page_actions");
+const UserActions = require("../actions/user_actions");
+
+
 const LoginButton = React.createClass({
 
   componentWillMount: function(){
@@ -20,28 +23,39 @@ const LoginButton = React.createClass({
     let div = document.getElementById("loginButton");
     div.innerHTML = button;
   },
+  //
+  // testApi: function(){
+  //   // FB.api('/me/permissions', function(response){
+  //   //   console.log(JSON.stringify(response));
+  //   // })
+  //   // console.log('here');
+  //   // let page_id;
+  //   // let access_token;
+  //   // FB.api('/me/accounts', (response) => {
+  //   //   page_id = (response.data[0].id);
+  //   //   access_token = response.data[0].access_token;
+  //   //   let message = {access: access_token, page_id: page_id, text: "hello world from api call"}
+  //   //   PageActions.postMessage(message)
+  //   // });
+  //
+  // },
 
-  testApi: function(){
-    // FB.api('/me/permissions', function(response){
-    //   console.log(JSON.stringify(response));
-    // })
-    // console.log('here');
-    // let page_id;
-    // let access_token;
-    // FB.api('/me/accounts', (response) => {
-    //   page_id = (response.data[0].id);
-    //   access_token = response.data[0].access_token;
-    //   let message = {access: access_token, page_id: page_id, text: "hello world from api call"}
-    //   PageActions.postMessage(message)
-    // });
+  loginOrCreateUser: function(response){
+    console.log(typeof response.authResponse.userID);
+    let user = {fb_id: response.authResponse.userID};
+    UserActions.logIn(user);
 
+    let url = `user/${response.authResponse.userID}`;
+    hashHistory.push(url)
   },
 
   statusChangeCallback: function(response){
     console.log(response);
     if (response.status === 'connected'){
-      let url = `user/${response.authResponse.userID}`;
-      hashHistory.push(url)
+      // let url = `user/${response.authResponse.userID}`;
+      //
+      // hashHistory.push(url)
+      this.loginOrCreateUser(response);
     }
     else {
       console.log("not connected");
@@ -53,10 +67,6 @@ const LoginButton = React.createClass({
     FB.getLoginStatus(function(response){
       this.statusChangeCallback(response);
     }.bind(this));
-  },
-
-  handleClick: function(){
-    FB.login(this.checkLoginState());
   },
 
   render: function(){
