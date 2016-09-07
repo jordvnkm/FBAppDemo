@@ -1,9 +1,7 @@
 
 
 const PageApiUtil = {
-  fetchAllAccounts: function(success, error){
 
-  },
 
   postMessage: function(params, successCallback, errorCallback){
     let page_id = params.page_id;

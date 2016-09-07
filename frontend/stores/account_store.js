@@ -2,7 +2,7 @@ const Store = require("flux/utils").Store;
 const AppDispatcher = require("../dispatcher/dispatcher");
 const AccountConstants = require("../constants/account_constants");
 
-let UserStore = new Store(AppDispatcher);
+let AccountStore = new Store(AppDispatcher);
 
 let _accounts = [];
 
@@ -28,8 +28,6 @@ AccountStore.getAccounts = function(){
     return [];
   }
 };
-
-
 
 
 module.exports = AccountStore;
