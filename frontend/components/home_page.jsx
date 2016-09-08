@@ -15,7 +15,7 @@ const HomePage = React.createClass({
   },
 
   componentDidMount: function(){
-    if (currentUser == null){
+    if (this.state.currentUser == null){
       hashHistory.push("/");
       return;
     }
@@ -60,6 +60,8 @@ const HomePage = React.createClass({
       this.loginOrCreateUser(response);
     }
     else {
+      UserActions.logout();
+      hashHistory.push("/");
       console.log("not connected");
     }
   },

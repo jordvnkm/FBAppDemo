@@ -9,11 +9,14 @@ const LoginButton = React.createClass({
   componentWillMount: function(){
     // window['statusChangeCallback'] = this.statusChangeCallback;
     window['checkLoginState'] = this.checkLoginState;
+    console.log("componentwillmount login button")
   },
 
   componentWillUnmount: function(){
     // delete window['statusChangeCallback'];
     delete window['checkLoginState'];
+    let div = document.getElementById("loginButton");
+    div.innerHTML = "";
   },
 
   componentDidMount: function(){
@@ -54,10 +57,11 @@ const LoginButton = React.createClass({
       // let url = `user/${response.authResponse.userID}`;
       //
       // hashHistory.push(url)
+      console.log("connected from login button");
       this.loginOrCreateUser(response);
     }
     else {
-      console.log("not connected");
+      console.log("not connected from login Button");
     }
   },
 
