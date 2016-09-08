@@ -7,13 +7,16 @@ const React = require("react");
 const AccountsIndex = React.createClass({
   render: function(){
     return (
-      <ul>
-        {
-          this.props.accounts.map((account) => {
-            return <li key={account.id}>{account.name} {account.category}</li>
-          })
-        }
-      </ul>
+      <div id="accountsIndex">
+        <ul>
+          {
+            this.props.accounts.map((account) => {
+              console.log(account);
+              return <li key={account.id}>{account.name} {account.category}</li>
+            })
+          }
+        </ul>
+      </div>
     );
   }
 });

@@ -2,7 +2,7 @@ const React = require("react");
 const hashHistory = require("react-router").hashHistory;
 const PageActions = require("../actions/page_actions");
 const UserActions = require("../actions/user_actions");
-
+const UserStore = require("../stores/user_store");
 
 const LoginButton = React.createClass({
 
@@ -16,18 +16,22 @@ const LoginButton = React.createClass({
     // delete window['statusChangeCallback'];
     delete window['checkLoginState'];
     let div = document.getElementById("loginButton");
+    console.log("componenet will un mount login_button");
     div.innerHTML = "";
   },
 
   componentDidMount: function(){
-    if (window.FB != undefined){
-      this.checkLoginState();
-    }
+    // if (window.FB != undefined){
+    //   this.checkLoginState();
+    // }
+
     let button = '<div onlogin="checkLoginState" class="fb-login-button" data-max-rows="1" data-size="xlarge" ' +
       'data-show-faces="false" data-scope="public_profile,email,manage_pages, publish_pages" data-auto-logout-link="false"></div>';
 
+    console.log("component did mount login button")
     let div = document.getElementById("loginButton");
     div.innerHTML = button;
+    console.log(div);
   },
   //
   // testApi: function(){
@@ -57,11 +61,11 @@ const LoginButton = React.createClass({
   statusChangeCallback: function(response){
     console.log(response);
     if (response.status === 'connected'){
-      // let url = `user/${response.authResponse.userID}`;
-      //
-      // hashHistory.push(url)
+      let url = `user/${response.authResponse.userID}`;
+
+      hashHistory.push(url)
       console.log("connected from login button");
-      this.loginOrCreateUser(response);
+      // this.loginOrCreateUser(response);
     }
     else {
       console.log("not connected from login Button");

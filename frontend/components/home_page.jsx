@@ -15,17 +15,14 @@ const HomePage = React.createClass({
   },
 
   componentDidMount: function(){
-    if (this.state.currentUser == null){
-      hashHistory.push("/");
-      return;
-    }
     this.accountListener = AccountStore.addListener(this.accountChange)
     this.userListener = UserStore.addListener(this.userChange);
+
     if (window.FB == undefined){
       this.loadFBSDK();
     }
     else {
-      AccountActions.fetchAllAccounts();
+      this.checkLoginState();
     }
   },
 
@@ -57,12 +54,13 @@ const HomePage = React.createClass({
       //
       // hashHistory.push(url)
       console.log("FB INITIALIZED AND USER CONNECTED")
-      this.loginOrCreateUser(response);
+      AccountActions.fetchAllAccounts();
+      // this.loginOrCreateUser(response);
     }
     else {
-      UserActions.logout();
+      console.log("not connected from homepage");
+      // UserActions.logout();
       hashHistory.push("/");
-      console.log("not connected");
     }
   },
 
@@ -94,11 +92,16 @@ const HomePage = React.createClass({
     }(document, 'script', 'facebook-jssdk'));
   },
 
+  // navBar: function(){
+  //   if (window.FB != undefined && this.state.currentUser != undefined){
+  //
+  //   }
+  // },
+  // {this.navBar()}
 
   render: function(){
     return (
-      <div>
-        hello from homepage
+      <div id="homePageContent">
         <AccountsIndex accounts={this.state.accounts}/>
       </div>
     );
