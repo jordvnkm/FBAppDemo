@@ -54,20 +54,21 @@
 
 #loginHeaderContent{
   display: flex;
-  width: 80%;
+  width: 70%;
+  /*justify-content: space-between;*/
 }
 
 .loginAppDescription {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 #loginPageContent {
   display: flex;
   height: 100%;
-  width: 80%;
+  width: 70%;
   word-break: break-word;
 }
 
@@ -84,9 +85,9 @@
   display: flex;
   flex-direction: column;
   padding-left: 25px;
+  align-items: center;
 }
 
-/*http://www.pammarketingnut.com/wp-content/uploads/iStock_000014250706XSmall.jpg*/
 
 #FBHeader {
   margin-right: 10px;

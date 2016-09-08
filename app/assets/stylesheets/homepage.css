@@ -1,0 +1,27 @@
+
+
+#homeNavContainer {
+  width: 100%;
+  font-family: helvetica, arial, sans-serif;
+  background: #3b5998;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#homeNav {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+#navButtons {
+  display: flex;
+
+}
+
+#navButtons:hover {
+  cursor: pointer;
+}

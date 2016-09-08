@@ -7,7 +7,7 @@ const UserActions = require("../actions/user_actions");
 
 
 const AccountsIndex = require("./accounts_index");
-const LogoutButton = require("./logout_button");
+const NavBar = require("./navbar");
 
 const HomePage = React.createClass({
   getInitialState: function(){
@@ -76,28 +76,10 @@ const HomePage = React.createClass({
     }(document, 'script', 'facebook-jssdk'));
   },
 
-  logout: function(){
-    if (window.FB != undefined){
-      FB.logout(function(response){
-        hashHistory.push('/');
-      });
-    }
-  },
-
-  navBar: function(){
-    if (window.FB != undefined){
-      return (
-        <div id="homeNav">
-          <LogoutButton onClick={this.logout}/>
-        </div>
-      )
-    }
-  },
-
   render: function(){
     return (
       <div id="homePageContent">
-        {this.navBar()}
+        <NavBar />
         <AccountsIndex accounts={this.state.accounts}/>
       </div>
     );
