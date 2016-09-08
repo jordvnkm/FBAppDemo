@@ -31,6 +31,9 @@ const LoginButton = React.createClass({
     console.log("component did mount login button")
     let div = document.getElementById("loginButton");
     div.innerHTML = button;
+    if (window.FB != undefined){
+      FB.XFBML.parse();
+    }
     console.log(div);
   },
   //
