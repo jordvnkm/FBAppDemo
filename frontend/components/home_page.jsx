@@ -7,16 +7,15 @@ const UserActions = require("../actions/user_actions");
 
 
 const AccountsIndex = require("./accounts_index");
-
+const LogoutButton = require("./logout_button");
 
 const HomePage = React.createClass({
   getInitialState: function(){
-    return {accounts: [], currentUser: UserStore.currentUser()};
+    return {accounts: []};
   },
 
   componentDidMount: function(){
     this.accountListener = AccountStore.addListener(this.accountChange)
-    this.userListener = UserStore.addListener(this.userChange);
 
     if (window.FB == undefined){
       this.loadFBSDK();
@@ -27,39 +26,24 @@ const HomePage = React.createClass({
   },
 
   componentWillUnmount: function(){
-    this.userListener.remove();
     this.accountListener.remove();
   },
-
-  userChange: function(){
-    this.setState({currentUser: UserStore.currentUser()});
-  },
-
 
   accountChange: function(){
     console.log(AccountStore.getAccounts());
     this.setState({accounts: AccountStore.getAccounts()});
   },
 
-  loginOrCreateUser: function(response){
-    let user = {fb_id: response.authResponse.userID};
-    UserActions.logIn(user);
-    AccountActions.fetchAllAccounts();
-  },
 
 
   statusChangeCallback: function(response){
     if (response.status === 'connected'){
-      // let url = `user/${response.authResponse.userID}`;
-      //
-      // hashHistory.push(url)
+
       console.log("FB INITIALIZED AND USER CONNECTED")
       AccountActions.fetchAllAccounts();
-      // this.loginOrCreateUser(response);
     }
     else {
       console.log("not connected from homepage");
-      // UserActions.logout();
       hashHistory.push("/");
     }
   },
@@ -92,16 +76,28 @@ const HomePage = React.createClass({
     }(document, 'script', 'facebook-jssdk'));
   },
 
-  // navBar: function(){
-  //   if (window.FB != undefined && this.state.currentUser != undefined){
-  //
-  //   }
-  // },
-  // {this.navBar()}
+  logout: function(){
+    if (window.FB != undefined){
+      FB.logout(function(response){
+        hashHistory.push('/');
+      });
+    }
+  },
+
+  navBar: function(){
+    if (window.FB != undefined){
+      return (
+        <div id="homeNav">
+          <LogoutButton onClick={this.logout}/>
+        </div>
+      )
+    }
+  },
 
   render: function(){
     return (
       <div id="homePageContent">
+        {this.navBar()}
         <AccountsIndex accounts={this.state.accounts}/>
       </div>
     );

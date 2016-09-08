@@ -7,34 +7,24 @@ const UserStore = require("../stores/user_store");
 const LoginButton = React.createClass({
 
   componentWillMount: function(){
-    // window['statusChangeCallback'] = this.statusChangeCallback;
     window['checkLoginState'] = this.checkLoginState;
-    console.log("componentwillmount login button")
   },
 
   componentWillUnmount: function(){
-    // delete window['statusChangeCallback'];
     delete window['checkLoginState'];
     let div = document.getElementById("loginButton");
-    console.log("componenet will un mount login_button");
     div.innerHTML = "";
   },
 
   componentDidMount: function(){
-    // if (window.FB != undefined){
-    //   this.checkLoginState();
-    // }
-
     let button = '<div onlogin="checkLoginState" class="fb-login-button" data-max-rows="1" data-size="xlarge" ' +
       'data-show-faces="false" data-scope="public_profile,email,manage_pages, publish_pages" data-auto-logout-link="false"></div>';
 
-    console.log("component did mount login button")
     let div = document.getElementById("loginButton");
     div.innerHTML = button;
     if (window.FB != undefined){
       FB.XFBML.parse();
     }
-    console.log(div);
   },
   //
   // testApi: function(){
@@ -53,33 +43,9 @@ const LoginButton = React.createClass({
   //
   // },
 
-  loginOrCreateUser: function(response){
-    let user = {fb_id: response.authResponse.userID};
-    UserActions.logIn(user);
-
-    let url = `user/${response.authResponse.userID}`;
-    hashHistory.push(url)
-  },
-
-  statusChangeCallback: function(response){
-    console.log(response);
-    if (response.status === 'connected'){
-      let url = `user/${response.authResponse.userID}`;
-
-      hashHistory.push(url)
-      console.log("connected from login button");
-      // this.loginOrCreateUser(response);
-    }
-    else {
-      console.log("not connected from login Button");
-    }
-  },
-
 
   checkLoginState: function(){
-    FB.getLoginStatus(function(response){
-      this.statusChangeCallback(response);
-    }.bind(this));
+    this.props.checkLoginState();
   },
 
   render: function(){

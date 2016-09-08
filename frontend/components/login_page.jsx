@@ -19,12 +19,8 @@ const LoginPage = React.createClass({
 
       hashHistory.push(url)
       console.log("connectedFromLoginPage")
-      // AccountActions.fetchAllAccounts();
-      // this.loginOrCreateUser(response);
     }
     else {
-      // UserActions.logout();
-      // hashHistory.push("/");
       console.log("not connected from loginPage");
     }
   },
@@ -84,7 +80,7 @@ const LoginPage = React.createClass({
           </div>
           <div id="loginButtonContainer">
             <h2 className="descriptionText">Login with your facebook account to get started</h2>
-            <LoginButton />
+            <LoginButton checkLoginState= {this.checkLoginState}/>
           </div>
 
         </div>
