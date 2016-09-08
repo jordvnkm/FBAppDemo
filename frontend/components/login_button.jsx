@@ -20,6 +20,9 @@ const LoginButton = React.createClass({
   },
 
   componentDidMount: function(){
+    if (window.FB != undefined){
+      this.checkLoginState();
+    }
     let button = '<div onlogin="checkLoginState" class="fb-login-button" data-max-rows="1" data-size="xlarge" ' +
       'data-show-faces="false" data-scope="public_profile,email,manage_pages, publish_pages" data-auto-logout-link="false"></div>';
 

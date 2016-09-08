@@ -6,22 +6,28 @@ const LoginPage = React.createClass({
     return (
       <div id="loginPage">
         <div id= "loginHeaderContainer">
-          <h1 id="FBHeader">facebook</h1>
-          <h1 id="loginHeader"> page manager</h1>
+          <div id="loginHeaderContent">
+            <h1 id="FBHeader">facebook</h1>
+            <h1 id="loginHeader"> page manager</h1>
+          </div>
         </div>
 
         <div id="loginPageContent">
-
           <div id="loginPageDescription">
-            <div id="loginPosts">
+            <h2 className="descriptionText">Connect with your target audience</h2>
+            <div className="loginAppDescription">
               <img id="loginPostImage" />
-              <h5 className="loginText">Create published and unpublished posts</h5>
+              <span className="loginText">Create posts</span>
+              <span className="loginSubText">to your page feed</span>
             </div>
-            <h5 className="loginText">Monitor post views</h5>
-            <img id="loginMainImage"/>
+            <div className="loginAppDescription">
+              <img id="loginMonitorImage"/>
+              <span className="loginText">Monitor post views</span>
+              <span className="loginSubText">both published and unpublished</span>
+            </div>
           </div>
-          <div className="loginButtonContainer">
-            <h5>Login with your Facebook Account to get started</h5>
+          <div id="loginButtonContainer">
+            <h2 className="descriptionText">Login with your facebook account to get started</h2>
             <LoginButton />
           </div>
 

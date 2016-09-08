@@ -4,7 +4,7 @@ const LoginButton = require("./login_button");
 const App = React.createClass({
   render: function(){
       return (
-        <div>
+        <div id="app">
           {this.props.children}
         </div>
       );
