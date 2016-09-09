@@ -28,7 +28,7 @@ const NavBar = React.createClass({
     return (
       <div id="homeNavContainer">
         <div id="homeNav">
-          <img id="facebookLogo" />
+          <img onClick={this.homeButtonClicked} id="facebookLogo" />
 
           <div id="navButtons">
             <HomeButton onClick={this.homeButtonClicked}/>

@@ -25,3 +25,14 @@
 #navButtons:hover {
   cursor: pointer;
 }
+
+
+.accountItem {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+}
+
+.accountItem:hover {
+  cursor: pointer;
+}

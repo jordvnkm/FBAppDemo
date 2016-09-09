@@ -1,8 +1,8 @@
 const React = require("react");
+const AccountsIndexItem = require("./accounts_index_item");
 
 
 // TODO add accounts index item to return in map function
-
 
 const AccountsIndex = React.createClass({
   render: function(){
@@ -12,7 +12,7 @@ const AccountsIndex = React.createClass({
           {
             this.props.accounts.map((account) => {
               console.log(account);
-              return <li key={account.id}>{account.name} {account.category}</li>
+              return <AccountsIndexItem key={account.id} account={account}/>
             })
           }
         </ul>
