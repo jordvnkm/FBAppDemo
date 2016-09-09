@@ -24,8 +24,7 @@ const AccountPage = React.createClass({
   },
 
   postChange: function(){
-    console.log(PostStore.getFeed())
-    // this.setState({feed: PostStore.getFeed()});
+    this.setState({feed: PostStore.getFeed()});
   },
 
   statusChangeCallback: function(response){
@@ -71,6 +70,13 @@ const AccountPage = React.createClass({
     return(
       <div className="accountPage">
         <NavBar />
+        <ul>
+          {
+            this.state.feed.map((post)=>{
+              return <li key={post.id}> {post.message}</li>
+            })
+          }
+        </ul>
       </div>
     )
   }

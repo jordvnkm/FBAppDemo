@@ -21,7 +21,6 @@ const PageActions = {
   },
 
   receiveFeed: function(response){
-    console.log(response);
     AppDispatcher.dispatch({
       actionType: PageConstants.FEED_RECEIVED,
       posts: response.data,
