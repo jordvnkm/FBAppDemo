@@ -49,20 +49,38 @@ const PageApiUtil = {
     }.bind(this))
   },
 
-
-  createPost: function(content, isPublished, successCallback, errorCallback){
-    let url = `${page_id}/feed`;
-    FB.api( url, 'post', {published: isPublished, message: content}, (response) =>{
+  fetchPost: function(postId, isPublished, successCB, errorCB){
+    FB.api(postId, function(response){
       if (!response || response.error){
         console.log(response);
-        errorCallback("ERROR Occured");
+        errorCCB("ERROR Occured");
         console.log("error occured");
       }
       else {
-        console.log("success callback");
-        successCallback(response , isPublished)
+        console.log(response);
+        successCB(response , isPublished)
       }
     })
+  },
+
+
+  createPost: function(pageId, content, isPublished, successCallback, errorCallback){
+    FB.api(`${pageId}?fields=access_token`, function(access) {
+      let token = access.access_token;
+      let url = `${pageId}/feed`;
+      FB.api( url, 'post', {access_token: token, published: isPublished, message: content}, (response) =>{
+        if (!response || response.error){
+          console.log(response);
+          errorCallback("ERROR Occured");
+          console.log("error occured");
+        }
+        else {
+          console.log("success cb");
+          successCallback(response , isPublished)
+        }
+      })
+    }.bind(this))
+
   }
 };
 

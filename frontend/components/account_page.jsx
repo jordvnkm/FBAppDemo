@@ -80,8 +80,8 @@ const AccountPage = React.createClass({
     }(document, 'script', 'facebook-jssdk'));
   },
 
-  submitPost: function(content){
-    PageActions.createPost(content);
+  submitPost: function(content, published){
+    PageActions.createPost(this.props.params.account_id, content, published);
   },
 
   accountInfo: function(){

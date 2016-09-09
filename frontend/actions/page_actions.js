@@ -4,8 +4,8 @@ const PageConstants = require("../constants/page_constants");
 const ErrorConstants = require("../constants/error_constants");
 
 const PageActions = {
-  createPost: function(content, isPublished){
-    PageApiUtil.createPost(content, isPublished, PageActions.receivePost, PageActions.handleError);
+  createPost: function(pageId, content, isPublished){
+    PageApiUtil.createPost(pageId, content, isPublished, PageActions.receivePostCreated, PageActions.handleError);
   },
 
   fetchPublishedPosts: function(pageId){
@@ -18,6 +18,10 @@ const PageActions = {
 
   fetchFeed: function(pageId){
     PageApiUtil.fetchFeed(pageId, PageActions.receiveFeed, PageActions.handleError);
+  },
+
+  receivePostCreated: function(post, isPublished){
+    PageApiUtil.fetchPost(post.id, isPublished, PageActions.receivePost, PageActions.handleError);
   },
 
   receiveFeed: function(response){
@@ -44,8 +48,9 @@ const PageActions = {
     });
   },
 
+
   receivePost: function(post, isPublished){
-    console.log(post, isPublished)
+    console.log(post, isPublished);
     AppDispatcher.dispatch({
       actionType: PageConstants.POST_RECEIVED,
       post: post,

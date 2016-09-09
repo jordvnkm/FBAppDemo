@@ -14,14 +14,20 @@ const CreatePostForm = React.createClass({
   submitPost: function(event){
     event.preventDefault();
     event.stopPropagation();
-
+    let bool;
+    if (this.state.isPublished == "true"){
+      bool = true;
+    }
+    else {
+      bool = false;
+    }
+    this.props.onsubmit(this.state.postContent, bool);
   },
 
   publishChange: function(event){
     this.setState({isPublished: event.target.value});
   },
   render: function(){
-    console.log(this.state.isPublished);
     return (
       <div id="createPostForm">
         <span>Create Post</span>

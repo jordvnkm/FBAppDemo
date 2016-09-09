@@ -28,7 +28,29 @@ PostStore.__onDispatch = function(payload){
       receivePaging(payload.paging);
       PostStore.__emitChange();
       break;
+    case PageConstants.POST_RECEIVED:
+      if (payload.isPublished){
+        addToPublished(payload.post);
+      }
+      else {
+        addToUnpublished(payload.post);
+      }
+      addToFeed(payload.post);
+      PostStore.__emitChange();
+      break;
   }
+};
+
+const addToPublished = function(post){
+  _publishedPosts.unshift(post);
+};
+
+const addToUnpublished = function(post) {
+  _unpublishedPosts.unshift(post);
+};
+
+const addToFeed = function(post){
+  _feed.unshift(post);
 };
 
 const receivePaging = function(paging){
