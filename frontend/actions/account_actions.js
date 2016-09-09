@@ -8,10 +8,11 @@ const AccountActions = {
     AccountApiUtil.fetchAllAccounts(AccountActions.receiveAllAccounts, AccountActions.handleError);
   },
 
-  receiveAllAccounts: function(accounts){
+  receiveAllAccounts: function(response){
     AppDispatcher.dispatch({
       actionType: AccountConstants.ACCOUNTS_RECEIVED,
-      accounts: accounts
+      accounts: response.data,
+      paging: response.paging
     })
   },
 

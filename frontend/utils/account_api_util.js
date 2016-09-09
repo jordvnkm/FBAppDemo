@@ -9,7 +9,7 @@ const AccountApiUtil = {
         errorCB(response.error);
       }
       else {
-        successCB(response.data)
+        successCB(response)
       }
     }.bind(this));
   }
