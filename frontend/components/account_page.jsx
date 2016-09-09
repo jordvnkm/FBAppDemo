@@ -41,6 +41,7 @@ const AccountPage = React.createClass({
   statusChangeCallback: function(response){
     if (response.status == "connected"){
       console.log("logged in from account");
+      this.accessToken = response.authResponse.accessToken;
       PageActions.fetchFeed(this.props.params.account_id);
       if (this.state.account == undefined){
         AccountActions.fetchAccountInfo(this.props.params.account_id);
@@ -80,8 +81,13 @@ const AccountPage = React.createClass({
     }(document, 'script', 'facebook-jssdk'));
   },
 
-  submitPost: function(content, published){
-    PageActions.createPost(this.props.params.account_id, content, published);
+  submitPost: function(content, published, asPage){
+    if (asPage){
+      PageActions.createPostAsPage(this.props.params.account_id, content, published);
+    }
+    else {
+      PageActions.createPostAsPerson(this.props.params.account_id, content, this.access_token);
+    }
   },
 
   accountInfo: function(){

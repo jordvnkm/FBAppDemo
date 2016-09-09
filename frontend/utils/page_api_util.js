@@ -64,7 +64,7 @@ const PageApiUtil = {
   },
 
 
-  createPost: function(pageId, content, isPublished, successCallback, errorCallback){
+  createPostAsPage: function(pageId, content, isPublished, successCallback, errorCallback){
     FB.api(`${pageId}?fields=access_token`, function(access) {
       let token = access.access_token;
       let url = `${pageId}/feed`;

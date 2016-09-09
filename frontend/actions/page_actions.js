@@ -4,8 +4,12 @@ const PageConstants = require("../constants/page_constants");
 const ErrorConstants = require("../constants/error_constants");
 
 const PageActions = {
-  createPost: function(pageId, content, isPublished){
-    PageApiUtil.createPost(pageId, content, isPublished, PageActions.receivePostCreated, PageActions.handleError);
+  createPostAsPage: function(pageId, content, isPublished){
+    PageApiUtil.createPostAsPage(pageId, content, isPublished, PageActions.receivePostCreated, PageActions.handleError);
+  },
+
+  createPostAsPerson: function(pageId, content, access_token){
+    PageApiUtil.createPostAsPerson(pageId, content, access_token, PageActions.receivePostCreated, PageActions.handleError);
   },
 
   fetchPublishedPosts: function(pageId){

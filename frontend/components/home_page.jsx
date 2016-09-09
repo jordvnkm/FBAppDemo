@@ -38,7 +38,7 @@ const HomePage = React.createClass({
 
   statusChangeCallback: function(response){
     if (response.status === 'connected'){
-
+      this.accessToken = response.authResponse.accessToken;
       console.log("FB INITIALIZED AND USER CONNECTED")
       AccountActions.fetchAllAccounts();
     }

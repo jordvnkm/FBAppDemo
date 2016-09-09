@@ -15,6 +15,7 @@ const LoginPage = React.createClass({
 
   statusChangeCallback: function(response){
     if (response.status === 'connected'){
+      this.accessToken = response.authResponse.accessToken;
       let url = `user/${response.authResponse.userID}`;
 
       hashHistory.push(url)
