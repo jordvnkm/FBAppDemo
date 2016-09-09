@@ -6,6 +6,7 @@ let AccountStore = new Store(AppDispatcher);
 
 let _accounts = [];
 let _paging = {};
+let _currentAccount = undefined;
 
 
 AccountStore.__onDispatch = function(payload){
@@ -15,7 +16,15 @@ AccountStore.__onDispatch = function(payload){
       receivePaging(payload.paging);
       AccountStore.__emitChange();
       break;
+    case AccountConstants.ACCOUNT_RECEIVED:
+      receiveAccount(payload.account);
+      AccountStore.__emitChange();
+      break;
   }
+};
+
+const receiveAccount = function(account){
+  _currentAccount = account;
 };
 
 const receivePaging = function(paging){
@@ -24,6 +33,10 @@ const receivePaging = function(paging){
 
 const receiveAccounts = function(accounts){
   _accounts = accounts;
+};
+
+AccountStore.getAccount = function(){
+  return _currentAccount;
 };
 
 AccountStore.getAccounts = function(){

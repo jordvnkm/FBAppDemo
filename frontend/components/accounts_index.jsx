@@ -2,7 +2,7 @@ const React = require("react");
 const AccountsIndexItem = require("./accounts_index_item");
 
 
-// TODO add accounts index item to return in map function
+
 
 const AccountsIndex = React.createClass({
   render: function(){

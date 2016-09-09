@@ -1,16 +1,22 @@
 const React = require("react");
-const NavBar = require("./navbar");
 const hashHistory = require("react-router").hashHistory;
 const PostStore = require("../stores/post_store");
 const PageActions = require("../actions/page_actions");
+const AccountStore = require("../stores/account_store");
+const AccountActions = require("../actions/account_actions");
+
+
+const NavBar = require("./navbar");
+const CreatePostForm = require("./create_post_form");
 
 const AccountPage = React.createClass({
   getInitialState: function(){
-    return {feed : []}
+    return {feed : [], account: AccountStore.getAccount()};
   },
 
   componentWillMount: function(){
     this.postListener = PostStore.addListener(this.postChange);
+    this.accountListener = AccountStore.addListener(this.accountChange);
     if (window.FB == undefined){
       this.loadFBSDK();
     }
@@ -21,6 +27,11 @@ const AccountPage = React.createClass({
 
   componentWillUnmount: function(){
     this.postListener.remove();
+    this.accountListener.remove();
+  },
+
+  accountChange: function(){
+    this.setState({account: AccountStore.getAccount()});
   },
 
   postChange: function(){
@@ -31,6 +42,9 @@ const AccountPage = React.createClass({
     if (response.status == "connected"){
       console.log("logged in from account");
       PageActions.fetchFeed(this.props.params.account_id);
+      if (this.state.account == undefined){
+        AccountActions.fetchAccountInfo(this.props.params.account_id);
+      }
     }
     else {
       console.log("not connected from account page");
@@ -66,10 +80,26 @@ const AccountPage = React.createClass({
     }(document, 'script', 'facebook-jssdk'));
   },
 
+  submitPost: function(content){
+    PageActions.createPost(content);
+  },
+
+  accountInfo: function(){
+    if (this.state.account){
+      return (
+        <div>
+          {this.state.account.name}
+        </div>
+      );
+    }
+  },
+
   render: function(){
     return(
       <div className="accountPage">
         <NavBar />
+        {this.accountInfo()}
+        <CreatePostForm onsubmit={this.submitPost}/>
         <ul>
           {
             this.state.feed.map((post)=>{
