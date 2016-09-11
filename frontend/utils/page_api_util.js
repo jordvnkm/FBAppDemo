@@ -2,6 +2,20 @@
 
 const PageApiUtil = {
 
+  fetchProfileImage: function(userId, postId, successCB, errorCB){
+    FB.api(`/${userId}/picture`, function(response){
+      if (!response){
+        errorCB("No response from fetch fetch profile image")
+      }
+      else if (response.error){
+        errorCB(response.error);
+      }
+      else {
+        successCB(postId ,response)
+      }
+    }.bind(this));
+  },
+
   fetchPublishedPosts: function(pageId, successCB, errorCB){
     let url = `${pageId}/posts`;
     let params = {include_hidden: true};
@@ -35,8 +49,8 @@ const PageApiUtil = {
   },
 
   fetchFeed: function(pageId, successCB, errorCB){
-    let url = `${pageId}/feed`;
-    FB.api(url, function(response){
+    let url = `${pageId}/feed?fields=from,message`;
+    FB.api(url, {include_hidden: true} , function(response){
       if (!response){
         errorCB("No response from fetch feed")
       }
@@ -44,6 +58,7 @@ const PageApiUtil = {
         errorCB(response.error);
       }
       else {
+        console.log(response);
         successCB(response)
       }
     }.bind(this))
@@ -53,7 +68,7 @@ const PageApiUtil = {
     FB.api(postId, function(response){
       if (!response || response.error){
         console.log(response);
-        errorCCB("ERROR Occured");
+        errorCB("ERROR Occured");
         console.log("error occured");
       }
       else {
@@ -81,7 +96,23 @@ const PageApiUtil = {
       })
     }.bind(this))
 
-  }
+  },
+
+  createPostAsPerson: function(pageId, content, accessToken, successCallback, errorCallback){
+    FB.api(`${pageId}/feed`, 'post', {access_token: accessToken, message: content}, (response) =>{
+      let isPublished = true;
+      if (!response || response.error){
+        console.log(response);
+        errorCallback("ERROR Occured");
+        console.log("error occured");
+      }
+      else {
+        console.log("success cb");
+        successCallback(response , isPublished);
+      }
+    })
+  },
+
 };
 
 

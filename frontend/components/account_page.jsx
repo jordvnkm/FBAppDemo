@@ -8,10 +8,11 @@ const AccountActions = require("../actions/account_actions");
 
 const NavBar = require("./navbar");
 const CreatePostForm = require("./create_post_form");
+const PostsIndex = require("./posts_index");
 
 const AccountPage = React.createClass({
   getInitialState: function(){
-    return {feed : [], account: AccountStore.getAccount()};
+    return {feed : [], feedOption: "feed" , account: AccountStore.getAccount()};
   },
 
   componentWillMount: function(){
@@ -41,6 +42,7 @@ const AccountPage = React.createClass({
   statusChangeCallback: function(response){
     if (response.status == "connected"){
       console.log("logged in from account");
+
       this.accessToken = response.authResponse.accessToken;
       PageActions.fetchFeed(this.props.params.account_id);
       if (this.state.account == undefined){
@@ -100,19 +102,22 @@ const AccountPage = React.createClass({
     }
   },
 
+  feedOptions: function(){
+    return (
+      <div id="feedOptions">
+        <input>
+      </div>
+    );
+  },
+
   render: function(){
     return(
       <div className="accountPage">
         <NavBar />
+        {this.feedOptions()}
         {this.accountInfo()}
         <CreatePostForm onsubmit={this.submitPost}/>
-        <ul>
-          {
-            this.state.feed.map((post)=>{
-              return <li key={post.id}> {post.message}</li>
-            })
-          }
-        </ul>
+        <PostsIndex posts={this.state.feed}/>
       </div>
     )
   }

@@ -8,6 +8,7 @@ let PostStore = new Store(AppDispatcher);
 let _publishedPosts = [];
 let _unpublishedPosts = [];
 let _feed = [];
+let _images = {};
 let _paging = {};
 
 
@@ -38,7 +39,15 @@ PostStore.__onDispatch = function(payload){
       addToFeed(payload.post);
       PostStore.__emitChange();
       break;
+    case PageConstants.PROFILE_IMAGE_RECEIVED:
+      receiveProfileImage(payload.imageData);
+      PostStore.__emitChange();
+      break;
   }
+};
+
+const receiveProfileImage = function(imageData){
+  _images[imageData.postId] = imageData.data;
 };
 
 const addToPublished = function(post){
@@ -67,6 +76,12 @@ const receiveUnpublishedPosts = function(posts){
 
 const receiveFeed = function(posts){
   _feed = posts;
+};
+
+PostStore.getProfileImage = function(postId){
+  if (_images[postId] !== undefined){
+    return _images[postId].url;
+  }
 };
 
 PostStore.getPaging = function(){

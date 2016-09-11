@@ -4,6 +4,10 @@ const PageConstants = require("../constants/page_constants");
 const ErrorConstants = require("../constants/error_constants");
 
 const PageActions = {
+  fetchProfileImage: function(userId, postId){
+    PageApiUtil.fetchProfileImage(userId, postId, PageActions.receiveProfileImage, PageActions.handleError);
+  },
+
   createPostAsPage: function(pageId, content, isPublished){
     PageApiUtil.createPostAsPage(pageId, content, isPublished, PageActions.receivePostCreated, PageActions.handleError);
   },
@@ -26,6 +30,13 @@ const PageActions = {
 
   receivePostCreated: function(post, isPublished){
     PageApiUtil.fetchPost(post.id, isPublished, PageActions.receivePost, PageActions.handleError);
+  },
+
+  receiveProfileImage: function(postId, response){
+    AppDispatcher.dispatch({
+      actionType: PageConstants.PROFILE_IMAGE_RECEIVED,
+      imageData: {postId: postId, data: response.data}
+    })
   },
 
   receiveFeed: function(response){
@@ -54,7 +65,7 @@ const PageActions = {
 
 
   receivePost: function(post, isPublished){
-    console.log(post, isPublished);
+    // console.log(post);
     AppDispatcher.dispatch({
       actionType: PageConstants.POST_RECEIVED,
       post: post,
