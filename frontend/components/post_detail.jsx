@@ -1,5 +1,8 @@
 const React = require("react");
 const PostActions = require("../actions/post_actions");
+const CommentStore = require("../stores/comment_store");
+
+const CommentsIndex = require("./comments_index");
 
 const PostDetail = React.createClass({
 
@@ -9,12 +12,22 @@ const PostDetail = React.createClass({
 
 
   componentWillMount: function(){
+    this.commentListener = CommentStore.addListener(this.commentChange);
     if (window.FB == undefined){
       this.loadFBSDK();
     }
     else {
       this.checkLoginStatus();
     }
+  },
+
+
+  componentWillUnmount: function(){
+    this.commentListener.remove();
+  },
+
+  commentChange: function(){
+    this.setState({comments: CommentStore.getComments(this.props.params.postId)});
   },
 
   statusChangeCallback: function(response){
@@ -62,7 +75,7 @@ const PostDetail = React.createClass({
   render: function(){
     return (
       <div className="postDetail">
-
+        <CommentsIndex comments={this.state.comments}/>
       </div>
     );
   }

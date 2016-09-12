@@ -1,6 +1,6 @@
 const PostApiUtil = require("../utils/post_api_util");
 const AppDispatcher = require("../dispatcher/dispatcher");
-
+const CommentConstants = require("../constants/comment_constants");
 
 
 const PostActions = {
@@ -16,8 +16,13 @@ const PostActions = {
     PostApiUtil.fetchComments(postId, PostActions.receiveComments, PostActions.handleError);
   },
 
-  receiveComments: function(response){
-    console.log(response);
+  receiveComments: function(postId, response){
+    AppDispatcher.dispatch({
+      actionType: CommentConstants.COMMENTS_RECEIVED,
+      comments: response.data,
+      postId: postId,
+      paging: response.paging
+    })
   },
 
 

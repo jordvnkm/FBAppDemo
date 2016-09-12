@@ -28,7 +28,7 @@ const PostApiUtil = {
         errorCB(response.error);
       }
       else {
-        successCB(response)
+        successCB(postId, response)
       }
     });
   }

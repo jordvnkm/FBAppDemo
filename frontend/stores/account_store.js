@@ -6,7 +6,7 @@ let AccountStore = new Store(AppDispatcher);
 
 let _accounts = [];
 let _paging = {};
-let _images = {}
+let _images = {};
 let _currentAccount = undefined;
 
 
