@@ -48,6 +48,7 @@ const PageActions = {
   },
 
   receivePublishedPosts: function(response){
+    console.log(response);
     AppDispatcher.dispatch({
       actionType: PageConstants.PUBLISHED_POSTS_RECEIVED,
       posts: response.data,
@@ -65,7 +66,7 @@ const PageActions = {
 
 
   receivePost: function(post, isPublished){
-    // console.log(post);
+    console.log(post);
     AppDispatcher.dispatch({
       actionType: PageConstants.POST_RECEIVED,
       post: post,

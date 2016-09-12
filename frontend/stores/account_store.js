@@ -6,6 +6,7 @@ let AccountStore = new Store(AppDispatcher);
 
 let _accounts = [];
 let _paging = {};
+let _images = {}
 let _currentAccount = undefined;
 
 
@@ -20,7 +21,15 @@ AccountStore.__onDispatch = function(payload){
       receiveAccount(payload.account);
       AccountStore.__emitChange();
       break;
+    case AccountConstants.ACCOUNT_IMAGE_RECEIVED:
+      receiveImage(payload.imageData);
+      AccountStore.__emitChange();
+      break;
   }
+};
+
+const receiveImage = function(imageData){
+  _images[imageData.accountId] = imageData.data;
 };
 
 const receiveAccount = function(account){
@@ -33,6 +42,13 @@ const receivePaging = function(paging){
 
 const receiveAccounts = function(accounts){
   _accounts = accounts;
+};
+
+
+AccountStore.getPageImage = function(accountId){
+  if (_images[accountId] !== undefined){
+    return _images[accountId].url;
+  }
 };
 
 AccountStore.getAccount = function(){

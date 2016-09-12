@@ -4,12 +4,23 @@ const AccountConstants = require("../constants/account_constants");
 const ErrorConstants = require("../constants/error_constants");
 
 const AccountActions = {
+  fetchAccountImage: function(accountId){
+    AccountApiUtil.fetchAccountImage(accountId, AccountActions.receiveImage, AccountActions.handleError);
+  },
+
   fetchAllAccounts: function(){
     AccountApiUtil.fetchAllAccounts(AccountActions.receiveAllAccounts, AccountActions.handleError);
   },
 
   fetchAccountInfo: function(pageId){
     AccountApiUtil.fetchAccountInfo(pageId, AccountActions.receiveAccount, AccountActions.handleError);
+  },
+
+  receiveImage: function(accountId, response){
+    AppDispatcher.dispatch({
+      actionType: AccountConstants.ACCOUNT_IMAGE_RECEIVED,
+      imageData: {accountId: accountId, data: response.data},
+    })
   },
 
   receiveAccount: function(response){

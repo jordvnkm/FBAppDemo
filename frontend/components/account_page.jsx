@@ -12,7 +12,8 @@ const PostsIndex = require("./posts_index");
 
 const AccountPage = React.createClass({
   getInitialState: function(){
-    return {feed : [], feedOption: "feed" , account: AccountStore.getAccount()};
+    return {feed : [], feedOption: "pageFeed" , account: AccountStore.getAccount(),
+            accountImageUrl: ""};
   },
 
   componentWillMount: function(){
@@ -32,11 +33,19 @@ const AccountPage = React.createClass({
   },
 
   accountChange: function(){
-    this.setState({account: AccountStore.getAccount()});
+    this.setState({accountImageUrl: AccountStore.getPageImage(this.props.params.account_id),  account: AccountStore.getAccount()});
   },
 
   postChange: function(){
-    this.setState({feed: PostStore.getFeed()});
+    if (this.state.feedOption == "pageFeed"){
+      this.setState({feed: PostStore.getFeed()});
+    }
+    else if (this.state.feedOption == "published") {
+      this.setState({feed: PostStore.getPublishedPosts()});
+    }
+    else if (this.state.feedOption === "unpublished") {
+      this.setState({feed: PostStore.getUnpublishedPosts()});
+    }
   },
 
   statusChangeCallback: function(response){
@@ -47,6 +56,7 @@ const AccountPage = React.createClass({
       PageActions.fetchFeed(this.props.params.account_id);
       if (this.state.account == undefined){
         AccountActions.fetchAccountInfo(this.props.params.account_id);
+        AccountActions.fetchAccountImage(this.props.params.account_id);
       }
     }
     else {
@@ -95,17 +105,36 @@ const AccountPage = React.createClass({
   accountInfo: function(){
     if (this.state.account){
       return (
-        <div>
+        <div className="accountInfo">
+          <img className="accountInfoImage" src={this.state.accountImageUrl}/>
           {this.state.account.name}
         </div>
       );
     }
   },
 
+  feedOptionChange: function(event){
+    if (event.target.value !== this.state.feedOption){
+      if (event.target.value == "pageFeed"){
+        PageActions.fetchFeed(this.props.params.account_id);
+      }
+      else if (event.target.value == "published") {
+        PageActions.fetchPublishedPosts(this.props.params.account_id);
+      }
+      else if (event.target.value == "unpublished") {
+        PageActions.fetchUnpublishedPosts(this.props.params.account_id);
+      }
+      this.setState({feedOption: event.target.value})
+
+    }
+  },
+
   feedOptions: function(){
     return (
       <div id="feedOptions">
-        <input>
+        <input type="radio" name="feedOption" value="pageFeed" checked={this.state.feedOption == "pageFeed"} onChange={this.feedOptionChange} /> MyFeed
+        <input type="radio" name="feedOption" value="published" checked={this.state.feedOption == "published"} onChange={this.feedOptionChange} /> Published
+        <input type="radio" name="feedOption" value="unpublished" checked={this.state.feedOption == "unpublished"} onChange={this.feedOptionChange} /> Unpublished
       </div>
     );
   },
@@ -114,8 +143,8 @@ const AccountPage = React.createClass({
     return(
       <div className="accountPage">
         <NavBar />
-        {this.feedOptions()}
         {this.accountInfo()}
+        {this.feedOptions()}
         <CreatePostForm onsubmit={this.submitPost}/>
         <PostsIndex posts={this.state.feed}/>
       </div>

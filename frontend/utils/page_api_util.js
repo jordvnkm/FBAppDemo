@@ -17,7 +17,7 @@ const PageApiUtil = {
   },
 
   fetchPublishedPosts: function(pageId, successCB, errorCB){
-    let url = `${pageId}/posts`;
+    let url = `${pageId}/posts?fields=from,message,id`;
     let params = {include_hidden: true};
     FB.api(url, params, function(response){
       if (!response){
@@ -33,7 +33,7 @@ const PageApiUtil = {
   },
 
   fetchUnpublishedPosts: function(pageId, successCB, errorCB){
-    let url = `${pageId}/promotable_posts`;
+    let url = `${pageId}/promotable_posts?fields=from,message,id`;
     let params = {is_published: false, include_hidden: true}
     FB.api(url, params, function(response){
       if (!response){
@@ -49,7 +49,7 @@ const PageApiUtil = {
   },
 
   fetchFeed: function(pageId, successCB, errorCB){
-    let url = `${pageId}/feed?fields=from,message`;
+    let url = `${pageId}/feed?fields=from,message,id`;
     FB.api(url, {include_hidden: true} , function(response){
       if (!response){
         errorCB("No response from fetch feed")
@@ -65,7 +65,8 @@ const PageApiUtil = {
   },
 
   fetchPost: function(postId, isPublished, successCB, errorCB){
-    FB.api(postId, function(response){
+    let url = `${postId}?fields=from,message,id`
+    FB.api(url, function(response){
       if (!response || response.error){
         console.log(response);
         errorCB("ERROR Occured");

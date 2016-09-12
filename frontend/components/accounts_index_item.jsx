@@ -1,8 +1,26 @@
 const React = require("react");
 const hashHistory = require("react-router").hashHistory;
+const AccountActions = require("../actions/account_actions");
+const AccountStore = require("../stores/account_store");
 
 
 const AccountsIndexItem = React.createClass({
+  getInitialState: function(){
+    return {accountImageUrl: ""};
+  },
+
+  componentDidMount: function(){
+    this.accountListener = AccountStore.addListener(this.accountChange);
+    AccountActions.fetchAccountImage(this.props.account.id);
+  },
+
+  componentWillUnmount: function(){
+    this.accountListener.remove();
+  },
+
+  accountChange: function(){
+    this.setState({accountImageUrl: AccountStore.getPageImage(this.props.account.id)})
+  },
 
   handleClick: function(){
     let url = `account/${this.props.account.id}`;
@@ -12,6 +30,7 @@ const AccountsIndexItem = React.createClass({
   render: function(){
     return (
       <li onClick={this.handleClick} className="accountItem">
+        <img className="accountImage"src={this.state.accountImageUrl}/>
         <span>{this.props.account.name}</span>
 
         <span>Category: {this.props.account.category}</span>
