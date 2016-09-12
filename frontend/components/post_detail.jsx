@@ -3,21 +3,24 @@ const PostActions = require("../actions/post_actions");
 const CommentStore = require("../stores/comment_store");
 const PostStore = require("../stores/post_store");
 const PageActions = require("../actions/page_actions");
+const InsightStore = require("../stores/insight_store");
+const CommentActions = require("../actions/comment_actions");
 
 const CommentsIndex = require("./comments_index");
 const NavBar = require("./navbar");
+const CreateCommentForm = require("./create_comment_form");
 
 const PostDetail = React.createClass({
 
   getInitialState: function(){
-    return {insights: {}, authorImageUrl: "", comments: [], post: PostStore.getCurrentPost()};
+    return {insights: undefined, authorImageUrl: "", comments: [], post: PostStore.getCurrentPost()};
   },
 
 
   componentWillMount: function(){
     this.commentListener = CommentStore.addListener(this.commentChange);
     this.postListener = PostStore.addListener(this.postChange);
-    this
+    this.insightListener = InsightStore.addListener(this.insightChange);
     if (window.FB == undefined){
       this.loadFBSDK();
     }
@@ -29,7 +32,12 @@ const PostDetail = React.createClass({
   componentWillUnmount: function(){
     this.commentListener.remove();
     this.postListener.remove();
+    this.insightListener.remove();
     PostStore.resetCurrentPost();
+  },
+
+  insightChange: function(){
+    this.setState({insights: InsightStore.getInsights(this.props.params.postId)});
   },
 
   postChange: function(){
@@ -47,9 +55,9 @@ const PostDetail = React.createClass({
 
 
       PostActions.fetchPostInsights(this.props.params.postId);
+      PostActions.fetchComments(this.props.params.postId);
       if (this.state.post == undefined){
         PostActions.fetchPost(this.props.params.postId)
-        PostActions.fetchComments(this.props.params.postId);
         PageActions.fetchProfileImage(this.props.params.userId, this.props.params.postId);
       }
     }
@@ -87,14 +95,22 @@ const PostDetail = React.createClass({
   },
 
   postInfo: function(){
-    if (this.state.post !== undefined){
+    if (this.state.post !== undefined && this.state.insights !== undefined){
       return (
         <div className="postInfo">
           <img src={this.state.authorImageUrl}/>
+          {this.state.insights.title}
+          {this.state.insights.values[0].value}
           {this.state.post.from.name}
           {this.state.post.message}
         </div>
       );
+    }
+  },
+
+  postComment: function(content, asPage){
+    if (asPage){
+      c
     }
   },
 
@@ -104,6 +120,7 @@ const PostDetail = React.createClass({
         <NavBar />
         {this.postInfo()}
         <CommentsIndex comments={this.state.comments}/>
+        <CreateCommentForm onsubmit={this.postComment}/>
       </div>
     );
   }

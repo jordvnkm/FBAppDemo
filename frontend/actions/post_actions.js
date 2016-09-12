@@ -2,6 +2,8 @@ const PostApiUtil = require("../utils/post_api_util");
 const AppDispatcher = require("../dispatcher/dispatcher");
 const CommentConstants = require("../constants/comment_constants");
 const PostConstants = require("../constants/post_constants");
+const InsightConstants = require("../constants/insight_constants");
+
 
 const PostActions = {
   fetchPost: function(postId){
@@ -21,6 +23,7 @@ const PostActions = {
   },
 
   receiveComments: function(postId, response){
+    console.log(response);
     AppDispatcher.dispatch({
       actionType: CommentConstants.COMMENTS_RECEIVED,
       comments: response.data,
@@ -38,8 +41,14 @@ const PostActions = {
   },
 
 
-  receiveInsights: function(response){
+  receiveInsights: function(response, postId){
     console.log(response);
+    AppDispatcher.dispatch({
+      actionType: InsightConstants.INSIGHTS_RECEIVED,
+      insights: response.data[0],
+      postId: postId,
+      paging: response.paging
+    })
   },
 
   handleError: function(error){

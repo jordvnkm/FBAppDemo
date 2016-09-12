@@ -66,7 +66,7 @@ const CreatePostForm = React.createClass({
 
   asPageRadioButtons: function(){
     return (
-      <div>
+      <div className="asPageRadioButtons">
         Post As
         <input type="radio" name="asPage" value={true} checked={this.state.asPage == "true"} onChange={this.sourceChange} /> Page
         <input type="radio" name="asPage" value={false} checked={this.state.asPage == "false"} onChange={this.sourceChange} /> Individual
@@ -81,7 +81,7 @@ const CreatePostForm = React.createClass({
         <span>Create Post</span>
         <form onSubmit={this.submitPost}>
           <input type="text" value={this.state.postContent}
-                onChange={this.contentChange} placeholder="Enter comment" />
+                onChange={this.contentChange} placeholder="Say hi to your fans" />
 
 
           {this.publishedRadioButtons()}
