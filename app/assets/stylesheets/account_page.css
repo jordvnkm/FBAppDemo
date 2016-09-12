@@ -1,0 +1,9 @@
+
+
+.postIndexItem {
+  border: 1px solid black;
+}
+
+.postIndexItem:hover {
+  cursor: pointer;
+}

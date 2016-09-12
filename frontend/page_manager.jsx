@@ -13,12 +13,14 @@ const App = require("./components/app");
 const LoginPage = require("./components/login_page");
 const HomePage = require("./components/home_page");
 const AccountPage = require("./components/account_page");
+const PostDetail = require("./components/post_detail");
 
 let routes = (<Router history={hashHistory}>
   <Route path="/" component = {App}>
     <IndexRoute component={LoginPage}/>
     <Route path="user/:fbId" component={HomePage}></Route>
     <Route path="account/:account_id" component={AccountPage}></Route>
+    <Route path="post/:userId/:postId" component={PostDetail}></Route>
   </Route>
 </Router> );
 
