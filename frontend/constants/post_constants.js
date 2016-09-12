@@ -1,0 +1,5 @@
+
+
+module.exports = {
+  POST_DETAIL_RECEIVED: "POST_DETAIL_RECEIVED"
+};

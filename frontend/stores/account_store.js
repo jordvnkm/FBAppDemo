@@ -69,6 +69,4 @@ AccountStore.getPaging = function(){
   return Object.assign({}, _paging);
 }
 
-
-
 module.exports = AccountStore;

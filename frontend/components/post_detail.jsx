@@ -1,18 +1,23 @@
 const React = require("react");
 const PostActions = require("../actions/post_actions");
 const CommentStore = require("../stores/comment_store");
+const PostStore = require("../stores/post_store");
+const PageActions = require("../actions/page_actions");
 
 const CommentsIndex = require("./comments_index");
+const NavBar = require("./navbar");
 
 const PostDetail = React.createClass({
 
   getInitialState: function(){
-    return {insights: {}, authorImageUrl: "", comments: []};
+    return {insights: {}, authorImageUrl: "", comments: [], post: PostStore.getCurrentPost()};
   },
 
 
   componentWillMount: function(){
     this.commentListener = CommentStore.addListener(this.commentChange);
+    this.postListener = PostStore.addListener(this.postChange);
+    this
     if (window.FB == undefined){
       this.loadFBSDK();
     }
@@ -21,9 +26,15 @@ const PostDetail = React.createClass({
     }
   },
 
-
   componentWillUnmount: function(){
     this.commentListener.remove();
+    this.postListener.remove();
+    PostStore.resetCurrentPost();
+  },
+
+  postChange: function(){
+    this.setState({authorImageUrl: PostStore.getProfileImage(this.props.params.postId) ,
+                  post: PostStore.getCurrentPost()});
   },
 
   commentChange: function(){
@@ -33,10 +44,13 @@ const PostDetail = React.createClass({
   statusChangeCallback: function(response){
     if (response.status == "connected"){
       this.accessToken = response.authResponse.accessToken;
+
+
       PostActions.fetchPostInsights(this.props.params.postId);
       if (this.state.post == undefined){
+        PostActions.fetchPost(this.props.params.postId)
         PostActions.fetchComments(this.props.params.postId);
-        PostActions.fetchPostAuthorImage(this.props.params.userId, this.props.params.postId);
+        PageActions.fetchProfileImage(this.props.params.userId, this.props.params.postId);
       }
     }
     else {
@@ -72,9 +86,23 @@ const PostDetail = React.createClass({
     }(document, 'script', 'facebook-jssdk'));
   },
 
+  postInfo: function(){
+    if (this.state.post !== undefined){
+      return (
+        <div className="postInfo">
+          <img src={this.state.authorImageUrl}/>
+          {this.state.post.from.name}
+          {this.state.post.message}
+        </div>
+      );
+    }
+  },
+
   render: function(){
     return (
       <div className="postDetail">
+        <NavBar />
+        {this.postInfo()}
         <CommentsIndex comments={this.state.comments}/>
       </div>
     );

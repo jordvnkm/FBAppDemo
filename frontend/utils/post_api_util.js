@@ -2,6 +2,20 @@
 
 
 const PostApiUtil = {
+  fetchPost: function(postId, successCB, errorCB){
+    let url = `${postId}?fields=from,message,id`
+    FB.api(url, function(response){
+      if (!response || response.error){
+        console.log(response);
+        errorCB("ERROR Occured");
+        console.log("error occured");
+      }
+      else {
+        successCB(response , postId);
+      }
+    })
+  },
+
   fetchPostInsights: function(postId, successCB, errorCB) {
     let url = `${postId}/insights/post_engaged_users`;
     FB.api(url, (response) => {

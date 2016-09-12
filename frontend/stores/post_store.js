@@ -1,7 +1,7 @@
 const Store = require("flux/utils").Store;
 const AppDispatcher = require("../dispatcher/dispatcher");
 const PageConstants = require("../constants/page_constants");
-
+const PostConstants = require("../constants/post_constants");
 
 let PostStore = new Store(AppDispatcher);
 
@@ -10,6 +10,7 @@ let _unpublishedPosts = [];
 let _feed = [];
 let _images = {};
 let _paging = {};
+let _currentPost = undefined;
 
 
 PostStore.__onDispatch = function(payload){
@@ -43,7 +44,15 @@ PostStore.__onDispatch = function(payload){
       receiveProfileImage(payload.imageData);
       PostStore.__emitChange();
       break;
+    case PostConstants.POST_DETAIL_RECEIVED:
+      receiveCurrentPost(payload.post);
+      PostStore.__emitChange();
+      break;
   }
+};
+
+const receiveCurrentPost = function(post){
+  _currentPost = post;
 };
 
 const receiveProfileImage = function(imageData){
@@ -76,6 +85,16 @@ const receiveUnpublishedPosts = function(posts){
 
 const receiveFeed = function(posts){
   _feed = posts;
+};
+
+PostStore.getCurrentPost = function(){
+  if (_currentPost !== undefined){
+    return Object.assign({}, _currentPost);
+  }
+};
+
+PostStore.resetCurrentPost = function(){
+  _currentPost = undefined;
 };
 
 PostStore.getProfileImage = function(postId){
