@@ -3,7 +3,7 @@ const React = require("react");
 const CreatePostForm = React.createClass({
   getInitialState: function(){
     return {postContent: "", isPublished: "true", asPage: "true",
-            uploadUrl: undefined, thumbnailUrl: undefined};
+            image: undefined};
   },
 
   contentChange: function(event){
@@ -30,8 +30,8 @@ const CreatePostForm = React.createClass({
     else {
       asPage = false;
     }
-    this.props.onsubmit(this.state.postContent, this.state.uploadUrl, published, asPage);
-    this.setState({postContent: "", uploadUrl: undefined, thumbnailUrl: undefined});
+    this.props.onsubmit(this.state.postContent, this.state.image, published, asPage);
+    this.setState({postContent: "", image: undefined});
   },
 
   publishChange: function(event){
@@ -82,15 +82,15 @@ const CreatePostForm = React.createClass({
       function(error, images){
         if (error === null){
           console.log(images);
-          self.setState({thumbnailUrl: images[0].thumbnail_url, uploadUrl: images[0].url})
+          self.setState({image: images[0]})
         }
     });
   },
 
   uploadUrl: function(){
 
-    if (this.state.thumbnailUrl){
-      return <img src={this.state.thumbnailUrl}/>
+    if (this.state.image){
+      return <img src={this.state.image.thumbnail_url}/>
     }
   },
 

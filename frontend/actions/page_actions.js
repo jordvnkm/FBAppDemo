@@ -8,12 +8,22 @@ const PageActions = {
     PageApiUtil.fetchProfileImage(userId, postId, PageActions.receiveProfileImage, PageActions.handleError);
   },
 
-  createPostAsPage: function(pageId, content, isPublished){
-    PageApiUtil.createPostAsPage(pageId, content, isPublished, PageActions.receivePostCreated, PageActions.handleError);
+  createPostAsPage: function(pageId, image, content, isPublished){
+    if (image == undefined){
+      PageApiUtil.createPostAsPage(pageId, content, isPublished, PageActions.receivePostCreated, PageActions.handleError);
+    }
+    else {
+      PageApiUtil.uploadFileAsPage(pageId, image, content, isPublished, PageActions.receiveFileUploaded, PageActions.handleError);
+    }
   },
 
-  createPostAsPerson: function(pageId, content, access_token){
-    PageApiUtil.createPostAsPerson(pageId, content, access_token, PageActions.receivePostCreated, PageActions.handleError);
+  createPostAsPerson: function(pageId, image, content, access_token){
+    if (image == undefined){
+      PageApiUtil.createPostAsPerson(pageId, content, access_token, PageActions.receivePostCreated, PageActions.handleError);
+    }
+    else {
+      PageApiUtil.uploadFileAsPerson(pageId, image, content, access_token, PageActions.receiveFileUploaded, PageActions.handleError);
+    }
   },
 
   fetchPublishedPosts: function(pageId){
@@ -30,6 +40,10 @@ const PageActions = {
 
   receivePostCreated: function(post, isPublished){
     PageApiUtil.fetchPost(post.id, isPublished, PageActions.receivePost, PageActions.handleError);
+  },
+
+  receiveFileUploaded: function(response, postId){
+    console.log(response);
   },
 
   receiveProfileImage: function(postId, response){

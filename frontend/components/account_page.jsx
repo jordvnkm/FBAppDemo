@@ -93,12 +93,12 @@ const AccountPage = React.createClass({
     }(document, 'script', 'facebook-jssdk'));
   },
 
-  submitPost: function(content, published, asPage){
+  submitPost: function(content, image, published, asPage){
     if (asPage){
-      PageActions.createPostAsPage(this.props.params.account_id, content, published);
+      PageActions.createPostAsPage(this.props.params.account_id, image, content, published);
     }
     else {
-      PageActions.createPostAsPerson(this.props.params.account_id, content, this.access_token);
+      PageActions.createPostAsPerson(this.props.params.account_id, image, content, this.access_token);
     }
   },
 

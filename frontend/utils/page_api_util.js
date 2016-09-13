@@ -80,6 +80,40 @@ const PageApiUtil = {
   },
 
 
+  uploadFileAsPage: function(pageId, image, content, isPublished, successCB, errorCB){
+    FB.api(`${pageId}?fields=access_token`, function(access) {
+      let token = access.access_token;
+      let url = `${pageId}/photos`;
+      FB.api( url, 'post', {access_token: token, url: image.url, published: isPublished, caption: content}, (response) =>{
+        if (!response || response.error){
+          console.log(response);
+          errorCB("ERROR Occured");
+          console.log("error occured");
+        }
+        else {
+          console.log("success cb");
+          successCB(response , isPublished)
+        }
+      })
+    }.bind(this))
+
+  },
+
+  uploadFileAsPerson: function(pageId, image, content, accessToken, successCB, errorCB){
+    FB.api(`${pageId}/photos`, 'post', {access_token: accessToken, url: image.url, caption: content}, (response) =>{
+      let isPublished = true;
+      if (!response || response.error){
+        console.log(response);
+        errorCB("ERROR Occured");
+        console.log("error occured");
+      }
+      else {
+        console.log("success cb");
+        successCB(response , isPublished);
+      }
+    })
+  },
+
   createPostAsPage: function(pageId, content, isPublished, successCallback, errorCallback){
     FB.api(`${pageId}?fields=access_token`, function(access) {
       let token = access.access_token;
