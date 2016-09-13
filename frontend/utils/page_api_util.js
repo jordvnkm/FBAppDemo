@@ -17,7 +17,7 @@ const PageApiUtil = {
   },
 
   fetchPublishedPosts: function(pageId, successCB, errorCB){
-    let url = `${pageId}/posts?fields=from,message,id`;
+    let url = `${pageId}/posts?fields=from,message,id,picture,caption,source`;
     let params = {include_hidden: true};
     FB.api(url, params, function(response){
       if (!response){
@@ -33,23 +33,24 @@ const PageApiUtil = {
   },
 
   fetchUnpublishedPosts: function(pageId, successCB, errorCB){
-    let url = `${pageId}/promotable_posts?fields=from,message,id`;
-    let params = {is_published: false, include_hidden: true}
-    FB.api(url, params, function(response){
+    let url = `${pageId}/promotable_posts?fields=from,message,id,picture,caption,source`;
+    let params = {is_published: false, include_hidden: true};
+    FB.api(url, params, (response) => {
       if (!response){
-        errorCB("No response from fetch unpublished posts")
+        errorCB("No response from fetch unpublished posts");
       }
       else if (response.error){
         errorCB(response.error);
       }
       else {
-        successCB(response)
+        console.log(response);
+        successCB(response);
       }
-    }.bind(this))
+    });
   },
 
   fetchFeed: function(pageId, successCB, errorCB){
-    let url = `${pageId}/feed?fields=from,message,id`;
+    let url = `${pageId}/feed?fields=from,message,id,picture,caption,source`;
     FB.api(url, {include_hidden: true} , function(response){
       if (!response){
         errorCB("No response from fetch feed")
@@ -65,8 +66,8 @@ const PageApiUtil = {
   },
 
   fetchPost: function(postId, isPublished, successCB, errorCB){
-    let url = `${postId}?fields=from,message,id`
-    FB.api(url, function(response){
+    let url = `${postId}?fields=from,message,id,picture,caption,source`
+    FB.api(url, {is_published: isPublished} , function(response){
       if (!response || response.error){
         console.log(response);
         errorCB("ERROR Occured");
@@ -76,11 +77,11 @@ const PageApiUtil = {
         console.log(response);
         successCB(response , isPublished)
       }
-    })
+    }.bind(this));
   },
 
 
-  uploadFileAsPage: function(pageId, image, content, isPublished, successCB, errorCB){
+  uploadPhotoAsPage: function(pageId, image, content, isPublished, successCB, errorCB){
     FB.api(`${pageId}?fields=access_token`, function(access) {
       let token = access.access_token;
       let url = `${pageId}/photos`;
@@ -92,14 +93,14 @@ const PageApiUtil = {
         }
         else {
           console.log("success cb");
-          successCB(response , isPublished)
+          successCB(response , isPublished, pageId)
         }
       })
     }.bind(this))
 
   },
 
-  uploadFileAsPerson: function(pageId, image, content, accessToken, successCB, errorCB){
+  uploadPhotoAsPerson: function(pageId, image, content, accessToken, successCB, errorCB){
     FB.api(`${pageId}/photos`, 'post', {access_token: accessToken, url: image.url, caption: content}, (response) =>{
       let isPublished = true;
       if (!response || response.error){
@@ -109,7 +110,7 @@ const PageApiUtil = {
       }
       else {
         console.log("success cb");
-        successCB(response , isPublished);
+        successCB(response , isPublished, pageId);
       }
     })
   },
@@ -126,7 +127,7 @@ const PageApiUtil = {
         }
         else {
           console.log("success cb");
-          successCallback(response , isPublished)
+          successCallback(response , isPublished, pageId)
         }
       })
     }.bind(this))

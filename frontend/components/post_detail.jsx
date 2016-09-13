@@ -95,6 +95,23 @@ const PostDetail = React.createClass({
     }(document, 'script', 'facebook-jssdk'));
   },
 
+  postImageOrVideo: function(){
+    if (this.state.post.source){
+      return (
+        <video src={this.state.post.source} controls/>
+      );
+    }
+    else if (this.state.post.picture){
+      return <img src={this.state.post.picture}/>
+    }
+  },
+
+  postVideo: function(){
+    if (this.state.post.source){
+
+    }
+  },
+
   postInfo: function(){
     if (this.state.post !== undefined && this.state.insights !== undefined){
       return (
@@ -103,6 +120,7 @@ const PostDetail = React.createClass({
           {this.state.insights.title}
           {this.state.insights.values[0].value}
           {this.state.post.from.name}
+          {this.postImageOrVideo()}
           {this.state.post.message}
         </div>
       );

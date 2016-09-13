@@ -13,7 +13,15 @@ const PageActions = {
       PageApiUtil.createPostAsPage(pageId, content, isPublished, PageActions.receivePostCreated, PageActions.handleError);
     }
     else {
-      PageApiUtil.uploadFileAsPage(pageId, image, content, isPublished, PageActions.receiveFileUploaded, PageActions.handleError);
+      if (isVideo(image)){
+        PageApiUtil.uploadVideoAsPage(pageId, image, content, isPublished, PageActions.receiveFileUploaded, PageActions.handleError);
+      }
+      else if (isPhoto(image)){
+        PageApiUtil.uploadPhotoAsPage(pageId, image, content, isPublished, PageActions.receiveFileUploaded, PageActions.handleError);
+      }
+      else {
+        PageApiUtil.handleError({error: "unsupported file format"});
+      }
     }
   },
 
@@ -22,7 +30,15 @@ const PageActions = {
       PageApiUtil.createPostAsPerson(pageId, content, access_token, PageActions.receivePostCreated, PageActions.handleError);
     }
     else {
-      PageApiUtil.uploadFileAsPerson(pageId, image, content, access_token, PageActions.receiveFileUploaded, PageActions.handleError);
+      if (isVideo(image)){
+        PageApiUtil.uploadVideoAsPage(pageId, image, content, access_token, PageActions.receiveFileUploaded, PageActions.handleError);
+      }
+      else if (isPhoto(image)){
+        PageApiUtil.uploadPhotoAsPerson(pageId, image, content, access_token, PageActions.receiveFileUploaded, PageActions.handleError);
+      }
+      else {
+        PageApiUtil.handleError({error: "unsupported file format"});
+      }
     }
   },
 
@@ -42,8 +58,14 @@ const PageActions = {
     PageApiUtil.fetchPost(post.id, isPublished, PageActions.receivePost, PageActions.handleError);
   },
 
-  receiveFileUploaded: function(response, postId){
-    console.log(response);
+  receiveFileUploaded: function(response, isPublished, pageId){
+    if (response.post_id){
+      PageApiUtil.fetchPost(response.post_id, isPublished, PageActions.receivePost, PageActions.handleError);
+    }
+    else {
+      console.log(pageId);
+      PageApiUtil.fetchUnpublishedPosts(pageId, PageActions.receiveUnpublishedPosts, PageActions.handleError);
+    }
   },
 
   receiveProfileImage: function(postId, response){
@@ -96,6 +118,15 @@ const PageActions = {
     });
   }
 
+};
+
+const isVideo = function(image){
+  return false;
+};
+
+const isPhoto = function(image){
+  let acceptedFormats = [""];
+  return true
 };
 
 

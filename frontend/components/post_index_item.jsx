@@ -28,11 +28,21 @@ const PostIndexItem = React.createClass({
     hashHistory.push(url);
   },
 
+  postPhotoOrVideo: function(){
+    if (this.props.post.source){
+      return <video src={this.props.post.source} controls/>
+    }
+    else if (this.props.post.picture){
+      return <img className="postPicture" src={this.props.post.picture}/>
+    }
+  },
+
   render: function(){
     return (
       <li onClick={this.handleClick} className="postIndexItem">
         <img src={this.state.profileImageUrl}/>
         {this.props.post.from.name}<br></br>
+        {this.postPhotoOrVideo()}
         {this.props.post.message}
       </li>
     );
