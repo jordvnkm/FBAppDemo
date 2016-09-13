@@ -1,6 +1,41 @@
 
 
 const PageApiUtil = {
+  deletePublishedPost: function(postId, pageId, successCB, errorCB){
+    FB.api(`${pageId}?fields=access_token`, function(access) {
+      let token = access.access_token;
+      let url = `${postId}`;
+      FB.api( url, 'delete', {access_token: token}, (response) =>{
+        if (!response || response.error){
+          console.log(response);
+          errorCB("ERROR Occured");
+          console.log("error occured");
+        }
+        else {
+          console.log("success cb");
+          successCB(pageId);
+        }
+      })
+    }.bind(this))
+  },
+
+  deleteUnpublishedPost: function(postId, pageId, successCB, errorCB){
+    FB.api(`${pageId}?fields=access_token`, function(access) {
+      let token = access.access_token;
+      let url = `${postId}`;
+      FB.api( url, 'delete', {access_token: token}, (response) =>{
+        if (!response || response.error){
+          console.log(response);
+          errorCB("ERROR Occured");
+          console.log("error occured");
+        }
+        else {
+          console.log("success cb");
+          successCB(pageId);
+        }
+      })
+    }.bind(this))
+  },
 
   fetchProfileImage: function(userId, postId, successCB, errorCB){
     FB.api(`/${userId}/picture`, function(response){

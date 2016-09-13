@@ -4,8 +4,8 @@ const CommentConstants = require("../constants/comment_constants");
 const PostConstants = require("../constants/post_constants");
 const InsightConstants = require("../constants/insight_constants");
 
-
 const PostActions = {
+
   fetchPost: function(postId){
     PostApiUtil.fetchPost(postId, PostActions.receivePost, PostActions.handleError);
   },
@@ -20,6 +20,14 @@ const PostActions = {
 
   fetchComments: function(postId){
     PostApiUtil.fetchComments(postId, PostActions.receiveComments, PostActions.handleError);
+  },
+
+
+
+  unpublishedPostDeleted: function(response, pageId){
+    if (response["success"] !== undefined){
+      PageApiUtil.fetchUnpublishedPosts()
+    }
   },
 
   receiveComments: function(postId, response){

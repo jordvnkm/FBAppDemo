@@ -10,6 +10,7 @@ const NavBar = require("./navbar");
 const CreatePostForm = require("./create_post_form");
 const PostsIndex = require("./posts_index");
 
+
 const AccountPage = React.createClass({
   getInitialState: function(){
     return {feed : [], feedOption: "pageFeed" , account: AccountStore.getAccount(),
@@ -139,6 +140,16 @@ const AccountPage = React.createClass({
     );
   },
 
+  deletePost: function(postId){
+    if (this.state.feedOption == "pageFeed" || this.state.feedOption == "published"){
+      PageActions.deletePublishedPost(postId, this.props.params.account_id);
+    }
+    else {
+      console.log("unpublished delete clicked");
+      PageActions.deleteUnpublishedPost(postId, this.props.params.account_id);
+    }
+  },
+
   render: function(){
     return(
       <div className="accountPage">
@@ -146,7 +157,7 @@ const AccountPage = React.createClass({
         {this.accountInfo()}
         {this.feedOptions()}
         <CreatePostForm onsubmit={this.submitPost}/>
-        <PostsIndex posts={this.state.feed}/>
+        <PostsIndex deletePost={this.deletePost} posts={this.state.feed}/>
       </div>
     )
   }

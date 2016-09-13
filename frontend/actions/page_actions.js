@@ -4,6 +4,15 @@ const PageConstants = require("../constants/page_constants");
 const ErrorConstants = require("../constants/error_constants");
 
 const PageActions = {
+
+  deletePublishedPost: function(postId, pageId){
+    PageApiUtil.deletePublishedPost(postId, pageId, PageActions.publishedPostDeleted, PageActions.handleError);
+  },
+
+  deleteUnpublishedPost: function(postId, pageId){
+    PageApiUtil.deleteUnpublishedPost(postId, pageId, PageActions.unpublishedPostDeleted, PageActions.handleError);
+  },
+
   fetchProfileImage: function(userId, postId){
     PageApiUtil.fetchProfileImage(userId, postId, PageActions.receiveProfileImage, PageActions.handleError);
   },
@@ -52,6 +61,15 @@ const PageActions = {
 
   fetchFeed: function(pageId){
     PageApiUtil.fetchFeed(pageId, PageActions.receiveFeed, PageActions.handleError);
+  },
+
+  publishedPostDeleted: function(pageId){
+    PageApiUtil.fetchPublishedPosts(pageId, PageActions.receivePublishedPosts, PageActions.handleError);
+    PageApiUtil.fetchFeed(pageId, PageActions.receiveFeed, PageActions.handleError);
+  },
+
+  unpublishedPostDeleted: function(pageId){
+    PageApiUtil.fetchUnpublishedPosts(pageId, PageActions.receiveUnpublishedPosts, PageActions.handleError);
   },
 
   receivePostCreated: function(post, isPublished){

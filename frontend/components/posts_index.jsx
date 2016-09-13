@@ -9,7 +9,7 @@ const PostsIndex = React.createClass({
         <ul>
           {
             this.props.posts.map((post)=>{
-              return <PostIndexItem key={post.id} post={post}/>
+              return <PostIndexItem deleteClicked={this.props.deletePost} key={post.id} post={post}/>
             })
           }
         </ul>
