@@ -26,8 +26,5 @@ let routes = (<Router history={hashHistory}>
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (window.currentUser){
-    UserActions.receiveCurrentUser(window.currentUser);
-  }
   ReactDOM.render(routes, document.getElementById("content"));
 })

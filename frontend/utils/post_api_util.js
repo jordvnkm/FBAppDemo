@@ -17,7 +17,7 @@ const PostApiUtil = {
   },
 
   fetchPostInsights: function(postId, successCB, errorCB) {
-    let url = `${postId}/insights/post_engaged_users`;
+    let url = `${postId}/insights/post_consumptions`;
     FB.api(url, (response) => {
       if (!response){
         errorCB("No response from fetch fetch post insights")

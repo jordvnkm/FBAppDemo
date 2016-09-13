@@ -2,7 +2,8 @@ const React = require("react");
 
 const CreatePostForm = React.createClass({
   getInitialState: function(){
-    return {postContent: "", isPublished: "true", asPage: "true"};
+    return {postContent: "", isPublished: "true", asPage: "true",
+            uploadUrl: undefined, thumbnailUrl: undefined};
   },
 
   contentChange: function(event){
@@ -29,8 +30,8 @@ const CreatePostForm = React.createClass({
     else {
       asPage = false;
     }
-    this.props.onsubmit(this.state.postContent, published, asPage);
-    this.setState({postContent: ""});
+    this.props.onsubmit(this.state.postContent, this.state.uploadUrl, published, asPage);
+    this.setState({postContent: "", uploadUrl: undefined, thumbnailUrl: undefined});
   },
 
   publishChange: function(event){
@@ -74,11 +75,31 @@ const CreatePostForm = React.createClass({
     );
   },
 
+  fileUpload: function(event){
+    event.preventDefault();
+    let self = this;
+    cloudinary.openUploadWidget(window.cloudinary_options,
+      function(error, images){
+        if (error === null){
+          console.log(images);
+          self.setState({thumbnailUrl: images[0].thumbnail_url, uploadUrl: images[0].url})
+        }
+    });
+  },
+
+  uploadUrl: function(){
+
+    if (this.state.thumbnailUrl){
+      return <img src={this.state.thumbnailUrl}/>
+    }
+  },
 
   render: function(){
     return (
       <div id="createPostForm">
         <span>Create Post</span>
+        <button onClick={this.fileUpload}> Upload photo/video </button>
+        {this.uploadUrl()}
         <form onSubmit={this.submitPost}>
           <input type="text" value={this.state.postContent}
                 onChange={this.contentChange} placeholder="Say hi to your fans" />
@@ -89,6 +110,7 @@ const CreatePostForm = React.createClass({
           {this.asPageRadioButtons()}
           <input type="submit" value="Post" />
         </form>
+
       </div>
     );
   }

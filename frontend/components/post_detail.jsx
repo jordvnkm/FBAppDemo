@@ -47,6 +47,7 @@ const PostDetail = React.createClass({
 
   commentChange: function(){
     this.setState({comments: CommentStore.getComments(this.props.params.postId)});
+    PostActions.fetchPostInsights(this.props.params.postId);
   },
 
   statusChangeCallback: function(response){

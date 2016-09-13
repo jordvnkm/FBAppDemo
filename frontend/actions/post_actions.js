@@ -23,7 +23,6 @@ const PostActions = {
   },
 
   receiveComments: function(postId, response){
-    console.log(response);
     AppDispatcher.dispatch({
       actionType: CommentConstants.COMMENTS_RECEIVED,
       comments: response.data,
@@ -33,7 +32,6 @@ const PostActions = {
   },
 
   receivePost: function(response, postId){
-    console.log(response);
     AppDispatcher.dispatch({
       actionType: PostConstants.POST_DETAIL_RECEIVED,
       post: response
