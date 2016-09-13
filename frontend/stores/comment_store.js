@@ -17,6 +17,19 @@ CommentStore.__onDispatch = function(payload){
       receivePaging(payload);
       CommentStore.__emitChange();
       break;
+    case CommentConstants.COMMENT_RECEIVED:
+      receiveComment(payload.comment, payload.postId);
+      CommentStore.__emitChange();
+      break;
+  }
+};
+
+const receiveComment = function(comment, postId){
+  if (_comments[postId] == undefined){
+    _comments[postId] = [comment];
+  }
+  else {
+    _comments[postId].push(comment);
   }
 };
 

@@ -37,6 +37,7 @@ const CreateCommentForm = React.createClass({
       asPage = false;
     }
     this.props.onsubmit(this.state.commentContent, asPage);
+    this.setState({commentContent: ""});
   },
 
   render: function(){

@@ -110,7 +110,11 @@ const PostDetail = React.createClass({
 
   postComment: function(content, asPage){
     if (asPage){
-      c
+      console.log("create as page");
+      CommentActions.createCommentAsPage(this.props.params.postId, content)
+    }
+    else {
+      CommentActions.createCommentAsPerson(this.props.params.postId, content, this.accessToken);
     }
   },
 

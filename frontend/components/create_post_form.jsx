@@ -29,8 +29,8 @@ const CreatePostForm = React.createClass({
     else {
       asPage = false;
     }
-
     this.props.onsubmit(this.state.postContent, published, asPage);
+    this.setState({postContent: ""});
   },
 
   publishChange: function(event){
