@@ -117,22 +117,27 @@ const PageApiUtil = {
   },
 
   fetchPost: function(postId, isPublished, successCB, errorCB, retryCount){
-    let url = `${postId}?fields=from,message,id,picture,caption,source`
-    FB.api(url, {is_published: isPublished} , function(response){
-      if (!response || response.error){
-        console.log(response);
-        if (count < 5){
-          this.fetchPost(postId, isPublished, successCB, errorCB, retryCount)
+    let pageId = postId.split("_")[0];
+    FB.api(`${pageId}?fields=access_token`, (access)=>{
+      let token = access.access_token;
+      let url = `${postId}?fields=from,message,id,picture,caption,source`
+      FB.api(url, {access_token: token, is_published: isPublished} , function(response){
+        if (!response || response.error){
+          console.log(response);
+          if (retryCount < 5){
+            retryCount += 1;
+            this.fetchPost(postId, isPublished, successCB, errorCB, retryCount);
+          }
+          else{
+            errorCB("ERROR Occured");
+          }
         }
-        else{
-          errorCB("ERROR Occured");
+        else {
+          console.log(response);
+          successCB(response , isPublished)
         }
-      }
-      else {
-        console.log(response);
-        successCB(response , isPublished)
-      }
-    }.bind(this));
+      }.bind(this));
+    })
   },
 
   uploadVideoAsPerson: function(pageId, image, content, access_token, successCB, errorCB){

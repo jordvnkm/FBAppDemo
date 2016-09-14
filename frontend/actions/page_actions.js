@@ -73,27 +73,27 @@ const PageActions = {
   },
 
   receivePostCreated: function(post, isPublished){
-    PageApiUtil.fetchPost(post.id, isPublished, PageActions.receivePost, PageActions.handleError);
+    PageApiUtil.fetchPost(post.id, isPublished, PageActions.receivePost, PageActions.handleError, 0);
   },
 
   receiveVideoUploaded: function(response, isPublished, pageId){
-    // if (isPublished){
-    //   console.log("published video")
-    //   console.log(pageId);
-    //   PageApiUtil.fetchFeed(pageId, PageActions.receiveFeed, PageActions.handleError);
-    //   PageApiUtil.fetchPublishedPosts(pageId, PageActions.receivePublishedPosts, PageActions.handleError);
-    // }
-    // else {
-    //   PageApiUtil.fetchUnpublishedPosts(pageId, PageActions.receiveUnpublishedPosts, PageActions.handleError);
-    // }
-    let postId = pageId + "_" + response.id;
-    PageApiUtil.fetchPost(postId, isPublished, PageActions.receivePost, PageActions.handleError);
+      if (isPublished){
+        console.log("published video")
+        console.log(pageId);
+        PageApiUtil.fetchFeed(pageId, PageActions.receiveFeed, PageActions.handleError);
+        PageApiUtil.fetchPublishedPosts(pageId, PageActions.receivePublishedPosts, PageActions.handleError);
+      }
+      else {
+        PageApiUtil.fetchUnpublishedPosts(pageId, PageActions.receiveUnpublishedPosts, PageActions.handleError);
+      }
+    // let postId = pageId + "_" + response.id;
+    // PageApiUtil.fetchPost(postId, isPublished, PageActions.receivePost, PageActions.handleError, 0);
     // PageApiUtil.fetchVideo(pageId, response.id, isPublished, PageActions.receivePost, PageActions.handleError);
   },
 
   receiveFileUploaded: function(response, isPublished, pageId){
     if (response.post_id){
-      PageApiUtil.fetchPost(response.post_id, isPublished, PageActions.receivePost, PageActions.handleError);
+      PageApiUtil.fetchPost(response.post_id, isPublished, PageActions.receivePost, PageActions.handleError,0);
     }
     else {
       PageApiUtil.fetchUnpublishedPosts(pageId, PageActions.receiveUnpublishedPosts, PageActions.handleError);
@@ -134,6 +134,7 @@ const PageActions = {
 
 
   receivePost: function(post, isPublished){
+    console.log("Post received");
     console.log(post);
     AppDispatcher.dispatch({
       actionType: PageConstants.POST_RECEIVED,
