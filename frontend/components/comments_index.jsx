@@ -1,5 +1,5 @@
 const React = require("react");
-
+const CommentsIndexItem = require("./comments_index_item");
 
 
 const CommentsIndex = React.createClass({
@@ -8,7 +8,7 @@ const CommentsIndex = React.createClass({
       <ul className="commentsIndex">
         {
           this.props.comments.map((comment)=>{
-            return <li key={comment.id}>{comment.message}</li>
+            return <CommentsIndexItem deleteComment={this.props.deleteComment} key={comment.id} comment={comment}/>
           })
         }
       </ul>

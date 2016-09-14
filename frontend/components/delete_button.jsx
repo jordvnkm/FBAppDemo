@@ -6,7 +6,7 @@ const DeleteButton = React.createClass({
   render: function(){
     return (
       <div className="deleteButton">
-        <button onClick={this.props.deleteClicked}>delete</button>
+        <button onClick={this.props.deleteClicked}>{this.props.text}</button>
       </div>
     );
   }

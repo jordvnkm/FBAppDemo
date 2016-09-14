@@ -25,6 +25,7 @@ const PostIndexItem = React.createClass({
   handleClick: function(event){
     event.preventDefault();
     event.stopPropagation();
+    console.log("handle click post index item");
     let url = `post/${this.props.post.from.id}/${this.props.post.id}`
     hashHistory.push(url);
   },
@@ -51,7 +52,7 @@ const PostIndexItem = React.createClass({
         {this.props.post.from.name}<br></br>
         {this.postPhotoOrVideo()}
         {this.props.post.message}
-        <DeleteButton deleteClicked={this.deleteClicked} postId={this.props.post.id}/>
+        <DeleteButton text={"Delete Post"} deleteClicked={this.deleteClicked} postId={this.props.post.id}/>
       </li>
     );
   }

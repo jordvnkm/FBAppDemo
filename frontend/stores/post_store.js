@@ -11,6 +11,7 @@ let _feed = [];
 let _images = {};
 let _paging = {};
 let _currentPost = undefined;
+let _postDeleted = false;
 
 
 PostStore.__onDispatch = function(payload){
@@ -48,7 +49,20 @@ PostStore.__onDispatch = function(payload){
       receiveCurrentPost(payload.post);
       PostStore.__emitChange();
       break;
+    case PostConstants.CURRENT_POST_DELETED:
+      resetCurrentPost();
+      setPostDeleted();
+      PostStore.__emitChange();
+      break;
   }
+};
+
+const setPostDeleted = function(){
+  _postDeleted = true;
+};
+
+const resetCurrentPost = function(){
+  _currentPost = undefined;
 };
 
 const receiveCurrentPost = function(post){
@@ -85,6 +99,16 @@ const receiveUnpublishedPosts = function(posts){
 
 const receiveFeed = function(posts){
   _feed = posts;
+};
+
+PostStore.getPostDeleted = function(){
+  if (_postDeleted){
+    _postDeleted = false
+    return true;
+  }
+  else {
+    return false;
+  }
 };
 
 PostStore.getCurrentPost = function(){

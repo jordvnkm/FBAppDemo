@@ -5,6 +5,14 @@ const PostConstants = require("../constants/post_constants");
 const InsightConstants = require("../constants/insight_constants");
 
 const PostActions = {
+  deleteComment(commentId, postId, pageId){
+    PostApiUtil.deleteComment(commentId, postId, pageId, PostActions.receiveCommentDeleted, PostActions.handleError);
+  },
+
+
+  deletePost: function(postId, pageId){
+    PostApiUtil.deletePost(postId, pageId, PostActions.deleteCurrentPost, PostActions.handleError);
+  },
 
   fetchPost: function(postId){
     PostApiUtil.fetchPost(postId, PostActions.receivePost, PostActions.handleError);
@@ -23,11 +31,20 @@ const PostActions = {
   },
 
 
-
   unpublishedPostDeleted: function(response, pageId){
     if (response["success"] !== undefined){
       PageApiUtil.fetchUnpublishedPosts()
     }
+  },
+
+  receiveCommentDeleted: function(postId){
+    PostApiUtil.fetchComments(postId, PostActions.receiveComments, PostActions.handleError);
+  },
+
+  deleteCurrentPost: function(){
+    AppDispatcher.dispatch({
+      actionType: PostActions.CURRENT_POST_DELETED
+    })
   },
 
   receiveComments: function(postId, response){

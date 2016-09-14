@@ -21,7 +21,15 @@ CommentStore.__onDispatch = function(payload){
       receiveComment(payload.comment, payload.postId);
       CommentStore.__emitChange();
       break;
+    case CommentConstants.USER_IMAGE_RECEIVED:
+      receiveUserImage(payload.imageData);
+      CommentStore.__emitChange();
+      break;
   }
+};
+
+const receiveUserImage = function(imageData){
+  _images[imageData.commentId] = imageData.data;
 };
 
 const receiveComment = function(comment, postId){
@@ -42,6 +50,12 @@ const receiveComments = function(payload){
 
 const receivePaging = function(payload){
   _paging[payload.postId] = payload.paging;
+};
+
+CommentStore.getUserImage = function(commentId){
+  if (_images[commentId] !== undefined){
+    return _images[commentId].url;
+  }
 };
 
 CommentStore.getComments = function(postId){

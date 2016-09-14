@@ -1,6 +1,20 @@
 
 
 const CommentApiUtil = {
+  fetchProfileImage: function(userId, commentId, successCB, errorCB){
+    FB.api(`/${userId}/picture`, function(response){
+      if (!response){
+        errorCB("No response from fetch fetch profile image comment")
+      }
+      else if (response.error){
+        errorCB(response.error);
+      }
+      else {
+        successCB(response, commentId);
+      }
+    }.bind(this));
+  },
+
   fetchComment: function(commentId, postId, successCB, errorCB){
     FB.api(`${commentId}?fields=id,from,message,created_time`, (response)=>{
       if (!response){

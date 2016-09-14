@@ -5,10 +5,12 @@ const PostStore = require("../stores/post_store");
 const PageActions = require("../actions/page_actions");
 const InsightStore = require("../stores/insight_store");
 const CommentActions = require("../actions/comment_actions");
+const hashHistory = require("react-router").hashHistory;
 
 const CommentsIndex = require("./comments_index");
 const NavBar = require("./navbar");
 const CreateCommentForm = require("./create_comment_form");
+const DeleteButton = require("./delete_button");
 
 const PostDetail = React.createClass({
 
@@ -41,8 +43,16 @@ const PostDetail = React.createClass({
   },
 
   postChange: function(){
-    this.setState({authorImageUrl: PostStore.getProfileImage(this.props.params.postId) ,
-                  post: PostStore.getCurrentPost()});
+    if (PostStore.getPostDeleted()){
+      let pageId = this.props.params.postId.split("_")[0];
+      let url = `account/${pageId}`;
+      hashHistory.push(url);
+    }
+    else {
+      this.setState({authorImageUrl: PostStore.getProfileImage(this.props.params.postId) ,
+        post: PostStore.getCurrentPost()});
+    }
+
   },
 
   commentChange: function(){
@@ -137,12 +147,25 @@ const PostDetail = React.createClass({
     }
   },
 
+  deletePost: function(event){
+    event.preventDefault();
+    event.stopPropagation();
+    let pageId = this.props.params.postId.split("_")[0];
+    PostActions.deletePost(this.props.params.postId, pageId);
+  },
+
+  deleteComment: function(commentId){
+    let pageId = this.props.params.postId.split("_")[0];
+    PostActions.deleteComment(commentId, this.props.params.postId, pageId);
+  },
+
   render: function(){
     return (
       <div className="postDetail">
         <NavBar />
         {this.postInfo()}
-        <CommentsIndex comments={this.state.comments}/>
+        <DeleteButton text={"Delete Post"} deleteClicked={this.deletePost}/>
+        <CommentsIndex deleteComment={this.deleteComment} comments={this.state.comments}/>
         <CreateCommentForm onsubmit={this.postComment}/>
       </div>
     );
