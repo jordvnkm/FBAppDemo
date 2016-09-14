@@ -34,11 +34,11 @@ PostStore.__onDispatch = function(payload){
     case PageConstants.POST_RECEIVED:
       if (payload.isPublished){
         addToPublished(payload.post);
+        addToFeed(payload.post);
       }
       else {
         addToUnpublished(payload.post);
       }
-      addToFeed(payload.post);
       PostStore.__emitChange();
       break;
     case PageConstants.PROFILE_IMAGE_RECEIVED:
@@ -98,6 +98,7 @@ const receiveUnpublishedPosts = function(posts){
 };
 
 const receiveFeed = function(posts){
+  console.log(posts);
   _feed = posts;
 };
 

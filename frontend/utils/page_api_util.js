@@ -1,6 +1,22 @@
 
 
 const PageApiUtil = {
+  // fetchVideo: function(pageId, videoId, isPublished, successCB, errorCB){
+  //   console.log(videoId);
+  //   let url = `${videoId}?fields=source,id,from,description,picture`;
+  //   FB.api( url, (response) =>{
+  //     if (!response || response.error){
+  //       console.log(response);
+  //       errorCB("ERROR Occured");
+  //       console.log("error occured");
+  //     }
+  //     else {
+  //       console.log("success cb");
+  //       successCB(response , isPublished)
+  //     }
+  //   })
+  // },
+
   deletePublishedPost: function(postId, pageId, successCB, errorCB){
     FB.api(`${pageId}?fields=access_token`, function(access) {
       let token = access.access_token;
@@ -100,19 +116,45 @@ const PageApiUtil = {
     }.bind(this))
   },
 
-  fetchPost: function(postId, isPublished, successCB, errorCB){
+  fetchPost: function(postId, isPublished, successCB, errorCB, retryCount){
     let url = `${postId}?fields=from,message,id,picture,caption,source`
     FB.api(url, {is_published: isPublished} , function(response){
       if (!response || response.error){
         console.log(response);
-        errorCB("ERROR Occured");
-        console.log("error occured");
+        if (count < 5){
+          this.fetchPost(postId, isPublished, successCB, errorCB, retryCount)
+        }
+        else{
+          errorCB("ERROR Occured");
+        }
       }
       else {
         console.log(response);
         successCB(response , isPublished)
       }
     }.bind(this));
+  },
+
+  uploadVideoAsPerson: function(pageId, image, content, access_token, successCB, errorCB){
+
+  },
+
+  uploadVideoAsPage: function(pageId, image, content, isPublished, successCB, errorCB){
+    FB.api(`${pageId}?fields=access_token`, function(access) {
+      let token = access.access_token;
+      let url = `${pageId}/videos`;
+      FB.api( url, 'post', {access_token: token, file_url: image.url, published: isPublished, description: content}, (response) =>{
+        if (!response || response.error){
+          console.log(response);
+          errorCB("ERROR Occured");
+          console.log("error occured");
+        }
+        else {
+          console.log("success cb");
+          successCB(response, isPublished, pageId)
+        }
+      })
+    }.bind(this))
   },
 
 

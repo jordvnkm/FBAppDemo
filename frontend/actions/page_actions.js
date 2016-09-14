@@ -23,7 +23,7 @@ const PageActions = {
     }
     else {
       if (isVideo(image)){
-        PageApiUtil.uploadVideoAsPage(pageId, image, content, isPublished, PageActions.receiveFileUploaded, PageActions.handleError);
+        PageApiUtil.uploadVideoAsPage(pageId, image, content, isPublished, PageActions.receiveVideoUploaded, PageActions.handleError);
       }
       else if (isPhoto(image)){
         PageApiUtil.uploadPhotoAsPage(pageId, image, content, isPublished, PageActions.receiveFileUploaded, PageActions.handleError);
@@ -40,7 +40,7 @@ const PageActions = {
     }
     else {
       if (isVideo(image)){
-        PageApiUtil.uploadVideoAsPage(pageId, image, content, access_token, PageActions.receiveFileUploaded, PageActions.handleError);
+        PageApiUtil.uploadVideoAsPerson(pageId, image, content, access_token, PageActions.receiveVideoUploaded, PageActions.handleError);
       }
       else if (isPhoto(image)){
         PageApiUtil.uploadPhotoAsPerson(pageId, image, content, access_token, PageActions.receiveFileUploaded, PageActions.handleError);
@@ -76,12 +76,26 @@ const PageActions = {
     PageApiUtil.fetchPost(post.id, isPublished, PageActions.receivePost, PageActions.handleError);
   },
 
+  receiveVideoUploaded: function(response, isPublished, pageId){
+    // if (isPublished){
+    //   console.log("published video")
+    //   console.log(pageId);
+    //   PageApiUtil.fetchFeed(pageId, PageActions.receiveFeed, PageActions.handleError);
+    //   PageApiUtil.fetchPublishedPosts(pageId, PageActions.receivePublishedPosts, PageActions.handleError);
+    // }
+    // else {
+    //   PageApiUtil.fetchUnpublishedPosts(pageId, PageActions.receiveUnpublishedPosts, PageActions.handleError);
+    // }
+    let postId = pageId + "_" + response.id;
+    PageApiUtil.fetchPost(postId, isPublished, PageActions.receivePost, PageActions.handleError);
+    // PageApiUtil.fetchVideo(pageId, response.id, isPublished, PageActions.receivePost, PageActions.handleError);
+  },
+
   receiveFileUploaded: function(response, isPublished, pageId){
     if (response.post_id){
       PageApiUtil.fetchPost(response.post_id, isPublished, PageActions.receivePost, PageActions.handleError);
     }
     else {
-      console.log(pageId);
       PageApiUtil.fetchUnpublishedPosts(pageId, PageActions.receiveUnpublishedPosts, PageActions.handleError);
     }
   },
@@ -139,12 +153,21 @@ const PageActions = {
 };
 
 const isVideo = function(image){
+  let acceptedFormats = ["3g2", "3gp", "3gpp", "asf", "avi", "dat", "divx", "dv", "f4v", "flv",
+                          "m2ts", "m4v", "mkv", "mod", "mov","mp4", "mpe", "mpeg","mpeg4", "mpg",
+                        "mts", "nsv", "ogm", "ogv", "qt","tod", "ts", "vob", "wmv"];
+  if (acceptedFormats.includes(image.format.toLowerCase())){
+    return true;
+  }
   return false;
 };
 
 const isPhoto = function(image){
-  let acceptedFormats = [""];
-  return true
+  let acceptedFormats = ["jpg", "bmp", "png","gif","tiff"];
+  if (acceptedFormats.includes(image.format.toLowerCase())){
+    return true;
+  }
+  return false;
 };
 
 
