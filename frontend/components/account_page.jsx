@@ -122,7 +122,7 @@ const AccountPage = React.createClass({
       return (
         <div className="accountInfo">
           <img className="accountInfoImage" src={this.state.accountImageUrl}/>
-          <span>{this.state.account.name}</span>
+          <span className="accountName">{this.state.account.name}</span>
         </div>
       );
     }
@@ -146,10 +146,15 @@ const AccountPage = React.createClass({
 
   feedOptions: function(){
     return (
-      <div id="feedOptions">
-        <input type="radio" name="feedOption" value="pageFeed" checked={this.state.feedOption == "pageFeed"} onChange={this.feedOptionChange} /> MyFeed
-        <input type="radio" name="feedOption" value="published" checked={this.state.feedOption == "published"} onChange={this.feedOptionChange} /> Published
-        <input type="radio" name="feedOption" value="unpublished" checked={this.state.feedOption == "unpublished"} onChange={this.feedOptionChange} /> Unpublished
+      <div id="feedOptions" className="radioButtons">
+        <input id="pageFeedRadio" type="radio" name="feedOption" value="pageFeed" checked={this.state.feedOption == "pageFeed"} onChange={this.feedOptionChange} />
+        <label htmlFor="pageFeedRadio">MyFeed</label>
+
+        <input id="publishedFeedRadio" type="radio" name="feedOption" value="published" checked={this.state.feedOption == "published"} onChange={this.feedOptionChange} />
+        <label htmlFor="publishedFeedRadio">Published</label>
+
+        <input id="unpublishedFeedRadio" type="radio" name="feedOption" value="unpublished" checked={this.state.feedOption == "unpublished"} onChange={this.feedOptionChange} />
+        <label htmlFor="unpublishedFeedRadio">Unpublished</label>
       </div>
     );
   },
@@ -164,6 +169,16 @@ const AccountPage = React.createClass({
     }
   },
 
+  coverPhoto: function(){
+    if (this.state.account && this.state.account.cover.source){
+      return (
+        <div className="coverPhotoContainer">
+          <img className="coverPhoto" src={this.state.account.cover.source}/>
+        </div>
+      )
+    }
+  },
+
   render: function(){
     return(
       <div className="accountPage">
@@ -174,6 +189,7 @@ const AccountPage = React.createClass({
             {this.feedOptions()}
           </div>
           <div className="postInformation">
+            {this.coverPhoto()}
             <CreatePostForm onsubmit={this.submitPost}/>
             <PostsIndex deletePost={this.deletePost} posts={this.state.feed}/>
           </div>

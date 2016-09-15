@@ -62,17 +62,28 @@
   overflow:hidden;
 }
 
+.accountName {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.accountInfoImage {
+  margin-top: 20px;
+  border-radius: 5px;
+  border: 5px solid #fff;
+  width: 150px;
+  height: 150px;
+}
+
 #createPostForm {
   background: white;
-  width: 100%;
-  /*min-height: 100px;*/
+  width: 98%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 10px;
-  /*max-height: 500px;*/
 }
 
 .statusInput {
@@ -92,4 +103,16 @@
 .postInformation {
   width: 65%;
   padding-right: 50px;
+}
+
+.coverPhoto {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.coverPhotoContainer {
+  width: 100%;
+  height: 275px;
+  overflow: hidden;
 }
