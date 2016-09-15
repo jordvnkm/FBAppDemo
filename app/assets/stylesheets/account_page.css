@@ -7,3 +7,13 @@
 .postIndexItem:hover {
   cursor: pointer;
 }
+
+
+.accountPage {
+  display: flex;
+  flex-direction: column;
+}
+
+.accountContent {
+  display: flex;
+}

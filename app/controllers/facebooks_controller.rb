@@ -9,7 +9,7 @@ class FacebooksController < ApplicationController
   end
 
   def create
-    Pusher.trigger('account_update', 'account_updated', {
+    Pusher.trigger('account_update', 'account_update', {
     })
   end
 

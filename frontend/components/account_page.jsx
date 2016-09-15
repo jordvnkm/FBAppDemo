@@ -29,7 +29,8 @@ const AccountPage = React.createClass({
 
 
     var channel = pusher.subscribe('account_update');
-    channel.bind('account_updated', function(data) {
+    channel.bind('account_update', function(data) {
+      alert(data.message);
       PageActions.fetchFeed();
       PageActions.fetchPublishedPosts();
     }.bind(this));
@@ -167,15 +168,16 @@ const AccountPage = React.createClass({
     return(
       <div className="accountPage">
         <NavBar />
-        <div className="accountInformation">
-          {this.accountInfo()}
-          {this.feedOptions()}
+        <div className="accountContent">
+          <div className="accountInformation">
+            {this.accountInfo()}
+            {this.feedOptions()}
+          </div>
+          <div className="postInformation">
+            <CreatePostForm onsubmit={this.submitPost}/>
+            <PostsIndex deletePost={this.deletePost} posts={this.state.feed}/>
+          </div>
         </div>
-        <div className="postInformation">
-
-        </div>
-        <CreatePostForm onsubmit={this.submitPost}/>
-        <PostsIndex deletePost={this.deletePost} posts={this.state.feed}/>
       </div>
     )
   }
