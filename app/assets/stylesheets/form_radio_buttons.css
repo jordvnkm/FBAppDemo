@@ -1,0 +1,37 @@
+.radioButtons {
+  position: relative;
+  width: 100%;
+  /*margin-right: 50px;*/
+}
+
+.radioButtons input {
+  width: 65px;
+  height: 25px;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 100;
+  /*left: 0px;*/
+}
+.radioButtons span {
+  margin-right: 15px;
+}
+
+.radioButtons label {
+  cursor: pointer;
+  display: inline-block;
+  margin: 0px;
+  width: 75px;
+  padding: 0px 6px;
+  color: black;
+  line-height: 20px;
+  font-size: 13px;
+  border-radius: 3px;
+}
+
+.radioButtons input[type="radio"]:checked + label {
+    font-family: 'Freight Sans Bold', helvetica, arial, sans-serif;
+    background-color: #3b5998;
+    color: white;
+    text-rendering: optimizelegibility;
+}

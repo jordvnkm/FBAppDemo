@@ -1,4 +1,16 @@
+.uploadButton {
+  color: #3b5998;
+  margin-left: 15px;
+  margin-right: 15px;
+}
 
+.uploadButton:hover {
+  cursor: pointer;
+}
+
+#publishedRadioButtons{
+  margin-left: 50%;
+}
 
 .postIndexItem {
   border: 1px solid black;
@@ -7,6 +19,7 @@
 .postIndexItem:hover {
   cursor: pointer;
 }
+
 
 
 .accountPage {
@@ -26,16 +39,57 @@
 
 .accountInfoImage {
   width: 200px;
-  height:200px;
+  height: 200px;
+}
+
+.postFormHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 
 .accountInfo {
   display: flex;
   flex-direction: column;
+  width: 100%;
+}
+
+
+.postForm {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  overflow:hidden;
+}
+
+#createPostForm {
+  background: white;
+  width: 100%;
+  /*min-height: 100px;*/
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  /*max-height: 500px;*/
 }
 
 .statusInput {
-  width: 100px;
-  height: 30px;
+  margin-bottom: 20px;
+  width: 99%;
+  min-height: 60px;
+  font-size: 24px;
+  border-left: none;
+  border-right: none;
+  text-indent: 20px;
+}
+
+.accountInformation {
+  width: 35%;
+}
+
+.postInformation {
+  width: 65%;
+  padding-right: 50px;
 }

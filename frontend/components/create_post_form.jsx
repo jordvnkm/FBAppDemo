@@ -47,19 +47,24 @@ const CreatePostForm = React.createClass({
     }
   },
 
+
   publishedRadioButtons: function(){
     if (this.state.asPage == "true"){
       return (
-        <div id="publishedRadioButtons">
-          <input type="radio" name="published" value={true} checked={this.state.isPublished == "true"} onChange={this.publishChange}/> published
-          <input type="radio" name="published" value={false} checked={this.state.isPublished == "false"} onChange={this.publishChange}/> unpublished
+        <div id="publishedRadioButtons" className="radioButtons">
+            <input id="publishedRadio" type="radio" name="published" value={true} checked={this.state.isPublished == "true"} onChange={this.publishChange}/>
+            <label htmlFor="publishedRadio">Published</label>
+
+            <input id="unpublishedRadio" type="radio" name="published" value={false} checked={this.state.isPublished == "false"} onChange={this.publishChange}/>
+            <label htmlFor="unpublishedRadio">Unpublished</label>
         </div>
       );
     }
     else {
       return (
-        <div id="publishedRadioButtons">
-          <input type="radio" name="published" value={true} checked={true} onChange={this.publishChange}/> published
+        <div id="publishedRadioButtons" className="radioButtons">
+          <input id="publishedRadio" type="radio" name="published" value={true} checked={this.state.isPublished == "true"} onChange={this.publishChange}/>
+          <label htmlFor="publishedRadio">Published</label>
         </div>
       );
     }
@@ -67,10 +72,13 @@ const CreatePostForm = React.createClass({
 
   asPageRadioButtons: function(){
     return (
-      <div className="asPageRadioButtons">
-        Post As
-        <input type="radio" name="asPage" value={true} checked={this.state.asPage == "true"} onChange={this.sourceChange} /> Page
-        <input type="radio" name="asPage" value={false} checked={this.state.asPage == "false"} onChange={this.sourceChange} /> Individual
+      <div id="asPageRadioButtons" className="radioButtons">
+        <span>Post As</span>
+        <input id="asPage" type="radio" name="asPage" value={true} checked={this.state.asPage == "true"} onChange={this.sourceChange} />
+        <label htmlFor="asPage">Page</label>
+
+        <input id="asPerson" type="radio" name="asPage" value={false} checked={this.state.asPage == "false"} onChange={this.sourceChange} />
+        <label htmlFor="asPerson">Person</label>
       </div>
     );
   },
@@ -90,25 +98,26 @@ const CreatePostForm = React.createClass({
   uploadUrl: function(){
 
     if (this.state.image){
-      return <img src={this.state.image.thumbnail_url}/>
+      return <img className="postFormImage" src={this.state.image.url}/>
     }
   },
 
   render: function(){
     return (
       <div id="createPostForm">
-        <span>Status</span>
-        <button onClick={this.fileUpload}> Upload photo/video </button>
+        <div className="postFormHeader">
+          <span>Status</span>
+          <span className="uploadButton" onClick={this.fileUpload}>Photo/video</span>
+          {this.asPageRadioButtons()}
+        </div>
         {this.uploadUrl()}
-        <form onSubmit={this.submitPost}>
-          <input className={"statusInput"} type="text" value={this.state.postContent}
+        <form className="postForm" onSubmit={this.submitPost}>
+          <input className="statusInput" type="text" value={this.state.postContent}
                 onChange={this.contentChange} placeholder="Say hi to your fans" />
 
 
           {this.publishedRadioButtons()}
-            <br></br>
-          {this.asPageRadioButtons()}
-          <input type="submit" value="Post" />
+          <input className="submitButton" type="submit" value="Post" />
         </form>
 
       </div>
