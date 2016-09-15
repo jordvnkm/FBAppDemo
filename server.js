@@ -4,11 +4,23 @@ var express = require('express');
 var app = express();
 var xhub = require('express-x-hub');
 
-app.set('port', (process.env.PORT || 5000));
-app.listen(app.get('port'));
+var Pusher = require('pusher');
+
+var pusher = new Pusher({
+  appId: '248568',
+  key: 'f0ed6004e66da55f7fbf',
+  secret: '2b17f586a0e4730f17a6',
+  encrypted: true
+});
+
+// app.set('port', (process.env.PORT || 3000));
+// app.listen(app.get('port'));
+app.listen(3000);
+
 
 app.use(xhub({ algorithm: 'sha1', secret: process.env.APP_SECRET }));
 app.use(bodyParser.json());
+app.use(express.static('app/views/api/'))
 
 app.get('/', function(req, res) {
   console.log(req);

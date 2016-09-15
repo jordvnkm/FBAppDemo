@@ -8,10 +8,9 @@ const AccountsIndex = React.createClass({
   render: function(){
     return (
       <div id="accountsIndex">
-        <ul>
+        <ul className="accountsList">
           {
             this.props.accounts.map((account) => {
-              console.log(account);
               return <AccountsIndexItem key={account.id} account={account}/>
             })
           }

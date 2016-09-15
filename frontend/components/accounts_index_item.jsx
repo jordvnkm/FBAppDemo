@@ -31,7 +31,7 @@ const AccountsIndexItem = React.createClass({
     return (
       <li onClick={this.handleClick} className="accountItem">
         <img className="accountImage"src={this.state.accountImageUrl}/>
-        <span>{this.props.account.name}</span>
+        <span className="objectName">{this.props.account.name}</span>
 
         <span>Category: {this.props.account.category}</span>
 

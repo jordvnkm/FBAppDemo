@@ -80,7 +80,9 @@ const HomePage = React.createClass({
     return (
       <div id="homePageContent">
         <NavBar />
-        <AccountsIndex accounts={this.state.accounts}/>
+        <div className="accountsContainer">
+          <AccountsIndex accounts={this.state.accounts}/>
+        </div>
       </div>
     );
   }

@@ -1,6 +1,14 @@
 .accountImage {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
+}
+
+.accountsList {
+  display: flex;
+}
+
+#accountsIndex {
+  width: 70%;
 }
 
 #homeNavContainer {
@@ -29,11 +37,23 @@
   cursor: pointer;
 }
 
+.accountsContainer {
+  display: flex;
+  justify-content: center;
+  width: 70%;
+}
+
+#homePageContent{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .accountItem {
   display: flex;
   flex-direction: column;
   border: 1px solid black;
+  background: white;
 }
 
 .accountItem:hover {
