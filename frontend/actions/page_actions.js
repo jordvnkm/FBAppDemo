@@ -79,13 +79,13 @@ const PageActions = {
   receiveVideoUploaded: function(response, isPublished, pageId){
       if (isPublished){
         console.log("published video")
-        console.log(pageId);
-        PageApiUtil.envokeRefetch();
+        // console.log(pageId);
+        // PageApiUtil.envokeRefetch();
         // PageApiUtil.fetchFeed(pageId, PageActions.receiveFeed, PageActions.handleError);
         // PageApiUtil.fetchPublishedPosts(pageId, PageActions.receivePublishedPosts, PageActions.handleError);
       }
       else {
-        PageApiUtil.fetchUnpublishedPosts(pageId, PageActions.receiveUnpublishedPosts, PageActions.handleError);
+        // PageApiUtil.fetchUnpublishedPosts(pageId, PageActions.receiveUnpublishedPosts, PageActions.handleError);
       }
     // let postId = pageId + "_" + response.id;
     // PageApiUtil.fetchPost(postId, isPublished, PageActions.receivePost, PageActions.handleError, 0);

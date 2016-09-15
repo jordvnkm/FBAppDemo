@@ -11,6 +11,7 @@ class FacebooksController < ApplicationController
   def create
     Pusher.trigger('account_update', 'account_update', {
     })
+    render :text => "update triggered", status: 200
   end
 
 end
