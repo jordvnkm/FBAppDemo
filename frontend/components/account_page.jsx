@@ -9,6 +9,7 @@ const AccountActions = require("../actions/account_actions");
 const NavBar = require("./navbar");
 const CreatePostForm = require("./create_post_form");
 const PostsIndex = require("./posts_index");
+const AccountInformation = require("./account_information");
 
 
 const AccountPage = React.createClass({
@@ -184,14 +185,16 @@ const AccountPage = React.createClass({
       <div className="accountPage">
         <NavBar />
         <div className="accountContent">
-          <div className="accountInformation">
-            {this.accountInfo()}
-            {this.feedOptions()}
+          <div className="accountInfoContainer">
+            <div className="accountInformation">
+              <AccountInformation account={this.state.account}/>
+              {this.feedOptions()}
+            </div>
           </div>
           <div className="postInformation">
             {this.coverPhoto()}
             <CreatePostForm onsubmit={this.submitPost}/>
-            <PostsIndex deletePost={this.deletePost} posts={this.state.feed}/>
+            <PostsIndex myToken={this.accessToken} deletePost={this.deletePost} posts={this.state.feed}/>
           </div>
         </div>
       </div>

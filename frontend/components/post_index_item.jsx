@@ -3,19 +3,31 @@ const PageActions = require("../actions/page_actions");
 const PostStore = require("../stores/post_store");
 const hashHistory = require("react-router").hashHistory;
 const DeleteButton = require("./delete_button");
+const CreateCommentForm = require("./create_comment_form");
+const CommentStore = require("../stores/comment_store");
+const CommentsIndex = require("./comments_index");
+const PostActions = require("../actions/post_actions");
 
 const PostIndexItem = React.createClass({
   getInitialState: function(){
-    return {profileImageUrl: ""};
+    return {profileImageUrl: "", comments : []};
   },
 
   componentDidMount: function(){
     this.postListener = PostStore.addListener(this.postChange);
+    this.commentListener = CommentStore.addListener(this.commentChange);
     PageActions.fetchProfileImage(this.props.post.from.id, this.props.post.id);
+    PostActions.fetchComments(this.props.post.id);
   },
 
   componentWillUnmount: function(){
     this.postListener.remove();
+    this.commentListener.remove();
+  },
+
+  commentChange: function(){
+    console.log(CommentStore.getComments(this.props.post.id));
+    this.setState({comments: CommentStore.getComments(this.props.post.id)});
   },
 
   postChange: function(){
@@ -45,14 +57,43 @@ const PostIndexItem = React.createClass({
     this.props.deleteClicked(this.props.post.id);
   },
 
+  deleteComment: function(commentId){
+    let pageId = this.props.post.id.split("_")[0];
+    PostActions.deleteComment(commentId, this.props.post.id, pageId);
+  },
+
+  postComment: function(content, asPage){
+    if (asPage){
+      console.log("create as page");
+      CommentActions.createCommentAsPage(this.props.post.id, content)
+    }
+    else {
+      CommentActions.createCommentAsPerson(this.props.post.id, content, this.props.myToken);
+    }
+  },
+
+  comments: function(){
+    if (this.state.comments){
+      return <CommentsIndex comments={this.state.comments} deleteComment={this.deleteComment}/>
+    }
+  },
+
   render: function(){
     return (
       <li onClick={this.handleClick} className="postIndexItem">
-        <img src={this.state.profileImageUrl}/>
-        {this.props.post.from.name}<br></br>
-        {this.postPhotoOrVideo()}
-        {this.props.post.message}
-        <DeleteButton text={"Delete Post"} deleteClicked={this.deleteClicked} postId={this.props.post.id}/>
+        <div className="postIndexItemHeader">
+          <div className="postAuthorMiniInfo">
+            <img className="postAuthorPic" src={this.state.profileImageUrl}/>
+            <span>{this.props.post.from.name}</span>
+          </div>
+          <DeleteButton text={"Delete Post"} deleteClicked={this.deleteClicked} postId={this.props.post.id}/>
+        </div>
+        <div className="postIndexItemContent">
+          {this.props.post.message}
+          {this.postPhotoOrVideo()}
+          {this.comments()}
+        </div>
+        <CreateCommentForm className="postIndexItemForm" onsubmit={this.submitComment}/>
       </li>
     );
   }

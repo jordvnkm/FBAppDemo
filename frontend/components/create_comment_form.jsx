@@ -40,9 +40,13 @@ const CreateCommentForm = React.createClass({
     this.setState({commentContent: ""});
   },
 
+  onclick: function(event){
+    event.stopPropagation();
+  },
+
   render: function(){
     return (
-      <div className="createCommentForm">
+      <div onClick={this.onclick} className="createCommentForm">
         <form onSubmit={this.submitComment} className="commentForm">
           <input type="textarea" value={this.state.commentContent} onChange={this.contentChange} placeholder="Enter Comment"/>
 

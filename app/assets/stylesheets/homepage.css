@@ -17,12 +17,13 @@
 }
 
 #homeNavContainer {
-  width: 100%;
   font-family: helvetica, arial, sans-serif;
   background: #3b5998;
   display: flex;
   justify-content: center;
   width: 100%;
+  position: fixed;
+  z-index: 100;
 }
 
 #homeNav {
@@ -52,6 +53,7 @@
   display: flex;
   justify-content: center;
   width: 70%;
+  margin-top: 80px;
 }
 
 #homePageContent{

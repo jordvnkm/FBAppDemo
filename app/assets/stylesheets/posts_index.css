@@ -1,0 +1,39 @@
+.postIndexItem {
+  background: white;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.postIndexItemContent {
+  padding: 10px;
+}
+
+
+.postIndexItemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.postAuthorMiniInfo {
+  display: flex;
+  text-align: center;
+}
+
+.postAuthorMiniInfo img {
+  margin-right: 20px;
+}
+
+.postAuthorMiniInfo span {
+  margin-top: 15px;
+  color: #3b5998;
+}
+
+
+.postIndexItem:hover {
+  cursor: pointer;
+}
