@@ -12,8 +12,30 @@
 .accountPage {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .accountContent {
   display: flex;
+  width: 70%;
+}
+
+.postsList {
+  min-width: 300px;
+}
+
+.accountInfoImage {
+  width: 200px;
+  height:200px;
+}
+
+
+.accountInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.statusInput {
+  width: 100px;
+  height: 30px;
 }

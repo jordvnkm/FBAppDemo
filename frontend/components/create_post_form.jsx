@@ -97,11 +97,11 @@ const CreatePostForm = React.createClass({
   render: function(){
     return (
       <div id="createPostForm">
-        <span>Create Post</span>
+        <span>Status</span>
         <button onClick={this.fileUpload}> Upload photo/video </button>
         {this.uploadUrl()}
         <form onSubmit={this.submitPost}>
-          <input type="text" value={this.state.postContent}
+          <input className={"statusInput"} type="text" value={this.state.postContent}
                 onChange={this.contentChange} placeholder="Say hi to your fans" />
 
 

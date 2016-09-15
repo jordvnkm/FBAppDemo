@@ -122,7 +122,7 @@ const AccountPage = React.createClass({
       return (
         <div className="accountInfo">
           <img className="accountInfoImage" src={this.state.accountImageUrl}/>
-          {this.state.account.name}
+          <span>{this.state.account.name}</span>
         </div>
       );
     }

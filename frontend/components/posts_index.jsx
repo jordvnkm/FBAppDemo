@@ -6,7 +6,7 @@ const PostsIndex = React.createClass({
   render: function(){
     return (
       <div id="postsIndex">
-        <ul>
+        <ul className="postsList">
           {
             this.props.posts.map((post)=>{
               return <PostIndexItem deleteClicked={this.props.deletePost} key={post.id} post={post}/>

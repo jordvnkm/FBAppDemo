@@ -16,6 +16,14 @@ const PageApiUtil = {
   //     }
   //   })
   // },
+  envokeRefetch: function(){
+    $.ajax({
+      url: '/facebook',
+      type: "POST",
+      success: function() {},
+      error: function() {}
+    })
+  },
 
   deletePublishedPost: function(postId, pageId, successCB, errorCB){
     FB.api(`${pageId}?fields=access_token`, function(access) {

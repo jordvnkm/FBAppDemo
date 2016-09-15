@@ -28,6 +28,8 @@ html , body{
 ul {
   padding-bottom: 20px;
   margin: 0;
+  padding-left: 0px;
+
 }
 
 li {
