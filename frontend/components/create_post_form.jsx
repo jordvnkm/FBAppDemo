@@ -98,8 +98,31 @@ const CreatePostForm = React.createClass({
   uploadUrl: function(){
 
     if (this.state.image){
-      return <img className="postFormImage" src={this.state.image.url}/>
+      if (this.isPhoto(this.state.image)){
+        return <img className="postFormImage" src={this.state.image.url}/>
+      }
+      else if (this.isVideo(this.state.image)){
+        return <img className="postFormImage" src={this.state.image.thumbnail_url} />
+      }
     }
+  },
+
+  isVideo: function(image){
+    let acceptedFormats = ["3g2", "3gp", "3gpp", "asf", "avi", "dat", "divx", "dv", "f4v", "flv",
+                            "m2ts", "m4v", "mkv", "mod", "mov","mp4", "mpe", "mpeg","mpeg4", "mpg",
+                          "mts", "nsv", "ogm", "ogv", "qt","tod", "ts", "vob", "wmv"];
+    if (acceptedFormats.includes(image.format.toLowerCase())){
+      return true;
+    }
+    return false;
+  },
+
+  isPhoto: function(image){
+    let acceptedFormats = ["jpg", "bmp", "png","gif","tiff"];
+    if (acceptedFormats.includes(image.format.toLowerCase())){
+      return true;
+    }
+    return false;
   },
 
   render: function(){
@@ -110,7 +133,9 @@ const CreatePostForm = React.createClass({
           <span className="uploadButton" onClick={this.fileUpload}>Photo/video</span>
           {this.asPageRadioButtons()}
         </div>
-        {this.uploadUrl()}
+        <div className="postFormImageContainer">
+          {this.uploadUrl()}
+        </div>
         <form className="postForm" onSubmit={this.submitPost}>
           <input className="statusInput" type="text" value={this.state.postContent}
                 onChange={this.contentChange} placeholder="Say hi to your fans" />

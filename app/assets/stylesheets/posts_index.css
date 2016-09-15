@@ -11,6 +11,17 @@
   padding: 10px;
 }
 
+.postFormImage {
+  height: auto;
+}
+
+.postFormImageContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
 
 .postIndexItemHeader {
   display: flex;

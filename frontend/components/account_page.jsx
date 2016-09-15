@@ -14,8 +14,7 @@ const AccountInformation = require("./account_information");
 
 const AccountPage = React.createClass({
   getInitialState: function(){
-    return {feed : [], feedOption: "pageFeed" , account: AccountStore.getAccount(),
-            accountImageUrl: ""};
+    return {feed : [], feedOption: "pageFeed" , account: AccountStore.getAccount()};
   },
 
   componentDidMount: function(){
@@ -51,7 +50,7 @@ const AccountPage = React.createClass({
   },
 
   accountChange: function(){
-    this.setState({accountImageUrl: AccountStore.getPageImage(this.props.params.account_id),  account: AccountStore.getAccount()});
+    this.setState({account: AccountStore.getAccount()});
   },
 
   postChange: function(){
@@ -73,7 +72,6 @@ const AccountPage = React.createClass({
       this.accessToken = response.authResponse.accessToken;
       PageActions.fetchFeed(this.props.params.account_id);
       AccountActions.fetchAccountInfo(this.props.params.account_id);
-      AccountActions.fetchAccountImage(this.props.params.account_id);
     }
     else {
       console.log("not connected from account page");
@@ -121,10 +119,7 @@ const AccountPage = React.createClass({
   accountInfo: function(){
     if (this.state.account){
       return (
-        <div className="accountInfo">
-          <img className="accountInfoImage" src={this.state.accountImageUrl}/>
-          <span className="accountName">{this.state.account.name}</span>
-        </div>
+        <AccountInformation account={this.state.account}/>
       );
     }
   },
@@ -187,7 +182,7 @@ const AccountPage = React.createClass({
         <div className="accountContent">
           <div className="accountInfoContainer">
             <div className="accountInformation">
-              <AccountInformation account={this.state.account}/>
+              {this.accountInfo()}
               {this.feedOptions()}
             </div>
           </div>

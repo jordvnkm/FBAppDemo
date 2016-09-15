@@ -7,6 +7,7 @@ const CreateCommentForm = require("./create_comment_form");
 const CommentStore = require("../stores/comment_store");
 const CommentsIndex = require("./comments_index");
 const PostActions = require("../actions/post_actions");
+const CommentActions = require("../actions/comment_actions");
 
 const PostIndexItem = React.createClass({
   getInitialState: function(){
@@ -26,7 +27,6 @@ const PostIndexItem = React.createClass({
   },
 
   commentChange: function(){
-    console.log(CommentStore.getComments(this.props.post.id));
     this.setState({comments: CommentStore.getComments(this.props.post.id)});
   },
 
@@ -37,7 +37,6 @@ const PostIndexItem = React.createClass({
   handleClick: function(event){
     event.preventDefault();
     event.stopPropagation();
-    console.log("handle click post index item");
     let url = `post/${this.props.post.from.id}/${this.props.post.id}`
     hashHistory.push(url);
   },
@@ -64,7 +63,6 @@ const PostIndexItem = React.createClass({
 
   postComment: function(content, asPage){
     if (asPage){
-      console.log("create as page");
       CommentActions.createCommentAsPage(this.props.post.id, content)
     }
     else {
@@ -75,6 +73,15 @@ const PostIndexItem = React.createClass({
   comments: function(){
     if (this.state.comments){
       return <CommentsIndex comments={this.state.comments} deleteComment={this.deleteComment}/>
+    }
+  },
+
+  submitComment: function(content, asPage){
+    if (asPage){
+      CommentActions.createCommentAsPage(this.props.post.id, content)
+    }
+    else {
+      CommentActions.createCommentAsPerson(this.props.post.id, content, this.props.myToken);
     }
   },
 
