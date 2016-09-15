@@ -20,6 +20,9 @@ const AccountPage = React.createClass({
   componentDidMount: function(){
     this.postListener = PostStore.addListener(this.postChange);
     this.accountListener = AccountStore.addListener(this.accountChange);
+
+    Pusher.logToConsole = true;
+
     var pusher = new Pusher('f0ed6004e66da55f7fbf', {
       encrypted: true
     });
@@ -29,7 +32,7 @@ const AccountPage = React.createClass({
     channel.bind('account_updated', function(data) {
       PageActions.fetchFeed();
       PageActions.fetchPublishedPosts();
-    });
+    }.bind(this));
 
 
     if (window.FB == undefined){
@@ -67,10 +70,8 @@ const AccountPage = React.createClass({
 
       this.accessToken = response.authResponse.accessToken;
       PageActions.fetchFeed(this.props.params.account_id);
-      if (this.state.account == undefined){
-        AccountActions.fetchAccountInfo(this.props.params.account_id);
-        AccountActions.fetchAccountImage(this.props.params.account_id);
-      }
+      AccountActions.fetchAccountInfo(this.props.params.account_id);
+      AccountActions.fetchAccountImage(this.props.params.account_id);
     }
     else {
       console.log("not connected from account page");
@@ -166,8 +167,13 @@ const AccountPage = React.createClass({
     return(
       <div className="accountPage">
         <NavBar />
-        {this.accountInfo()}
-        {this.feedOptions()}
+        <div className="accountInformation">
+          {this.accountInfo()}
+          {this.feedOptions()}
+        </div>
+        <div className="postInformation">
+
+        </div>
         <CreatePostForm onsubmit={this.submitPost}/>
         <PostsIndex deletePost={this.deletePost} posts={this.state.feed}/>
       </div>

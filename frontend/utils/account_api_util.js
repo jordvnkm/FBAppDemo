@@ -29,7 +29,7 @@ const AccountApiUtil = {
   },
 
   fetchAccountInfo: function(pageId, successCB, errorCB){
-    let url = `/${pageId}`
+    let url = `/${pageId}?fields=id,name,about,cover,engagement`
     FB.api(url, function(response){
       if (!response){
         errorCB("No response from fetch all accounts")
@@ -38,7 +38,8 @@ const AccountApiUtil = {
         errorCB(response.error);
       }
       else {
-        successCB(response)
+        console.log(response);
+        successCB(response);
       }
     }.bind(this))
   }
