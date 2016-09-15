@@ -30,6 +30,10 @@ ul {
   margin: 0;
 }
 
+li {
+  list-style-type: none;
+}
+
 
 #content {
   min-width: 100%;

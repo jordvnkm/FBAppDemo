@@ -20,6 +20,18 @@ const AccountPage = React.createClass({
   componentWillMount: function(){
     this.postListener = PostStore.addListener(this.postChange);
     this.accountListener = AccountStore.addListener(this.accountChange);
+    var pusher = new Pusher('f0ed6004e66da55f7fbf', {
+      encrypted: true
+    });
+
+
+    var channel = pusher.subscribe('account_update');
+    channel.bind('account_updated', function(data) {
+      PageActions.fetchFeed();
+      PageActions.fetchPublishedPosts();
+    });
+
+
     if (window.FB == undefined){
       this.loadFBSDK();
     }
