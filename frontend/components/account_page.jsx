@@ -17,7 +17,7 @@ const AccountPage = React.createClass({
             accountImageUrl: ""};
   },
 
-  componentWillMount: function(){
+  componentDidMount: function(){
     this.postListener = PostStore.addListener(this.postChange);
     this.accountListener = AccountStore.addListener(this.accountChange);
     var pusher = new Pusher('f0ed6004e66da55f7fbf', {
