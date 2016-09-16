@@ -15,7 +15,7 @@ const DeleteButton = require("./delete_button");
 const PostDetail = React.createClass({
 
   getInitialState: function(){
-    return {insights: undefined, authorImageUrl: "", comments: [], post: PostStore.getCurrentPost()};
+    return {insights: [], authorImageUrl: "", comments: [], post: PostStore.getCurrentPost()};
   },
 
 
@@ -116,22 +116,15 @@ const PostDetail = React.createClass({
     }
   },
 
-  postVideo: function(){
-    if (this.state.post.source){
-
-    }
-  },
 
   postInfo: function(){
-    if (this.state.post !== undefined && this.state.insights !== undefined){
+    if (this.state.post !== undefined){
       return (
         <div className="postInfo">
           <img src={this.state.authorImageUrl}/>
+          {this.state.post.from.name}
           {this.state.insights.title}
           {this.state.insights.values[0].value}
-          {this.state.post.from.name}
-          {this.postImageOrVideo()}
-          {this.state.post.message}
         </div>
       );
     }
@@ -159,14 +152,35 @@ const PostDetail = React.createClass({
     PostActions.deleteComment(commentId, this.props.params.postId, pageId);
   },
 
+  postContent: function(){
+    if (this.state.post){
+      return (
+        <div>
+          {this.postImageOrVideo()}
+          {this.state.post.message}
+        </div>
+      )
+    }
+  },
+
   render: function(){
     return (
       <div className="postDetail">
         <NavBar />
-        {this.postInfo()}
-        <DeleteButton text={"Delete Post"} deleteClicked={this.deletePost}/>
-        <CommentsIndex deleteComment={this.deleteComment} comments={this.state.comments}/>
-        <CreateCommentForm onsubmit={this.postComment}/>
+        <div className="postDetailContent">
+          <div className="postDetailInfoContainer">
+            <div className="postDetailInfo">
+              {this.postInfo()}
+            </div>
+          </div>
+          <div className="postDetailForms">
+            {this.postContent()}
+            <DeleteButton text={"Delete Post"} deleteClicked={this.deletePost}/>
+            <CommentsIndex deleteComment={this.deleteComment} comments={this.state.comments}/>
+            <CreateCommentForm onsubmit={this.postComment}/>
+          </div>
+        </div>
+
       </div>
     );
   }
