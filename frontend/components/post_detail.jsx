@@ -11,6 +11,7 @@ const CommentsIndex = require("./comments_index");
 const NavBar = require("./navbar");
 const CreateCommentForm = require("./create_comment_form");
 const DeleteButton = require("./delete_button");
+const InsightsIndex = require("./insights_index");
 
 const PostDetail = React.createClass({
 
@@ -39,6 +40,7 @@ const PostDetail = React.createClass({
   },
 
   insightChange: function(){
+    console.log(InsightStore.getInsights(this.props.params.postId))
     this.setState({insights: InsightStore.getInsights(this.props.params.postId)});
   },
 
@@ -116,15 +118,22 @@ const PostDetail = React.createClass({
     }
   },
 
+  backToAccount: function(event){
+    event.preventDefault();
+    event.stopPropagation();
+    let pageId = this.state.post.id.split("_")[0];
+    hashHistory.push(`account/${pageId}`);
+  },
+
 
   postInfo: function(){
     if (this.state.post !== undefined){
       return (
         <div className="postInfo">
-          <img src={this.state.authorImageUrl}/>
-          {this.state.post.from.name}
-          {this.state.insights.title}
-          {this.state.insights.values[0].value}
+          <img className="infoImage" src={this.state.authorImageUrl}/>
+          <span className="accountName">{this.state.post.from.name}</span>
+          <InsightsIndex insights={this.state.insights}/>
+          <button className="normalButton" id="backButton" onClick={this.backToAccount}>Back to account</button>
         </div>
       );
     }
@@ -155,9 +164,9 @@ const PostDetail = React.createClass({
   postContent: function(){
     if (this.state.post){
       return (
-        <div>
-          {this.postImageOrVideo()}
+        <div className="postContent">
           {this.state.post.message}
+          {this.postImageOrVideo()}
         </div>
       )
     }
@@ -169,15 +178,17 @@ const PostDetail = React.createClass({
         <NavBar />
         <div className="postDetailContent">
           <div className="postDetailInfoContainer">
-            <div className="postDetailInfo">
-              {this.postInfo()}
-            </div>
+            {this.postInfo()}
           </div>
           <div className="postDetailForms">
+            <div id="postDeleteButton">
+              <DeleteButton text={"Delete Post"} deleteClicked={this.deletePost}/>
+            </div>
             {this.postContent()}
-            <DeleteButton text={"Delete Post"} deleteClicked={this.deletePost}/>
-            <CommentsIndex deleteComment={this.deleteComment} comments={this.state.comments}/>
-            <CreateCommentForm onsubmit={this.postComment}/>
+            <div className="postComments">
+              <CommentsIndex deleteComment={this.deleteComment} comments={this.state.comments}/>
+              <CreateCommentForm onsubmit={this.postComment}/>
+            </div>
           </div>
         </div>
 

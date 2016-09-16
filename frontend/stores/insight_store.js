@@ -39,7 +39,7 @@ const receivePaging = function(payload){
 
 InsightStore.getInsights = function(postId){
   if (_insights[postId] !== undefined){
-    return Object.assign({}, _insights[postId]);
+    return _insights[postId];
   }
 };
 

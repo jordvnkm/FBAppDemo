@@ -68,3 +68,7 @@ li {
 .normalButton:hover {
   cursor: pointer;
 }
+
+.submitButton:hover {
+  cursor: pointer;
+}

@@ -54,7 +54,7 @@ const CreateCommentForm = React.createClass({
           <input className="commentInput" type="textarea" value={this.state.commentContent} onChange={this.contentChange} placeholder="Write a comment..."/>
 
           {this.asPageRadioButtons()}
-          <input type="submit" value="Post"/>
+          <input className="submitButton" type="submit" value="Post"/>
         </form>
       </div>
     );

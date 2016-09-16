@@ -55,7 +55,7 @@ const PostApiUtil = {
   },
 
   fetchPostInsights: function(postId, successCB, errorCB) {
-    let url = `${postId}/insights/post_engaged_users,post_video_views,post_impressions`;
+    let url = `${postId}/insights/post_engaged_users,post_video_views,post_impressions,post_consumptions`;
     FB.api(url, (response) => {
       if (!response){
         errorCB("No response from fetch fetch post insights")
@@ -64,7 +64,6 @@ const PostApiUtil = {
         errorCB(response.error);
       }
       else {
-        console.log(response);
         successCB(response, postId);
       }
     });

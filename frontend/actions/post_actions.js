@@ -19,12 +19,9 @@ const PostActions = {
   },
 
   fetchPostInsights: function(postId){
-    PostApiUtil.fetchPostInsights(postId, PostActions.receiveInsights, PostActions.handleError);
+    PostApiUtil.fetchPostInsights(postId, PostActions.receivePostInsights, PostActions.handleError);
   },
 
-  fetchPostAuthorImage: function(userId, postId){
-
-  },
 
   fetchComments: function(postId){
     PostApiUtil.fetchComments(postId, PostActions.receiveComments, PostActions.handleError);
@@ -64,11 +61,11 @@ const PostActions = {
   },
 
 
-  receiveInsights: function(response, postId){
+  receivePostInsights: function(response, postId){
     console.log(response);
     AppDispatcher.dispatch({
       actionType: InsightConstants.INSIGHTS_RECEIVED,
-      insights: response.data[0],
+      insights: response.data,
       postId: postId,
       paging: response.paging
     })

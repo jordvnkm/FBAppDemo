@@ -17,4 +17,42 @@
 
 .postDetailForms {
   width: 70%;
+  border: 1px solid #dddfe2;
+  background: white;
+  margin-left: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.postInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.postContent {
+  padding: 20px;
+}
+
+#backButton {
+  width: 100px;
+}
+
+
+
+.postComments {
+  border-top: 1px solid #dddfe2;
+  padding: 15px;
+  background: #f6f7f9;
+}
+
+#postDeleteButton {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+
+
+#postDeleteButton div {
+  padding: 15px;
 }

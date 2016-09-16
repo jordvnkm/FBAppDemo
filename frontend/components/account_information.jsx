@@ -38,7 +38,7 @@ const AccountInformation = React.createClass({
   render: function(){
     return (
       <div className="accountInfo">
-        <img className="accountInfoImage" src={this.state.accountImageUrl}/>
+        <img className="infoImage" src={this.state.accountImageUrl}/>
         <span className="accountName">{this.props.account.name}</span>
         <InsightsIndex insights={this.state.insights}/>
       </div>
