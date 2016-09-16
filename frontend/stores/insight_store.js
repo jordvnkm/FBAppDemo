@@ -15,9 +15,16 @@ InsightStore.__onDispatch = function(payload){
       receivePaging(payload);
       InsightStore.__emitChange();
       break;
+    case InsightConstants.PAGE_INSIGHTS_RECEIVED:
+      receivePageInsights(payload.insights);
+      InsightStore.__emitChange();
+      break;
   }
 };
 
+const receivePageInsights = function(data){
+  _insights[data.pageId] = data.insights
+}
 
 const receiveInsights = function(payload){
   _insights[payload.postId] = payload.insights;
@@ -33,6 +40,12 @@ InsightStore.getInsights = function(postId){
     return Object.assign({}, _insights[postId]);
   }
 };
+
+InsightStore.getPageInsights = function(pageId){
+  if (_insights[pageId] !== undefined){
+    return _insights[pageId];
+  }
+}
 
 
 

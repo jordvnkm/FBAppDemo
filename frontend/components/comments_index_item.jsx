@@ -25,17 +25,20 @@ const CommentsIndexItem = React.createClass({
   deleteComment: function(event){
     event.preventDefault();
     event.stopPropagation();
-    console.log("here");
     this.props.deleteComment(this.props.comment.id);
   },
 
   render: function(){
     return (
       <div className="commentsIndexItem">
-        <img src={this.state.profileImageUrl}/>
-        <span>{this.props.comment.from.name}</span>
-        <span>{this.props.comment.message}</span>
-        <DeleteButton text={"delete comment"} deleteClicked={this.deleteComment}/>
+        <div className="commentStuff">
+          <img src={this.state.profileImageUrl}/>
+          <div>
+            <span className="commentAuthor">{this.props.comment.from.name}</span>
+            <span className="commentText">{this.props.comment.message}</span>
+          </div>
+        </div>
+        <DeleteButton text={"delete"} deleteClicked={this.deleteComment}/>
       </div>
     );
   }

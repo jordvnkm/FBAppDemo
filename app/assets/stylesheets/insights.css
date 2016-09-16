@@ -1,0 +1,5 @@
+.insightItem {
+  word-break: break-word;
+  display: flex;
+  justify-content: space-between;
+}

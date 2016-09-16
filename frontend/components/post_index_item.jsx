@@ -87,20 +87,25 @@ const PostIndexItem = React.createClass({
 
   render: function(){
     return (
-      <li onClick={this.handleClick} className="postIndexItem">
+      <li className="postIndexItem">
         <div className="postIndexItemHeader">
           <div className="postAuthorMiniInfo">
             <img className="postAuthorPic" src={this.state.profileImageUrl}/>
             <span>{this.props.post.from.name}</span>
           </div>
-          <DeleteButton text={"Delete Post"} deleteClicked={this.deleteClicked} postId={this.props.post.id}/>
+          <div className="postButtons">
+            <button className="normalButton" onClick={this.handleClick}>View Details</button>
+            <DeleteButton text={"Delete Post"} deleteClicked={this.deleteClicked} postId={this.props.post.id}/>
+          </div>
         </div>
         <div className="postIndexItemContent">
           {this.props.post.message}
           {this.postPhotoOrVideo()}
-          {this.comments()}
         </div>
-        <CreateCommentForm className="postIndexItemForm" onsubmit={this.submitComment}/>
+        <div className="commentsDiv">
+          {this.comments()}
+          <CreateCommentForm className="postIndexItemForm" onsubmit={this.submitComment}/>
+        </div>
       </li>
     );
   }

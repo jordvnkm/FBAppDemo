@@ -1,0 +1,33 @@
+.commentsDiv {
+  background-color: #edf0f5;
+  border: 1px solid #dddfe2;
+  padding: 15px;
+}
+
+
+.commentAuthor {
+  color: #3b5998;
+  font-weight: bold;
+  font-size: 14px;
+  margin: 0px 10px;
+}
+
+.commentText {
+  color: #1d2129;
+}
+
+.commentsIndexItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.commentStuff {
+  display: flex;
+}
+
+.commentStuff div {
+  display: flex;
+  align-items: center;
+}

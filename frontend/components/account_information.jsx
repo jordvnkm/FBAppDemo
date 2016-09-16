@@ -17,7 +17,7 @@ const AccountInformation = React.createClass({
     this.accountListener = AccountStore.addListener(this.accountChange);
     this.insightListener = InsightStore.addListener(this.insightChange);
     AccountActions.fetchAccountImage(this.props.account.id);
-    InsightActions.fetchInsightsForPage(this.props.account.id);
+    InsightActions.fetchPageInsights(this.props.account.id);
   },
 
   insightChange: function(){

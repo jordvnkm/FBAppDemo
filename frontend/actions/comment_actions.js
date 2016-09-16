@@ -24,7 +24,6 @@ const CommentActions = {
 
 
   receiveUserImage: function(response, commentId){
-    console.log(response);
     AppDispatcher.dispatch({
       actionType: CommentConstants.USER_IMAGE_RECEIVED,
       imageData: {commentId: commentId, data: response.data}
@@ -32,7 +31,6 @@ const CommentActions = {
   },
 
   receiveComment: function(response, postId){
-    console.log(response);
     AppDispatcher.dispatch({
       actionType: CommentConstants.COMMENT_RECEIVED,
       comment: response,
