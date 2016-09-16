@@ -21,6 +21,8 @@
   justify-content: space-between;
   align-items: center;
   text-align: center;
+  margin-bottom: 15px;
+  word-break: break-word;
 }
 
 .commentStuff {
@@ -30,4 +32,10 @@
 .commentStuff div {
   display: flex;
   align-items: center;
+  max-width: 500px;
+}
+
+.commentStuff img {
+  width: 40px;
+  height: 40px;
 }
