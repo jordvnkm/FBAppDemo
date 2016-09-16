@@ -80,7 +80,7 @@ const PageActions = {
       if (isPublished){
         console.log("published video")
         // console.log(pageId);
-        PageApiUtil.envokeRefetch();
+        // PageApiUtil.envokeRefetch();
         // PageApiUtil.fetchFeed(pageId, PageActions.receiveFeed, PageActions.handleError);
         // PageApiUtil.fetchPublishedPosts(pageId, PageActions.receivePublishedPosts, PageActions.handleError);
       }

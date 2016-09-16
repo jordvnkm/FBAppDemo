@@ -18,17 +18,17 @@ PostStore.__onDispatch = function(payload){
   switch (payload.actionType){
     case PageConstants.PUBLISHED_POSTS_RECEIVED:
       receivePublishedPosts(payload.posts);
-      receivePaging(payload.paging);
+      receivePaging("published" ,payload.paging);
       PostStore.__emitChange();
       break;
     case PageConstants.UNPUBLISHED_POSTS_RECEIVED:
       receiveUnpublishedPosts(payload.posts);
-      receivePaging(payload.paging);
+      receivePaging("unpublished", payload.paging);
       PostStore.__emitChange();
       break;
     case PageConstants.FEED_RECEIVED:
       receiveFeed(payload.posts);
-      receivePaging(payload.paging);
+      receivePaging("feed", payload.paging);
       PostStore.__emitChange();
       break;
     case PageConstants.POST_RECEIVED:
@@ -85,8 +85,8 @@ const addToFeed = function(post){
   _feed.unshift(post);
 };
 
-const receivePaging = function(paging){
-  _paging = paging;
+const receivePaging = function(type, paging){
+  _paging[type] = paging;
 };
 
 const receivePublishedPosts = function(posts){
@@ -128,8 +128,10 @@ PostStore.getProfileImage = function(postId){
   }
 };
 
-PostStore.getPaging = function(){
-  return Object.assign({}, _paging);
+PostStore.getPaging = function(type){
+  if (_paging[type]){
+    return Object.assign({}, _paging[type]);
+  }
 };
 
 
