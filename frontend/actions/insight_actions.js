@@ -9,6 +9,7 @@ const InsightActions = {
   },
 
   receivePageInsights: function(response){
+    console.log(response);
     AppDispatcher.dispatch({
       actionType: InsightConstants.PAGE_INSIGHTS_RECEIVED,
       insights: response

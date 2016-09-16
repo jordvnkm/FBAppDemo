@@ -4,6 +4,7 @@
   flex-direction: column;
   margin-bottom: 20px;
   border-radius: 5px;
+  border: 1px solid #dddfe2;
 }
 
 .postButtons {
@@ -46,4 +47,8 @@
 
 .postIndexItemContent {
   padding: 20px;
+}
+
+.postMessage {
+  margin: 10px 15px;
 }

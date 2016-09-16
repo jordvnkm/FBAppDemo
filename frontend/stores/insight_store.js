@@ -23,7 +23,9 @@ InsightStore.__onDispatch = function(payload){
 };
 
 const receivePageInsights = function(data){
-  _insights[data.pageId] = data.insights
+  console.log(data)
+  console.log("page insights store")
+  _insights[data.pageId] = data;
 }
 
 const receiveInsights = function(payload){
@@ -43,7 +45,7 @@ InsightStore.getInsights = function(postId){
 
 InsightStore.getPageInsights = function(pageId){
   if (_insights[pageId] !== undefined){
-    return _insights[pageId];
+    return _insights[pageId].insights.data;
   }
 }
 

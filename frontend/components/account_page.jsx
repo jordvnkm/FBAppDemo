@@ -42,11 +42,27 @@ const AccountPage = React.createClass({
     else {
       this.checkLoginState();
     }
+    console.log("did mount account page")
   },
 
+  // componentWillReceiveProps: function(){
+  //   console.log("will receive props account page");
+  //   this.postListener = PostStore.addListener(this.postChange);
+  //   this.accountListener = AccountStore.addListener(this.accountChange);
+  //
+  //   if (window.FB == undefined){
+  //     this.loadFBSDK();
+  //   }
+  //   else {
+  //     this.checkLoginState();
+  //   }
+  // },
+
   componentWillUnmount: function(){
+    console.log("will unmount account page")
     this.postListener.remove();
     this.accountListener.remove();
+    AccountStore.resetCurrentAccount();
   },
 
   accountChange: function(){
@@ -166,10 +182,17 @@ const AccountPage = React.createClass({
   },
 
   coverPhoto: function(){
-    if (this.state.account && this.state.account.cover.source){
+    if (this.state.account && this.state.account.cover){
       return (
         <div className="coverPhotoContainer">
           <img className="coverPhoto" src={this.state.account.cover.source}/>
+        </div>
+      )
+    }
+    else {
+      return (
+        <div className="coverPhotoContainer">
+          <img className="coverPhoto" src="https://mbevivino.files.wordpress.com/2012/10/cover_limit.jpg"/>
         </div>
       )
     }

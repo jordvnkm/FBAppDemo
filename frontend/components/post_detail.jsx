@@ -19,7 +19,7 @@ const PostDetail = React.createClass({
   },
 
 
-  componentWillMount: function(){
+  componentDidMount: function(){
     this.commentListener = CommentStore.addListener(this.commentChange);
     this.postListener = PostStore.addListener(this.postChange);
     this.insightListener = InsightStore.addListener(this.insightChange);

@@ -98,8 +98,10 @@ const PostIndexItem = React.createClass({
             <DeleteButton text={"Delete Post"} deleteClicked={this.deleteClicked} postId={this.props.post.id}/>
           </div>
         </div>
+        <div className="postMessage">
+          <span>{this.props.post.message}</span>
+        </div>
         <div className="postIndexItemContent">
-          {this.props.post.message}
           {this.postPhotoOrVideo()}
         </div>
         <div className="commentsDiv">

@@ -21,6 +21,7 @@ const AccountInformation = React.createClass({
   },
 
   insightChange: function(){
+    console.log(InsightStore.getPageInsights(this.props.account.id));
     this.setState({insights: InsightStore.getPageInsights(this.props.account.id)});
   },
 

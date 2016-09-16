@@ -28,9 +28,11 @@ AccountStore.__onDispatch = function(payload){
   }
 };
 
+
 const receiveImage = function(imageData){
   _images[imageData.accountId] = imageData.data;
 };
+
 
 const receiveAccount = function(account){
   _currentAccount = account;
@@ -44,6 +46,10 @@ const receiveAccounts = function(accounts){
   _accounts = accounts;
 };
 
+
+AccountStore.resetCurrentAccount = function(){
+  _currentAccount = undefined;
+},
 
 AccountStore.getPageImage = function(accountId){
   if (_images[accountId] !== undefined){

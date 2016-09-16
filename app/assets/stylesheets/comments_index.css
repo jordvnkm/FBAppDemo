@@ -1,7 +1,8 @@
 .commentsDiv {
-  background-color: #edf0f5;
-  border: 1px solid #dddfe2;
+  /*background-color: #edf0f5;*/
+  border-top: 1px solid #dddfe2;
   padding: 15px;
+  background: #f6f7f9;
 }
 
 

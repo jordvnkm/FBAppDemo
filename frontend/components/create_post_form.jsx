@@ -138,7 +138,7 @@ const CreatePostForm = React.createClass({
         </div>
         <form className="postForm" onSubmit={this.submitPost}>
           <input className="statusInput" type="text" value={this.state.postContent}
-                onChange={this.contentChange} placeholder="Say hi to your fans" />
+                onChange={this.contentChange} placeholder="Say hi to your fans..." />
 
 
           {this.publishedRadioButtons()}

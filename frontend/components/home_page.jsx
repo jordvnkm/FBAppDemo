@@ -23,11 +23,25 @@ const HomePage = React.createClass({
     else {
       this.checkLoginState();
     }
+    console.log("did mount home page")
   },
 
   componentWillUnmount: function(){
+    console.log("will unmount home page")
     this.accountListener.remove();
   },
+
+  // componentWillReceiveProps: function() {
+  //   console.log("will receive props home page")
+  //   this.accountListener = AccountStore.addListener(this.accountChange)
+  //
+  //   if (window.FB == undefined){
+  //     this.loadFBSDK();
+  //   }
+  //   else {
+  //     this.checkLoginState();
+  //   }
+  // },
 
   accountChange: function(){
     console.log(AccountStore.getAccounts());
