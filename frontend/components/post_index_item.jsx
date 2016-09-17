@@ -45,8 +45,8 @@ const PostIndexItem = React.createClass({
     if (this.props.post.source){
       return <video src={this.props.post.source} controls/>
     }
-    else if (this.props.post.picture){
-      return <img className="postPicture" src={this.props.post.picture}/>
+    else if (this.props.post.full_picture){
+      return <img className="postPicture" src={this.props.post.full_picture}/>
     }
   },
 

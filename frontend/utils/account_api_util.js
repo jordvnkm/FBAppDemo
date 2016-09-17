@@ -1,7 +1,7 @@
 
 const AccountApiUtil = {
   fetchAccountImage: function(accountId, successCB, errorCB){
-    FB.api(`/${accountId}/picture`, function(response){
+    FB.api(`/${accountId}/picture?type=large`, function(response){
       if (!response){
         errorCB("No response from fetch all accounts")
       }

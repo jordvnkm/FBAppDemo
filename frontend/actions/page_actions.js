@@ -4,6 +4,9 @@ const PageConstants = require("../constants/page_constants");
 const ErrorConstants = require("../constants/error_constants");
 
 const PageActions = {
+  fetchMorePosts: function(type, paging){
+    PageApiUtil.fetchMorePosts(type, paging, PageActions.receiveMorePosts, PageActions.handleError);
+  },
 
   deletePublishedPost: function(postId, pageId){
     PageApiUtil.deletePublishedPost(postId, pageId, PageActions.publishedPostDeleted, PageActions.handleError);
@@ -99,6 +102,16 @@ const PageActions = {
     else {
       PageApiUtil.fetchUnpublishedPosts(pageId, PageActions.receiveUnpublishedPosts, PageActions.handleError);
     }
+  },
+
+
+  receiveMorePosts: function(type, response){
+    AppDispatcher.dispatch({
+      actionType: PageConstants.MORE_POSTS_RECEIVED,
+      type: type,
+      posts: response.data,
+      paging: response.paging
+    })
   },
 
   receiveProfileImage: function(postId, response){

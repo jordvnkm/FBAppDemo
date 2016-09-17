@@ -113,8 +113,8 @@ const PostDetail = React.createClass({
         <video src={this.state.post.source} controls/>
       );
     }
-    else if (this.state.post.picture){
-      return <img src={this.state.post.picture}/>
+    else if (this.state.post.full_picture){
+      return <img src={this.state.post.full_picture}/>
     }
   },
 
@@ -178,7 +178,9 @@ const PostDetail = React.createClass({
         <NavBar />
         <div className="postDetailContent">
           <div className="postDetailInfoContainer">
-            {this.postInfo()}
+            <div>
+              {this.postInfo()}
+            </div>
           </div>
           <div className="postDetailForms">
             <div id="postDeleteButton">

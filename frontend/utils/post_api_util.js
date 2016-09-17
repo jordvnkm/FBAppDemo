@@ -41,7 +41,7 @@ const PostApiUtil = {
   },
 
   fetchPost: function(postId, successCB, errorCB){
-    let url = `${postId}?fields=from,message,id,picture,caption,source`
+    let url = `${postId}?fields=from,message,id,caption,source,full_picture`
     FB.api(url, function(response){
       if (!response || response.error){
         console.log(response);

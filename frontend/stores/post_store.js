@@ -54,6 +54,23 @@ PostStore.__onDispatch = function(payload){
       setPostDeleted();
       PostStore.__emitChange();
       break;
+    case PageConstants.MORE_POSTS_RECEIVED:
+      addMorePosts(payload.type, payload.posts);
+      receivePaging(payload.type, payload.paging);
+      PostStore.__emitChange();
+      break;
+  }
+};
+
+const addMorePosts = function(type, posts){
+  if (type == "feed"){
+    _feed = _feed.concat(posts);
+  }
+  else if (type == "published"){
+    _publishedPosts = _publishedPosts.concat(posts);
+  }
+  else if (type == "unpublished"){
+    _unpublishedPosts = _unpublishedPosts.concat(posts);
   }
 };
 

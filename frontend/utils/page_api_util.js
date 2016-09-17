@@ -16,12 +16,25 @@ const PageApiUtil = {
   //     }
   //   })
   // },
-  envokeRefetch: function(){
+  // envokeRefetch: function(){
+  //   $.ajax({
+  //     url: '/facebook',
+  //     type: "POST",
+  //     success: function() {},
+  //     error: function() {}
+  //   })
+  // },
+
+  fetchMorePosts: function(type, paging, successCB, errorCB){
     $.ajax({
-      url: '/facebook',
-      type: "POST",
-      success: function() {},
-      error: function() {}
+      url: paging.next,
+      success: function(response){
+        console.log(response);
+        successCB(type, response);
+      },
+      error: function(response){
+        errorCB(response);
+      }
     })
   },
 
@@ -62,7 +75,7 @@ const PageApiUtil = {
   },
 
   fetchProfileImage: function(userId, postId, successCB, errorCB){
-    FB.api(`/${userId}/picture`, function(response){
+    FB.api(`/${userId}/picture?type=large`, function(response){
       if (!response){
         errorCB("No response from fetch fetch profile image")
       }
@@ -76,7 +89,7 @@ const PageApiUtil = {
   },
 
   fetchPublishedPosts: function(pageId, successCB, errorCB){
-    let url = `${pageId}/posts?fields=from,message,id,picture,caption,source`;
+    let url = `${pageId}/posts?fields=from,message,id,full_picture,caption,source`;
     let params = {include_hidden: true};
     FB.api(url, params, function(response){
       if (!response){
@@ -92,7 +105,7 @@ const PageApiUtil = {
   },
 
   fetchUnpublishedPosts: function(pageId, successCB, errorCB){
-    let url = `${pageId}/promotable_posts?fields=from,message,id,picture,caption,source`;
+    let url = `${pageId}/promotable_posts?fields=from,message,id,full_picture,caption,source`;
     let params = {is_published: false, include_hidden: true};
     FB.api(url, params, (response) => {
       if (!response){
@@ -109,7 +122,7 @@ const PageApiUtil = {
   },
 
   fetchFeed: function(pageId, successCB, errorCB){
-    let url = `${pageId}/feed?fields=from,message,id,picture,caption,source`;
+    let url = `${pageId}/feed?fields=from,message,id,full_picture,caption,source`;
     FB.api(url, {include_hidden: true} , function(response){
       if (!response){
         errorCB("No response from fetch feed")
@@ -128,7 +141,7 @@ const PageApiUtil = {
     let pageId = postId.split("_")[0];
     FB.api(`${pageId}?fields=access_token`, (access)=>{
       let token = access.access_token;
-      let url = `${postId}?fields=from,message,id,picture,caption,source`
+      let url = `${postId}?fields=from,message,id,full_picture,caption,source`
       FB.api(url, {access_token: token, is_published: isPublished} , function(response){
         if (!response || response.error){
           console.log(response);

@@ -113,6 +113,7 @@
 
 .postInformation {
   width: 65%;
+  margin-bottom: 75px;
 }
 
 .coverPhoto {
@@ -127,4 +128,8 @@
   height: 275px;
   overflow: hidden;
   position: relative;
+}
+
+.moreButton:hover {
+  cursor: pointer;
 }

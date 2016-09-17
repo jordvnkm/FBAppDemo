@@ -45,19 +45,6 @@ const AccountPage = React.createClass({
     console.log("did mount account page")
   },
 
-  // componentWillReceiveProps: function(){
-  //   console.log("will receive props account page");
-  //   this.postListener = PostStore.addListener(this.postChange);
-  //   this.accountListener = AccountStore.addListener(this.accountChange);
-  //
-  //   if (window.FB == undefined){
-  //     this.loadFBSDK();
-  //   }
-  //   else {
-  //     this.checkLoginState();
-  //   }
-  // },
-
   componentWillUnmount: function(){
     console.log("will unmount account page")
     this.postListener.remove();
@@ -198,6 +185,29 @@ const AccountPage = React.createClass({
     }
   },
 
+  fetchMorePosts: function(){
+    if (this.state.feedOption == "pageFeed"){
+      let paging = PostStore.getPaging("feed");
+      PageActions.fetchMorePosts("feed", paging);
+    }
+    else if (this.state.feedOption == "published") {
+      let paging = PostStore.getPaging("published");
+      PageActions.fetchMorePosts("published", paging);
+    }
+    else if (this.state.feedOption == "unpublished") {
+      let paging = PostStore.getPaging("unpublished");
+      PageActions.fetchMorePosts("unpublished", paging);
+    }
+  },
+
+  morePostsButton: function(){
+    if (this.state.feed.length % 25 == 0){
+      return (
+        <span className="moreButton" onClick={this.fetchMorePosts}>Fetch More Posts</span>
+      )
+    }
+  },
+
   render: function(){
     return(
       <div className="accountPage">
@@ -213,6 +223,7 @@ const AccountPage = React.createClass({
             {this.coverPhoto()}
             <CreatePostForm onsubmit={this.submitPost}/>
             <PostsIndex myToken={this.accessToken} deletePost={this.deletePost} posts={this.state.feed}/>
+            {this.morePostsButton()}
           </div>
         </div>
       </div>

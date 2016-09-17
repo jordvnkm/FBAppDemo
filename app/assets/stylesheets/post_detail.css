@@ -15,6 +15,11 @@
   width: 30%;
 }
 
+.postInfo {
+  position: fixed;
+  width: 20%;
+}
+
 .postDetailForms {
   width: 70%;
   border: 1px solid #dddfe2;
