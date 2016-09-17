@@ -50,6 +50,7 @@ const PostDetail = React.createClass({
       hashHistory.push(url);
     }
     else {
+      console.log(PostStore.getCurrentPost());
       this.setState({authorImageUrl: PostStore.getProfileImage(this.props.params.postId) ,
         post: PostStore.getCurrentPost()});
     }
@@ -169,6 +170,30 @@ const PostDetail = React.createClass({
     }
   },
 
+  publishPost: function(){
+    // let pageId = this.state.post.id.split("_")[0];
+    // let image = undefined;
+    // let content = "";
+    // let isPublished = true;
+    // if (this.state.post.full_picture){
+    //   image = {url: this.state.post.full_picture}
+    // }
+    // else if (this.state.post.source){
+    //   image = {url: this.state.post.source};
+    // }
+    //
+    // if (this.state.post.message){
+    //   content = this.state.post.message;
+    // }
+    console.log("published clicekc");
+  },
+
+  publishButton: function(){
+    if (this.state.post && this.state.post.is_published == false){
+      return <button onClick={this.publishPost}>Publish</button>
+    }
+  },
+
   render: function(){
     return (
       <div className="postDetail">
@@ -181,6 +206,7 @@ const PostDetail = React.createClass({
           </div>
           <div className="postDetailForms">
             <div id="postDeleteButton">
+              {this.publishButton()}
               <DeleteButton text={"Delete Post"} deleteClicked={this.deletePost}/>
             </div>
             {this.postContent()}

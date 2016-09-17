@@ -5,6 +5,7 @@ const PostConstants = require("../constants/post_constants");
 const InsightConstants = require("../constants/insight_constants");
 
 const PostActions = {
+
   deleteComment(commentId, postId, pageId){
     PostApiUtil.deleteComment(commentId, postId, pageId, PostActions.receiveCommentDeleted, PostActions.handleError);
   },
@@ -38,9 +39,21 @@ const PostActions = {
     PostApiUtil.fetchComments(postId, PostActions.receiveComments, PostActions.handleError);
   },
 
+
+  receivePostUpdated: function(postId){
+    PostApiUtil.fetchPost(postId, PostActions.receivePost, PostActions.handleError);
+  },
+
+  receivePost: function(response, postId){
+    AppDispatcher.dispatch({
+      actionType: PostConstants.POST_DETAIL_RECEIVED,
+      post: response
+    })
+  },
+
   deleteCurrentPost: function(){
     AppDispatcher.dispatch({
-      actionType: PostActions.CURRENT_POST_DELETED
+      actionType: PostConstants.CURRENT_POST_DELETED
     })
   },
 
@@ -52,14 +65,6 @@ const PostActions = {
       paging: response.paging
     })
   },
-
-  receivePost: function(response, postId){
-    AppDispatcher.dispatch({
-      actionType: PostConstants.POST_DETAIL_RECEIVED,
-      post: response
-    })
-  },
-
 
   receivePostInsights: function(response, postId){
     console.log(response);

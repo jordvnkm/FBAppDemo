@@ -43,7 +43,9 @@ PostStore.__onDispatch = function(payload){
       }
       else {
         addToUnpublished(payload.post);
+        _allPostsGathered = false;
       }
+      receiveCurrentPost(payload.post);
       PostStore.__emitChange();
       break;
     case PageConstants.PROFILE_IMAGE_RECEIVED:

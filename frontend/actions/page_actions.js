@@ -21,7 +21,9 @@ const PageActions = {
   },
 
   createPostAsPage: function(pageId, image, content, isPublished){
+    console.log("create Post as page");
     if (image == undefined){
+      console.log("image undefined")
       PageApiUtil.createPostAsPage(pageId, content, isPublished, PageActions.receivePostCreated, PageActions.handleError);
     }
     else {
@@ -32,6 +34,7 @@ const PageActions = {
         PageApiUtil.uploadPhotoAsPage(pageId, image, content, isPublished, PageActions.receiveFileUploaded, PageActions.handleError);
       }
       else {
+        console.log("unsupported file format");
         PageApiUtil.handleError({error: "unsupported file format"});
       }
     }
