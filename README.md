@@ -30,7 +30,11 @@ When navigated to the account page, the application makes calls to the Facebook 
 
 Page insight metrics are also retrieved using the Page/insights/metrics edge.  Currently, the following metrics are gathered once the component is mounted.  
 
-![route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
+```
+Page views total
+Page engaged users
+Page fans
+```
 
 Additional metrics can replace or be added to the current metrics by simply changing the request url shown below:
 
@@ -41,9 +45,9 @@ Additional metrics can replace or be added to the current metrics by simply chan
 ## Creating posts as Page or Individual
 Users may create both published and unpublished posts using the page manager application.  All the user needs to do is click one of the "published" or "unpublished" radio buttons.  
 
-![route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
-
 The user may also choose between posting the content in the voice of the Page they are managing or in voice of their own personal account.  When making the Graph api call, an additional request for the page access token is made if the POST request is made in the voice of the Page.
+
+![route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
 
 ![route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
 

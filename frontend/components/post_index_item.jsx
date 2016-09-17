@@ -19,6 +19,19 @@ const PostIndexItem = React.createClass({
     this.commentListener = CommentStore.addListener(this.commentChange);
     PageActions.fetchProfileImage(this.props.post.from.id, this.props.post.id);
     PostActions.fetchComments(this.props.post.id);
+
+
+    var pusher = new Pusher('f0ed6004e66da55f7fbf', {
+      encrypted: true
+    });
+
+
+    var channel = pusher.subscribe('account_update');
+    channel.bind('account_update', function(data) {
+      PostActions.fetchComments(this.props.post.id);
+    }.bind(this));
+
+
   },
 
   componentWillUnmount: function(){
