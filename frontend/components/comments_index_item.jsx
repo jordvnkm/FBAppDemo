@@ -14,6 +14,11 @@ const CommentsIndexItem = React.createClass({
     CommentActions.fetchProfileImage(this.props.comment.from.id, this.props.comment.id)
   },
 
+  componentWillReceiveProps: function(newProps){
+    console.log("will receive props comments index item");
+    this.props = newProps;
+  },
+
   componentWillUnmount: function(){
     this.commentListener.remove();
   },

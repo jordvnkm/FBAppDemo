@@ -4,10 +4,8 @@ const PostIndexItem = require("./post_index_item");
 
 const PostsIndex = React.createClass({
   componentWillReceiveProps: function(newProps){
-    console.log("will receive props post index");
-    console.log(this.props.posts);
-    console.log(newProps);
     this.props = newProps;
+    console.log("will receive props posts index")
   },
 
 

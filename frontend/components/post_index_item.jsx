@@ -21,6 +21,11 @@ const PostIndexItem = React.createClass({
     PostActions.fetchComments(this.props.post.id);
   },
 
+  componentWillReceiveProps: function(newProps){
+    PostActions.fetchComments(newProps.post.id);
+    console.log("will receive props posts index item");
+  },
+
   componentWillUnmount: function(){
     this.postListener.remove();
     this.commentListener.remove();
