@@ -4,13 +4,14 @@ Facebook page manager is an application to monitor and update pages owned by a F
 ##Login
 Facebook page manager utilizes the Facebook login component to authenticate users. There is no need for a user table as Facebook takes care of all the storage and authentication.  Users of the page manager need to grant the following permissions to the application:
 
+```
   Public_profile
   Email
   Manage_pages
   Publish_actions
   Publish_pages
   Read_insights
-
+```
 
 ## Home Page
 Once a user has logged in using the login component, the application uses the following command to receive all the pages that the user manages.
@@ -79,6 +80,6 @@ Similarly to the Page insight metrics, the Post insight metrics can easily be ch
 ## Real time updates with Pusher
 Facebook page manager utilizes Facebook's webhooks to receive real time updates.  Currently, the app subscribes to changes in a Pages feed, video, and picture changes.  These subscriptions can be updated or changed through Facebook's app dashboard as well as through a graph api call.  When an account page is mounted, it subscribes to that pages updates.  On unmounting, the account page unsubscribes to the updates so that the application does not make unnecessary api calls.
 
-The webhook makes a GET request to "https://app-demo-fb.herokuapp.com" to verify the subscription.  Subsequent POST requests are then handled by the FacebooksController, which causes Pusher to trigger and update on the front end. 
+The webhook makes a GET request to "https://app-demo-fb.herokuapp.com" to verify the subscription.  Subsequent POST requests are then handled by the FacebooksController, which causes Pusher to trigger and update on the front end.
 
 ![route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
