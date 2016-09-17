@@ -5,6 +5,9 @@ const PostConstants = require("../constants/post_constants");
 const InsightConstants = require("../constants/insight_constants");
 
 const PostActions = {
+  publishPost: function(post){
+    PostApiUtil.publishPost(post, PostActions.fetchPost, PostActions.handleError);
+  },
 
   deleteComment(commentId, postId, pageId){
     PostApiUtil.deleteComment(commentId, postId, pageId, PostActions.receiveCommentDeleted, PostActions.handleError);

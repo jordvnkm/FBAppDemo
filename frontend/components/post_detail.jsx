@@ -112,7 +112,7 @@ const PostDetail = React.createClass({
       );
     }
     else if (this.state.post.full_picture){
-      return <img src={this.state.post.full_picture}/>
+      return <img className="postPicture" src={this.state.post.full_picture}/>
     }
   },
 
@@ -163,7 +163,7 @@ const PostDetail = React.createClass({
     if (this.state.post){
       return (
         <div className="postContent">
-          {this.state.post.message}
+          <span>{this.state.post.message}</span>
           {this.postImageOrVideo()}
         </div>
       )
@@ -171,26 +171,16 @@ const PostDetail = React.createClass({
   },
 
   publishPost: function(){
-    // let pageId = this.state.post.id.split("_")[0];
-    // let image = undefined;
-    // let content = "";
-    // let isPublished = true;
-    // if (this.state.post.full_picture){
-    //   image = {url: this.state.post.full_picture}
-    // }
-    // else if (this.state.post.source){
-    //   image = {url: this.state.post.source};
-    // }
-    //
-    // if (this.state.post.message){
-    //   content = this.state.post.message;
-    // }
-    console.log("published clicekc");
+    PostActions.publishPost(this.state.post);
   },
 
   publishButton: function(){
     if (this.state.post && this.state.post.is_published == false){
-      return <button onClick={this.publishPost}>Publish</button>
+      return (
+        <div>
+          <button onClick={this.publishPost}>Publish</button>
+        </div>
+      );
     }
   },
 

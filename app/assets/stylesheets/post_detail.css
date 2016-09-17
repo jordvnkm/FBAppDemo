@@ -36,6 +36,14 @@
 
 .postContent {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.postContent span {
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 #backButton {

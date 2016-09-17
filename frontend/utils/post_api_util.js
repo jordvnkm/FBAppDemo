@@ -3,6 +3,25 @@
 
 const PostApiUtil = {
 
+  publishPost: function(post, successCB , errorCB){
+    let pageId = post.id.split("_")[0];
+    FB.api(`${pageId}?fields=access_token`, function(access) {
+      let token = access.access_token;
+      let url = `${post.id}`;
+      FB.api( url, 'post', {access_token: token, is_published: true}, (response) =>{
+        if (!response){
+          errorCB("ERROR Occurred");
+        }
+        else if (response.error){
+          errorCB(response.error);
+        }
+        else {
+          successCB(post.id);
+        }
+      })
+    }.bind(this))
+  },
+
   deleteComment: function(commentId, postId, pageId, successCB, errorCB){
     FB.api(`${pageId}?fields=access_token`, function(access) {
       let token = access.access_token;
