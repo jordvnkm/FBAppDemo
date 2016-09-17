@@ -32,18 +32,19 @@ const AccountsIndexItem = React.createClass({
       <li onClick={this.handleClick} className="accountItem">
         <img className="accountImage"src={this.state.accountImageUrl}/>
         <span className="objectName">{this.props.account.name}</span>
+        <span className="accountCategory">Category: {this.props.account.category}</span>
 
-        <span>Category: {this.props.account.category}</span>
-
-        <span>Your permissions for this page:</span>
-        <ul>
-          {
-            this.props.account.perms.map((permission)=>{
-              let mykey = this.props.account.id + permission;
-              return <li key={mykey} className="indexItemText">{permission.toLowerCase()}</li>
-            })
-          }
-        </ul>
+        <div className="accountPermissions">
+          <span>Your permissions for this page:</span>
+          <ul>
+            {
+              this.props.account.perms.map((permission)=>{
+                let mykey = this.props.account.id + permission;
+                return <li key={mykey} className="indexItemText">{permission.toLowerCase()}</li>
+              })
+            }
+          </ul>
+        </div>
       </li>
     )
   }

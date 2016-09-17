@@ -31,17 +31,6 @@ const HomePage = React.createClass({
     this.accountListener.remove();
   },
 
-  // componentWillReceiveProps: function() {
-  //   console.log("will receive props home page")
-  //   this.accountListener = AccountStore.addListener(this.accountChange)
-  //
-  //   if (window.FB == undefined){
-  //     this.loadFBSDK();
-  //   }
-  //   else {
-  //     this.checkLoginState();
-  //   }
-  // },
 
   accountChange: function(){
     console.log(AccountStore.getAccounts());
@@ -95,6 +84,7 @@ const HomePage = React.createClass({
       <div id="homePageContent">
         <NavBar />
         <div className="accountsContainer">
+          <span className="homepageHeader">My Pages</span>
           <AccountsIndex accounts={this.state.accounts}/>
         </div>
       </div>
