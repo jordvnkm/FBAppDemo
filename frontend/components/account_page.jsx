@@ -48,6 +48,7 @@ const AccountPage = React.createClass({
     this.postListener.remove();
     this.accountListener.remove();
     AccountStore.resetCurrentAccount();
+    PageActions.unsubscribeToUpdates(this.props.params.account_id);
   },
 
   accountChange: function(){
@@ -71,6 +72,7 @@ const AccountPage = React.createClass({
       this.accessToken = response.authResponse.accessToken;
       PageActions.fetchFeed(this.props.params.account_id);
       AccountActions.fetchAccountInfo(this.props.params.account_id);
+      PageActions.subscribeToUpdates(this.props.params.account_id);
     }
     else {
       console.log("not connected from account page");

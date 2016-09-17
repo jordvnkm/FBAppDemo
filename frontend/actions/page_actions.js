@@ -4,6 +4,14 @@ const PageConstants = require("../constants/page_constants");
 const ErrorConstants = require("../constants/error_constants");
 
 const PageActions = {
+  subscribeToUpdates(pageId){
+    PageApiUtil.subscribeToUpdates(pageId, PageActions.handleError);
+  },
+
+  unsubscribeToUpdates(pageId){
+    PageApiUtil.unsubscribeToUpdates(pageId, PageActions.handleError);
+  },
+
   fetchMorePosts: function(type, paging){
     PageApiUtil.fetchMorePosts(type, paging, PageActions.receiveMorePosts, PageActions.handleError);
   },

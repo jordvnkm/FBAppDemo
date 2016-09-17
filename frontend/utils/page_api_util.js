@@ -1,7 +1,41 @@
 
 
 const PageApiUtil = {
+  subscribeToUpdates: function(pageId, errorCB){
+    FB.api(`${pageId}?fields=access_token`, function(access) {
+      let token = access.access_token;
+      let url = `${pageId}/subscribed_apps`;
+      FB.api( url, 'post', {access_token: token}, (response) =>{
+        if (!response){
+          errorCB("ERROR Occured");
+        }
+        else if (response.error){
+          errorCB(response.error);
+        }
+        else {
+          console.log("subscribed to page");
+        }
+      })
+    }.bind(this))
+  },
 
+  unsubscribeToUpdates: function(pageId, errorCB){
+    FB.api(`${pageId}?fields=access_token`, function(access) {
+      let token = access.access_token;
+      let url = `${pageId}/subscribed_apps`;
+      FB.api( url, 'delete', {access_token: token}, (response) =>{
+        if (!response){
+          errorCB("ERROR Occured");
+        }
+        else if (response.error){
+          errorCB(response.error);
+        }
+        else {
+          console.log("unsubsubscribed to page");
+        }
+      })
+    }.bind(this))
+  },
 
   fetchMorePosts: function(type, paging, successCB, errorCB){
     $.ajax({
