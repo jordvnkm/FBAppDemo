@@ -26,22 +26,6 @@ const LoginButton = React.createClass({
       FB.XFBML.parse();
     }
   },
-  //
-  // testApi: function(){
-  //   // FB.api('/me/permissions', function(response){
-  //   //   console.log(JSON.stringify(response));
-  //   // })
-  //   // console.log('here');
-  //   // let page_id;
-  //   // let access_token;
-  //   // FB.api('/me/accounts', (response) => {
-  //   //   page_id = (response.data[0].id);
-  //   //   access_token = response.data[0].access_token;
-  //   //   let message = {access: access_token, page_id: page_id, text: "hello world from api call"}
-  //   //   PageActions.postMessage(message)
-  //   // });
-  //
-  // },
 
 
   checkLoginState: function(){

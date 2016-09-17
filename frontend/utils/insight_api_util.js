@@ -15,7 +15,6 @@ const InsightApiUtil = {
         }
         else {
           let data = {pageId: pageId, insights: response}
-          console.log(response);
           successCB(data)
         }
       }.bind(this));

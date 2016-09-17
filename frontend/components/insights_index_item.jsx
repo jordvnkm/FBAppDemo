@@ -7,7 +7,6 @@ const InsightsIndexItem = React.createClass({
       <ul className="insightIndexItem">
         {
           this.props.insight.data.map((insight)=>{
-            console.log(insight);
             return <InsightItem key={insight.title} insight={insight}/>;
           })
         }

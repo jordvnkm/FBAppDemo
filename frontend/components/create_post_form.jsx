@@ -89,7 +89,6 @@ const CreatePostForm = React.createClass({
     cloudinary.openUploadWidget(window.cloudinary_options,
       function(error, images){
         if (error === null){
-          console.log(images);
           self.setState({image: images[0]})
         }
     });

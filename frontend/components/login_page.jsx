@@ -19,7 +19,6 @@ const LoginPage = React.createClass({
       let url = `user/${response.authResponse.userID}`;
 
       hashHistory.push(url)
-      console.log("connectedFromLoginPage")
     }
     else {
       console.log("not connected from loginPage");

@@ -23,8 +23,6 @@ InsightStore.__onDispatch = function(payload){
 };
 
 const receivePageInsights = function(data){
-  console.log(data)
-  console.log("page insights store")
   _insights[data.pageId] = data;
 }
 

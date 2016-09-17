@@ -1,35 +1,11 @@
 
 
 const PageApiUtil = {
-  // fetchVideo: function(pageId, videoId, isPublished, successCB, errorCB){
-  //   console.log(videoId);
-  //   let url = `${videoId}?fields=source,id,from,description,picture`;
-  //   FB.api( url, (response) =>{
-  //     if (!response || response.error){
-  //       console.log(response);
-  //       errorCB("ERROR Occured");
-  //       console.log("error occured");
-  //     }
-  //     else {
-  //       console.log("success cb");
-  //       successCB(response , isPublished)
-  //     }
-  //   })
-  // },
-  // envokeRefetch: function(){
-  //   $.ajax({
-  //     url: '/facebook',
-  //     type: "POST",
-  //     success: function() {},
-  //     error: function() {}
-  //   })
-  // },
 
   fetchMorePosts: function(type, paging, successCB, errorCB){
     $.ajax({
       url: paging.next,
       success: function(response){
-        console.log(response);
         successCB(type, response);
       },
       error: function(response){
@@ -43,13 +19,13 @@ const PageApiUtil = {
       let token = access.access_token;
       let url = `${postId}`;
       FB.api( url, 'delete', {access_token: token}, (response) =>{
-        if (!response || response.error){
-          console.log(response);
+        if (!response){
           errorCB("ERROR Occured");
-          console.log("error occured");
+        }
+        else if (response.error){
+          errorCB(response.error);
         }
         else {
-          console.log("success cb");
           successCB(pageId);
         }
       })
@@ -61,13 +37,13 @@ const PageApiUtil = {
       let token = access.access_token;
       let url = `${postId}`;
       FB.api( url, 'delete', {access_token: token}, (response) =>{
-        if (!response || response.error){
-          console.log(response);
+        if (!response){
           errorCB("ERROR Occured");
-          console.log("error occured");
+        }
+        else if (response.error){
+          errorCB(response.error);
         }
         else {
-          console.log("success cb");
           successCB(pageId);
         }
       })
@@ -115,7 +91,6 @@ const PageApiUtil = {
         errorCB(response.error);
       }
       else {
-        console.log(response);
         successCB(response);
       }
     });
@@ -131,7 +106,6 @@ const PageApiUtil = {
         errorCB(response.error);
       }
       else {
-        console.log(response);
         successCB(response)
       }
     }.bind(this))
@@ -143,15 +117,11 @@ const PageApiUtil = {
       let token = access.access_token;
       let url = `${postId}?fields=from,message,id,full_picture,caption,source`
       FB.api(url, {access_token: token, is_published: isPublished} , function(response){
-        if (!response || response.error){
-          console.log(response);
-          if (retryCount < 5){
-            retryCount += 1;
-            this.fetchPost(postId, isPublished, successCB, errorCB, retryCount);
-          }
-          else{
-            errorCB("ERROR Occured");
-          }
+        if (!response){
+          errorCB("ERROR Occured");
+        }
+        else if (response.error){
+          errorCB(response.error);
         }
         else {
           console.log(response);
@@ -170,13 +140,13 @@ const PageApiUtil = {
       let token = access.access_token;
       let url = `${pageId}/videos`;
       FB.api( url, 'post', {access_token: token, file_url: image.url, published: isPublished, description: content}, (response) =>{
-        if (!response || response.error){
-          console.log(response);
+        if (!response){
           errorCB("ERROR Occured");
-          console.log("error occured");
+        }
+        else if (response.error){
+          errorCB(response.error);
         }
         else {
-          console.log("success cb");
           successCB(response, isPublished, pageId)
         }
       })
@@ -189,13 +159,13 @@ const PageApiUtil = {
       let token = access.access_token;
       let url = `${pageId}/photos`;
       FB.api( url, 'post', {access_token: token, url: image.url, published: isPublished, caption: content}, (response) =>{
-        if (!response || response.error){
-          console.log(response);
+        if (!response){
           errorCB("ERROR Occured");
-          console.log("error occured");
+        }
+        else if (response.error){
+          errorCB(response.error);
         }
         else {
-          console.log("success cb");
           successCB(response , isPublished, pageId)
         }
       })
@@ -206,13 +176,13 @@ const PageApiUtil = {
   uploadPhotoAsPerson: function(pageId, image, content, accessToken, successCB, errorCB){
     FB.api(`${pageId}/photos`, 'post', {access_token: accessToken, url: image.url, caption: content}, (response) =>{
       let isPublished = true;
-      if (!response || response.error){
-        console.log(response);
+      if (!response){
         errorCB("ERROR Occured");
-        console.log("error occured");
+      }
+      else if (response.error){
+        errorCB(response.error);
       }
       else {
-        console.log("success cb");
         successCB(response , isPublished, pageId);
       }
     })
@@ -223,13 +193,13 @@ const PageApiUtil = {
       let token = access.access_token;
       let url = `${pageId}/feed`;
       FB.api( url, 'post', {access_token: token, published: isPublished, message: content}, (response) =>{
-        if (!response || response.error){
-          console.log(response);
-          errorCallback("ERROR Occured");
-          console.log("error occured");
+        if (!response){
+          errorCB("ERROR Occured");
+        }
+        else if (response.error){
+          errorCB(response.error);
         }
         else {
-          console.log("success cb");
           successCallback(response , isPublished, pageId)
         }
       })
@@ -240,13 +210,13 @@ const PageApiUtil = {
   createPostAsPerson: function(pageId, content, accessToken, successCallback, errorCallback){
     FB.api(`${pageId}/feed`, 'post', {access_token: accessToken, message: content}, (response) =>{
       let isPublished = true;
-      if (!response || response.error){
-        console.log(response);
-        errorCallback("ERROR Occured");
-        console.log("error occured");
+      if (!response){
+        errorCB("ERROR Occured");
+      }
+      else if (response.error){
+        errorCB(response.error);
       }
       else {
-        console.log("success cb");
         successCallback(response , isPublished);
       }
     })

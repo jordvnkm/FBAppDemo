@@ -40,7 +40,6 @@ const PostDetail = React.createClass({
   },
 
   insightChange: function(){
-    console.log(InsightStore.getInsights(this.props.params.postId))
     this.setState({insights: InsightStore.getInsights(this.props.params.postId)});
   },
 
@@ -69,10 +68,8 @@ const PostDetail = React.createClass({
 
       PostActions.fetchPostInsights(this.props.params.postId);
       PostActions.fetchComments(this.props.params.postId);
-      if (this.state.post == undefined){
-        PostActions.fetchPost(this.props.params.postId)
-        PageActions.fetchProfileImage(this.props.params.userId, this.props.params.postId);
-      }
+      PostActions.fetchPost(this.props.params.postId)
+      PageActions.fetchProfileImage(this.props.params.userId, this.props.params.postId);
     }
     else {
       console.log("not connected from post detail");

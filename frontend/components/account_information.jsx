@@ -13,7 +13,6 @@ const AccountInformation = React.createClass({
   },
 
   componentDidMount: function(){
-    console.log(this.props.account);
     this.accountListener = AccountStore.addListener(this.accountChange);
     this.insightListener = InsightStore.addListener(this.insightChange);
     AccountActions.fetchAccountImage(this.props.account.id);
@@ -21,7 +20,6 @@ const AccountInformation = React.createClass({
   },
 
   insightChange: function(){
-    console.log(InsightStore.getPageInsights(this.props.account.id));
     this.setState({insights: InsightStore.getPageInsights(this.props.account.id)});
   },
 

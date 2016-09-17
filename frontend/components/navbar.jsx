@@ -16,7 +16,7 @@ const NavBar = React.createClass({
   },
 
   homeButtonClicked: function(){
-    if (window.FB != undefined){
+    if (window.FB !== undefined){
       FB.api('/me', function(response){
         let url = `user/${response.id}`
         hashHistory.push(url)

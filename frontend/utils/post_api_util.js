@@ -7,13 +7,13 @@ const PostApiUtil = {
       let token = access.access_token;
       let url = `${commentId}`;
       FB.api( url, 'delete', {access_token: token}, (response) =>{
-        if (!response || response.error){
-          console.log(response);
+        if (!response){
           errorCB("ERROR Occured");
-          console.log("error occured");
+        }
+        else if (response.error){
+          errorCB(response.error);
         }
         else {
-          console.log("success cb");
           successCB(postId);
         }
       })
@@ -27,10 +27,11 @@ const PostApiUtil = {
       let token = access.access_token;
       let url = `${postId}`;
       FB.api( url, 'delete', {access_token: token}, (response) =>{
-        if (!response || response.error){
-          console.log(response);
+        if (!response){
           errorCB("ERROR Occured");
-          console.log("error occured");
+        }
+        else if (response.error){
+          errorCB(response.error);
         }
         else {
           console.log("success cb");
@@ -43,10 +44,11 @@ const PostApiUtil = {
   fetchPost: function(postId, successCB, errorCB){
     let url = `${postId}?fields=from,message,id,caption,source,full_picture`
     FB.api(url, function(response){
-      if (!response || response.error){
-        console.log(response);
+      if (!response){
         errorCB("ERROR Occured");
-        console.log("error occured");
+      }
+      else if (response.error){
+        errorCB(response.error);
       }
       else {
         successCB(response , postId);

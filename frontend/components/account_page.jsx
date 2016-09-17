@@ -42,11 +42,9 @@ const AccountPage = React.createClass({
     else {
       this.checkLoginState();
     }
-    console.log("did mount account page")
   },
 
   componentWillUnmount: function(){
-    console.log("will unmount account page")
     this.postListener.remove();
     this.accountListener.remove();
     AccountStore.resetCurrentAccount();
@@ -70,8 +68,6 @@ const AccountPage = React.createClass({
 
   statusChangeCallback: function(response){
     if (response.status == "connected"){
-      console.log("logged in from account");
-
       this.accessToken = response.authResponse.accessToken;
       PageActions.fetchFeed(this.props.params.account_id);
       AccountActions.fetchAccountInfo(this.props.params.account_id);
@@ -163,7 +159,6 @@ const AccountPage = React.createClass({
       PageActions.deletePublishedPost(postId, this.props.params.account_id);
     }
     else {
-      console.log("unpublished delete clicked");
       PageActions.deleteUnpublishedPost(postId, this.props.params.account_id);
     }
   },
@@ -201,7 +196,7 @@ const AccountPage = React.createClass({
   },
 
   morePostsButton: function(){
-    if (this.state.feed.length % 25 == 0){
+    if (this.state.feed.length % 25 == 0 && PostStore.allPostsGathered() == false){
       return (
         <span className="moreButton" onClick={this.fetchMorePosts}>Fetch More Posts</span>
       )

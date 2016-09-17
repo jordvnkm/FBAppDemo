@@ -23,17 +23,14 @@ const HomePage = React.createClass({
     else {
       this.checkLoginState();
     }
-    console.log("did mount home page")
   },
 
   componentWillUnmount: function(){
-    console.log("will unmount home page")
     this.accountListener.remove();
   },
 
 
   accountChange: function(){
-    console.log(AccountStore.getAccounts());
     this.setState({accounts: AccountStore.getAccounts()});
   },
 
@@ -42,11 +39,9 @@ const HomePage = React.createClass({
   statusChangeCallback: function(response){
     if (response.status === 'connected'){
       this.accessToken = response.authResponse.accessToken;
-      console.log("FB INITIALIZED AND USER CONNECTED")
       AccountActions.fetchAllAccounts();
     }
     else {
-      console.log("not connected from homepage");
       hashHistory.push("/");
     }
   },

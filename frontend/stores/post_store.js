@@ -12,29 +12,34 @@ let _images = {};
 let _paging = {};
 let _currentPost = undefined;
 let _postDeleted = false;
+let _allPostsGathered = false;
 
 
 PostStore.__onDispatch = function(payload){
   switch (payload.actionType){
     case PageConstants.PUBLISHED_POSTS_RECEIVED:
       receivePublishedPosts(payload.posts);
-      receivePaging("published" ,payload.paging);
+      receivePaging("published", payload.paging);
+      _allPostsGathered = false
       PostStore.__emitChange();
       break;
     case PageConstants.UNPUBLISHED_POSTS_RECEIVED:
       receiveUnpublishedPosts(payload.posts);
       receivePaging("unpublished", payload.paging);
+      _allPostsGathered = false
       PostStore.__emitChange();
       break;
     case PageConstants.FEED_RECEIVED:
       receiveFeed(payload.posts);
       receivePaging("feed", payload.paging);
+      _allPostsGathered = false;
       PostStore.__emitChange();
       break;
     case PageConstants.POST_RECEIVED:
       if (payload.isPublished){
         addToPublished(payload.post);
         addToFeed(payload.post);
+        _allPostsGathered = false
       }
       else {
         addToUnpublished(payload.post);
@@ -57,8 +62,13 @@ PostStore.__onDispatch = function(payload){
     case PageConstants.MORE_POSTS_RECEIVED:
       addMorePosts(payload.type, payload.posts);
       receivePaging(payload.type, payload.paging);
+      _allPostsGathered = false
       PostStore.__emitChange();
       break;
+    case PageConstants.ALL_POSTS_GATHERED:
+      _allPostsGathered = true;
+      console.log("posts gathered");
+      PostStore.__emitChange();
   }
 };
 
@@ -115,8 +125,11 @@ const receiveUnpublishedPosts = function(posts){
 };
 
 const receiveFeed = function(posts){
-  console.log(posts);
   _feed = posts;
+};
+
+PostStore.allPostsGathered = function(){
+  return _allPostsGathered;
 };
 
 PostStore.getPostDeleted = function(){
@@ -150,6 +163,7 @@ PostStore.getPaging = function(type){
     return Object.assign({}, _paging[type]);
   }
 };
+
 
 
 PostStore.getFeed = function(){

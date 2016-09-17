@@ -4,7 +4,6 @@ const InsightItem = require("./insight_item");
 
 const InsightsIndex = React.createClass({
   render: function(){
-    console.log(this.props.insights);
     return(
       <div className="insightsIndex">
         <li>

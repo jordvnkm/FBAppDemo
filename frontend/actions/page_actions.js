@@ -106,12 +106,19 @@ const PageActions = {
 
 
   receiveMorePosts: function(type, response){
-    AppDispatcher.dispatch({
-      actionType: PageConstants.MORE_POSTS_RECEIVED,
-      type: type,
-      posts: response.data,
-      paging: response.paging
-    })
+    if (response.data.length == 0){
+      AppDispatcher.dispatch({
+        actionType: PageConstants.ALL_POSTS_GATHERED
+      });
+    }
+    else {
+      AppDispatcher.dispatch({
+        actionType: PageConstants.MORE_POSTS_RECEIVED,
+        type: type,
+        posts: response.data,
+        paging: response.paging
+      })
+    }
   },
 
   receiveProfileImage: function(postId, response){

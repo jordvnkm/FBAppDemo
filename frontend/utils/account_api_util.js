@@ -38,7 +38,6 @@ const AccountApiUtil = {
         errorCB(response.error);
       }
       else {
-        console.log(response);
         successCB(response);
       }
     }.bind(this))
