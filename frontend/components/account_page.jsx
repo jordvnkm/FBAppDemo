@@ -57,6 +57,7 @@ const AccountPage = React.createClass({
 
   postChange: function(){
     if (this.state.feedOption == "pageFeed"){
+      this.forceUpdate();
       this.setState({feed: PostStore.getFeed()});
     }
     else if (this.state.feedOption == "published") {

@@ -2,7 +2,7 @@
 Facebook page manager is an application to monitor and update pages owned by a Facebook user.  The application utilizes a lightweight representation of pages and posts to allow a user to interact with their target audience.
 
 ##Login
-Facebook page manager utilizes the facebook login component to authenticate users. There is no need for a user table as facebook takes care of all the storage and authentication.  Users of the page manager need to grant the following permissions to the application:
+Facebook page manager utilizes the Facebook login component to authenticate users. There is no need for a user table as Facebook takes care of all the storage and authentication.  Users of the page manager need to grant the following permissions to the application:
 
   Public_profile
   Email
@@ -55,12 +55,16 @@ When creating posts, the user may choose to add a photo or video to their conten
 [route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
 
 ## Creating comments as Page or Individual
+Creating comments takes a similar approach to creating posts.  Depending on the user's choice, the comment may be posted in the voice of the Page or in the voice of the individual.  For a post in the Page's voice, all that is needed is an extra call to obtain the Page access token.
+
+[route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
 
 
-## Deleting posts
+## Deleting posts and comments
+To delete a post or comment, the user may click on the delete button which triggers a DELETE request to the Graph Api.
 
+[route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
 
-## Deleting comments
 
 
 
