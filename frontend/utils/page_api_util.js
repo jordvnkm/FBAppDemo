@@ -25,7 +25,7 @@ const PageApiUtil = {
       let url = `${pageId}/subscribed_apps`;
       FB.api( url, 'delete', {access_token: token}, (response) =>{
         if (!response){
-          errorCB("ERROR Occured");
+          errorCB("Error occurred");
         }
         else if (response.error){
           errorCB(response.error);
@@ -167,6 +167,7 @@ const PageApiUtil = {
   },
 
   uploadVideoAsPerson: function(pageId, image, content, accessToken, successCB, errorCB){
+    let url = `${pageId}/videos`;
     FB.api( url, 'post', {access_token: accessToken, file_url: image.url, published: isPublished, description: content}, (response) =>{
       if (!response){
         errorCB("ERROR Occured");

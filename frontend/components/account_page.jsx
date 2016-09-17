@@ -30,9 +30,9 @@ const AccountPage = React.createClass({
 
     var channel = pusher.subscribe('account_update');
     channel.bind('account_update', function(data) {
-      console.log("pusher update");
       PageActions.fetchFeed(this.props.params.account_id);
       PageActions.fetchPublishedPosts(this.props.params.account_id);
+      PageActions.fetchUnpublishedPosts(this.props.params.account_id);
     }.bind(this));
 
 
