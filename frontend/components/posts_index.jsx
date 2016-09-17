@@ -7,6 +7,7 @@ const PostsIndex = React.createClass({
     console.log("will receive props post index");
     console.log(this.props.posts);
     console.log(newProps);
+    this.props = newProps;
   },
 
 
