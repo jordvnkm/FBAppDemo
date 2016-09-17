@@ -168,6 +168,7 @@ const PageApiUtil = {
 
   uploadVideoAsPerson: function(pageId, image, content, accessToken, successCB, errorCB){
     let url = `${pageId}/videos`;
+    let isPublished = true;
     FB.api( url, 'post', {access_token: accessToken, file_url: image.url, published: isPublished, description: content}, (response) =>{
       if (!response){
         errorCB("ERROR Occured");

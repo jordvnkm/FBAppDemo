@@ -48,7 +48,11 @@ The user may also choose between posting the content in the voice of the Page th
 
 
 ## Publishing Photo / Video with Cloudinary
-When creating posts, the user may choose to add 
+When creating posts, the user may choose to add a photo or video to their content.  The image or video is hosted on cloudinary and the url is then used as the file_url in the Graph api POST request.
+
+[route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
+
+[route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
 
 ## Creating comments as Page or Individual
 
