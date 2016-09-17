@@ -25,53 +25,56 @@ The different pages are displayed and the user can click on a specific account t
 ## Page insights
 When navigated to the account page, the application makes calls to the Facebook Graph Api to retrieve the account's feed.  The feed may be further filtered to only show the account's published or unpublished posts.
 
-[route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
+![route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
 
-Insight metrics are also retrieved using the Post/insights/metrics edge.  Currently, the following metrics are gathered once the component is mounted.  
+Page insight metrics are also retrieved using the Page/insights/metrics edge.  Currently, the following metrics are gathered once the component is mounted.  
 
-[route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
+![route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
 
 Additional metrics can replace or be added to the current metrics by simply changing the request url shown below:
 
-[route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
+![route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
 
 
 
 ## Creating posts as Page or Individual
 Users may create both published and unpublished posts using the page manager application.  All the user needs to do is click one of the "published" or "unpublished" radio buttons.  
 
-[route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
+![route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
 
 The user may also choose between posting the content in the voice of the Page they are managing or in voice of their own personal account.  When making the Graph api call, an additional request for the page access token is made if the POST request is made in the voice of the Page.
 
-[route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
+![route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
 
 
 ## Publishing Photo / Video with Cloudinary
 When creating posts, the user may choose to add a photo or video to their content.  The image or video is hosted on cloudinary and the url is then used as the file_url in the Graph api POST request.
 
-[route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
+![route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
 
-[route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
+![route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
 
 ## Creating comments as Page or Individual
 Creating comments takes a similar approach to creating posts.  Depending on the user's choice, the comment may be posted in the voice of the Page or in the voice of the individual.  For a post in the Page's voice, all that is needed is an extra call to obtain the Page access token.
 
-[route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
+![route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
 
 
 ## Deleting posts and comments
 To delete a post or comment, the user may click on the delete button which triggers a DELETE request to the Graph Api.
 
-[route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
+![route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
 
 
+## Post Detail and Insights
+When browsing through the a Page account, the user may choose to view a post's details.  This will take the user to the PostDetail component, which displays the post's content as well as the insights for that post. Post insights are gathered through the Post/insights/metrics edge. Currently, the following metrics are gathered for each post:
 
+![route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
 
+Similarly to the Page insight metrics, the Post insight metrics can easily be changed by adapting the following url:
 
-## Post Insights
-
-
+![route_form](https://github.com/jordvnkm/fitnessApp/blob/master/docs/route_form.png)
 
 
 ## Real time updates with Pusher
+Facebook page manager utilizes Facebook's webhooks to get a pages real time updates.
