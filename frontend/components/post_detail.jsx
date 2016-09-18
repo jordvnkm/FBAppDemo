@@ -66,7 +66,6 @@ const PostDetail = React.createClass({
       hashHistory.push(url);
     }
     else {
-      console.log(PostStore.getCurrentPost());
       this.setState({authorImageUrl: PostStore.getProfileImage(this.props.params.postId) ,
         post: PostStore.getCurrentPost()});
     }
