@@ -29,9 +29,7 @@ const PageActions = {
   },
 
   createPostAsPage: function(pageId, image, content, isPublished){
-    console.log("create Post as page");
     if (image == undefined){
-      console.log("image undefined")
       PageApiUtil.createPostAsPage(pageId, content, isPublished, PageActions.receivePostCreated, PageActions.handleError);
     }
     else {
@@ -42,8 +40,7 @@ const PageActions = {
         PageApiUtil.uploadPhotoAsPage(pageId, image, content, isPublished, PageActions.receiveFileUploaded, PageActions.handleError);
       }
       else {
-        console.log("unsupported file format");
-        PageApiUtil.handleError({error: "unsupported file format"});
+        PageApiUtil.handleError({message: "unsupported file format"});
       }
     }
   },
@@ -60,7 +57,7 @@ const PageActions = {
         PageApiUtil.uploadPhotoAsPerson(pageId, image, content, access_token, PageActions.receiveFileUploaded, PageActions.handleError);
       }
       else {
-        PageApiUtil.handleError({error: "unsupported file format"});
+        PageApiUtil.handleError({message: "unsupported file format"});
       }
     }
   },
@@ -92,18 +89,10 @@ const PageActions = {
 
   receiveVideoUploaded: function(response, isPublished, pageId){
       if (isPublished){
-        console.log("published video")
-        // console.log(pageId);
-        // PageApiUtil.envokeRefetch();
-        // PageApiUtil.fetchFeed(pageId, PageActions.receiveFeed, PageActions.handleError);
-        // PageApiUtil.fetchPublishedPosts(pageId, PageActions.receivePublishedPosts, PageActions.handleError);
       }
       else {
         PageApiUtil.fetchUnpublishedPosts(pageId, PageActions.receiveUnpublishedPosts, PageActions.handleError);
       }
-    // let postId = pageId + "_" + response.id;
-    // PageApiUtil.fetchPost(postId, isPublished, PageActions.receivePost, PageActions.handleError, 0);
-    // PageApiUtil.fetchVideo(pageId, response.id, isPublished, PageActions.receivePost, PageActions.handleError);
   },
 
   receiveFileUploaded: function(response, isPublished, pageId){
@@ -148,7 +137,6 @@ const PageActions = {
   },
 
   receivePublishedPosts: function(response){
-    console.log(response);
     AppDispatcher.dispatch({
       actionType: PageConstants.PUBLISHED_POSTS_RECEIVED,
       posts: response.data,
@@ -166,8 +154,6 @@ const PageActions = {
 
 
   receivePost: function(post, isPublished){
-    console.log("Post received");
-    console.log(post);
     AppDispatcher.dispatch({
       actionType: PageConstants.POST_RECEIVED,
       post: post,
@@ -177,10 +163,17 @@ const PageActions = {
 
 
   handleError: function(error){
-    console.log(error);
+    let message;
+    if (error.message){
+      message = error.message;
+    }
+    else {
+      message = error;
+    }
+
     AppDispatcher.dispatch({
-      actionType: ErrorConstants.ERROR,
-      errors: error
+      actionType: ErrorConstants.ERRORS_RECEIVED,
+      errors: message
     });
   }
 

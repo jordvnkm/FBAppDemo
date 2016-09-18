@@ -3,6 +3,7 @@ const AppDispatcher = require("../dispatcher/dispatcher");
 const CommentConstants = require("../constants/comment_constants");
 const PostConstants = require("../constants/post_constants");
 const InsightConstants = require("../constants/insight_constants");
+const ErrorConstants = require("../constants/error_constants");
 
 const PostActions = {
   publishPost: function(post){
@@ -70,7 +71,6 @@ const PostActions = {
   },
 
   receivePostInsights: function(response, postId){
-    console.log(response);
     AppDispatcher.dispatch({
       actionType: InsightConstants.INSIGHTS_RECEIVED,
       insights: response.data,
@@ -80,7 +80,18 @@ const PostActions = {
   },
 
   handleError: function(error){
-    console.log(error);
+    let message;
+    if (error.message){
+      message = error.message;
+    }
+    else {
+      message = error;
+    }
+
+    AppDispatcher.dispatch({
+      actionType: ErrorConstants.ERRORS_RECEIVED,
+      errors: message
+    });
   }
 };
 

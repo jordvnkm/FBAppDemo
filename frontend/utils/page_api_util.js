@@ -159,7 +159,6 @@ const PageApiUtil = {
           errorCB(response.error);
         }
         else {
-          console.log(response);
           successCB(response , isPublished)
         }
       }.bind(this));

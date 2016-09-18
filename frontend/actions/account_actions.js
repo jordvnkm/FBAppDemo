@@ -39,10 +39,17 @@ const AccountActions = {
   },
 
   handleError: function(error){
-    console.log(error);
+    let message;
+    if (error.message){
+      message = error.message;
+    }
+    else {
+      message = error;
+    }
+
     AppDispatcher.dispatch({
-      actionType: ErrorConstants.ERROR,
-      errors: error
+      actionType: ErrorConstants.ERRORS_RECEIVED,
+      errors: message
     });
   }
 };

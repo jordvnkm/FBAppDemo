@@ -6,17 +6,20 @@ const PageActions = require("../actions/page_actions");
 const InsightStore = require("../stores/insight_store");
 const CommentActions = require("../actions/comment_actions");
 const hashHistory = require("react-router").hashHistory;
+const ErrorStore = require("../stores/error_store");
 
 const CommentsIndex = require("./comments_index");
 const NavBar = require("./navbar");
 const CreateCommentForm = require("./create_comment_form");
 const DeleteButton = require("./delete_button");
 const InsightsIndex = require("./insights_index");
+const Errors = require("./errors");
 
 const PostDetail = React.createClass({
 
   getInitialState: function(){
-    return {insights: [], authorImageUrl: "", comments: [], post: PostStore.getCurrentPost()};
+    return {insights: [], authorImageUrl: "", comments: [], post: PostStore.getCurrentPost(),
+            errors: []};
   },
 
 
@@ -24,6 +27,7 @@ const PostDetail = React.createClass({
     this.commentListener = CommentStore.addListener(this.commentChange);
     this.postListener = PostStore.addListener(this.postChange);
     this.insightListener = InsightStore.addListener(this.insightChange);
+    this.errorListener = ErrorStore.addListener(this.errorChange);
     if (window.FB == undefined){
       this.loadFBSDK();
     }
@@ -42,13 +46,12 @@ const PostDetail = React.createClass({
   },
 
   componentWillUnmount: function(){
-    // let pageId = this.props.params.postId.split("_")[0];
-    // PageActions.unsubscribeToUpdates(pageId);
     window.channel.unbind('account_update', this.updateReceived);
 
     this.commentListener.remove();
     this.postListener.remove();
     this.insightListener.remove();
+    this.errorListener.remove();
     PostStore.resetCurrentPost();
   },
 
@@ -199,6 +202,16 @@ const PostDetail = React.createClass({
     }
   },
 
+  errorChange: function(){
+    this.setState({errors: ErrorStore.getErrors()});
+  },
+
+  errors: function(){
+    if (this.state.errors.length > 0){
+      return <Errors errors={this.state.errors}/>
+    }
+  },
+
   render: function(){
     let pageId = this.props.params.postId.split("_")[0];
 
@@ -209,6 +222,7 @@ const PostDetail = React.createClass({
           <div className="postDetailInfoContainer">
             <div>
               {this.postInfo()}
+              {this.errors()}
             </div>
           </div>
           <div className="postDetailForms">

@@ -1,6 +1,9 @@
 const CommentApiUtil = require("../utils/comment_api_util");
 const AppDispatcher = require("../dispatcher/dispatcher");
 const CommentConstants = require("../constants/comment_constants");
+const ErrorConstants = require("../constants/error_constants");
+
+
 
 const CommentActions = {
 
@@ -38,8 +41,19 @@ const CommentActions = {
     })
   },
 
-  handleError: function(response){
-    console.log(response)
+  handleError: function(error){
+    let message;
+    if (error.message){
+      message = error.message;
+    }
+    else {
+      message = error;
+    }
+
+    AppDispatcher.dispatch({
+      actionType: ErrorConstants.ERRORS_RECEIVED,
+      errors: message
+    });
   }
 };
 

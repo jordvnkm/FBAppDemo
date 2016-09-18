@@ -1,5 +1,5 @@
 
 
 module.exports = {
-  ERROR: "ERROR"
+  ERRORS_RECEIVED: "ERRORS_RECEIVED"
 };

@@ -71,6 +71,7 @@ PostStore.__onDispatch = function(payload){
       _allPostsGathered = true;
       console.log("posts gathered");
       PostStore.__emitChange();
+      break;
   }
 };
 

@@ -5,22 +5,24 @@ const PageActions = require("../actions/page_actions");
 const AccountStore = require("../stores/account_store");
 const AccountActions = require("../actions/account_actions");
 const UpdateActions = require("../actions/update_actions");
-
+const ErrorStore = require("../stores/error_store");
 
 const NavBar = require("./navbar");
 const CreatePostForm = require("./create_post_form");
 const PostsIndex = require("./posts_index");
 const AccountInformation = require("./account_information");
-
+const Errors = require("./errors");
 
 const AccountPage = React.createClass({
   getInitialState: function(){
-    return {feed : [], feedOption: "pageFeed" , account: AccountStore.getAccount()};
+    return {feed : [], feedOption: "pageFeed" , account: AccountStore.getAccount(),
+            errors: []};
   },
 
   componentDidMount: function(){
     this.postListener = PostStore.addListener(this.postChange);
     this.accountListener = AccountStore.addListener(this.accountChange);
+    this.errorListener = ErrorStore.addListener(this.errorChange);
     if (window.FB == undefined){
       this.loadFBSDK();
     }
@@ -40,10 +42,10 @@ const AccountPage = React.createClass({
   },
 
   componentWillUnmount: function(){
-    // PageActions.unsubscribeToUpdates(this.props.params.account_id);
     window.channel.unbind('account_update', this.updateReceived);
     this.postListener.remove();
     this.accountListener.remove();
+    this.errorListener.remove();
     AccountStore.resetCurrentAccount();
   },
 
@@ -201,6 +203,16 @@ const AccountPage = React.createClass({
     }
   },
 
+  errorChange: function(){
+    this.setState({errors: ErrorStore.getErrors()});
+  },
+
+  errors: function(){
+    if (this.state.errors.length > 0){
+      return <Errors errors={this.state.errors}/>
+    }
+  },
+
   render: function(){
     return(
       <div className="accountPage">
@@ -210,6 +222,7 @@ const AccountPage = React.createClass({
             <div className="accountInformation">
               {this.accountInfo()}
               {this.feedOptions()}
+              {this.errors()}
             </div>
           </div>
           <div className="postInformation">
