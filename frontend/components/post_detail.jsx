@@ -43,13 +43,13 @@ const PostDetail = React.createClass({
 
   componentWillUnmount: function(){
     let pageId = this.props.params.postId.split("_")[0];
+    PageActions.unsubscribeToUpdates(pageId);
+    window.channel.unbind('account_update', this.updateReceived);
 
     this.commentListener.remove();
     this.postListener.remove();
     this.insightListener.remove();
     PostStore.resetCurrentPost();
-    PageActions.unsubscribeToUpdates(pageId);
-    window.channel.unbind('account_update', this.updateReceived);
   },
 
   insightChange: function(){

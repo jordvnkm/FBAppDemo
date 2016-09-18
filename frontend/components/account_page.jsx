@@ -51,11 +51,11 @@ const AccountPage = React.createClass({
   },
 
   componentWillUnmount: function(){
+    PageActions.unsubscribeToUpdates(this.props.params.account_id);
+    window.channel.unbind('account_update', this.updateReceived);
     this.postListener.remove();
     this.accountListener.remove();
     AccountStore.resetCurrentAccount();
-    PageActions.unsubscribeToUpdates(this.props.params.account_id);
-    window.channel.unbind('account_update', this.updateReceived);
   },
 
   accountChange: function(){
