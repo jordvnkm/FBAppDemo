@@ -29,14 +29,6 @@ const AccountPage = React.createClass({
     }
 
     Pusher.logToConsole = true;
-
-    // var pusher = new Pusher('f0ed6004e66da55f7fbf', {
-    //   encrypted: true
-    // });
-    // var channel = window.pusher.subscribe('account_update');
-    // var channel = window.pusher;
-
-
     window.channel.bind('account_update', this.updateReceived);
   },
 

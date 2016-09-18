@@ -77,7 +77,7 @@ const HomePage = React.createClass({
   render: function(){
     return (
       <div id="homePageContent">
-        <NavBar />
+        <NavBar pageId={undefined}/>
         <div className="accountsContainer">
           <span className="homepageHeader">My Pages</span>
           <AccountsIndex accounts={this.state.accounts}/>

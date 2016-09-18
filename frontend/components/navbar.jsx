@@ -11,7 +11,9 @@ const NavBar = React.createClass({
   logout: function(){
     if (window.FB != undefined){
       FB.logout(function(response){
-        PageActions.unsubscribeToUpdates(this.props.pageid)
+        if (this.props.pageId){
+          PageActions.unsubscribeToUpdates(this.props.pageId)
+        }
         hashHistory.push('/')
       }.bind(this));
     }
@@ -20,7 +22,9 @@ const NavBar = React.createClass({
   homeButtonClicked: function(){
     if (window.FB !== undefined){
       FB.api('/me', function(response){
-        PageActions.unsubscribeToUpdates(this.props.pageId)
+        if (this.props.pageId){
+          PageActions.unsubscribeToUpdates(this.props.pageId)
+        }
         let url = `user/${response.id}`
         hashHistory.push(url);
       }.bind(this))

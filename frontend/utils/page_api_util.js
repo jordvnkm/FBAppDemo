@@ -7,8 +7,7 @@ const PageApiUtil = {
       let url = `${pageId}/subscribed_apps`;
       FB.api( url, 'post', {access_token: token}, (response) =>{
         if (!response){
-          console.log("no resposne form subscribe")
-          errorCB("ERROR Occured");
+          errorCB("No response from subscribeToUpdates");
         }
         else if (response.error){
           console.log(response);
@@ -27,10 +26,10 @@ const PageApiUtil = {
       let url = `${pageId}/subscribed_apps`;
       FB.api( url, 'delete', {access_token: token}, (response) =>{
         if (!response){
-          errorCB("Error occurred");
+          errorCB("No response from unsubscribeToUpdates");
         }
         else if (response.error){
-          errorCB(response.error);
+          errorCB(response);
         }
         else {
           console.log("unsubsubscribed to page");
