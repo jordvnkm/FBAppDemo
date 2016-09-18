@@ -26,8 +26,8 @@ const PostDetail = React.createClass({
     this.insightListener = InsightStore.addListener(this.insightChange);
 
 
-    var channel = window.pusher.subscribe('account_update');
-    channel.bind('account_update', function(data) {
+    // var channel = window.pusher;
+    window.channel.bind('account_update', function(data) {
       PostActions.fetchComments(this.props.params.postId);
     }.bind(this));
 
@@ -48,6 +48,7 @@ const PostDetail = React.createClass({
     this.insightListener.remove();
     PostStore.resetCurrentPost();
     PageActions.unsubscribeToUpdates(pageId);
+    window.channel.unbind('account_update', function(){});
   },
 
   insightChange: function(){
