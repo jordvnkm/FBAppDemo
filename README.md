@@ -18,7 +18,7 @@ Once a user has logged in using the login component, the application uses the fo
 
 ![account_api_call](https://github.com/jordvnkm/FBAppDemo/blob/master/docs/account_api_call.png)
 
-![homepage](https://github.com/jordvnkm/FBAppDemo/blob/master/docs/route_form.png)
+![homepage](https://github.com/jordvnkm/FBAppDemo/blob/master/docs/homepage.png)
 
 The different pages are displayed and the user can click on a specific account to see further details.
 

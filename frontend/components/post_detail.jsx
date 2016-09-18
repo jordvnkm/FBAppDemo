@@ -24,6 +24,19 @@ const PostDetail = React.createClass({
     this.commentListener = CommentStore.addListener(this.commentChange);
     this.postListener = PostStore.addListener(this.postChange);
     this.insightListener = InsightStore.addListener(this.insightChange);
+
+
+    var pusher = new Pusher('f0ed6004e66da55f7fbf', {
+      encrypted: true
+    });
+
+
+    var channel = pusher.subscribe('account_update');
+    channel.bind('account_update', function(data) {
+      PostActions.fetchComments(this.props.post.id);
+    }.bind(this));
+
+
     if (window.FB == undefined){
       this.loadFBSDK();
     }
@@ -33,10 +46,13 @@ const PostDetail = React.createClass({
   },
 
   componentWillUnmount: function(){
+    let pageId = this.props.params.postId.split("_")[0];
+
     this.commentListener.remove();
     this.postListener.remove();
     this.insightListener.remove();
     PostStore.resetCurrentPost();
+    PageActions.unsubscribeToUpdates(pageId);
   },
 
   insightChange: function(){
@@ -65,6 +81,9 @@ const PostDetail = React.createClass({
   statusChangeCallback: function(response){
     if (response.status == "connected"){
       this.accessToken = response.authResponse.accessToken;
+
+      let pageId = this.props.params.postId.split("_")[0];
+      PageActions.subscribeToUpdates(pageId);
 
 
       PostActions.fetchPostInsights(this.props.params.postId);
