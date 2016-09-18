@@ -51,8 +51,8 @@ const AccountPage = React.createClass({
   },
 
   componentWillUnmount: function(){
-    PageActions.unsubscribeToUpdates(this.props.params.account_id);
-    window.channel.unbind('account_update', this.updateReceived);
+    // PageActions.unsubscribeToUpdates(this.props.params.account_id);
+    // window.channel.unbind('account_update', this.updateReceived);
     this.postListener.remove();
     this.accountListener.remove();
     AccountStore.resetCurrentAccount();
@@ -215,7 +215,7 @@ const AccountPage = React.createClass({
   render: function(){
     return(
       <div className="accountPage">
-        <NavBar />
+        <NavBar pageId={this.props.params.account_id}/>
         <div className="accountContent">
           <div className="accountInfoContainer">
             <div className="accountInformation">

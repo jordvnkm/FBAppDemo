@@ -1,5 +1,6 @@
 const React = require("react");
 const hashHistory = require("react-router").hashHistory;
+const PageActions = require("../actions/page_actions");
 
 
 const LogoutButton = require("./logout_button");
@@ -10,17 +11,19 @@ const NavBar = React.createClass({
   logout: function(){
     if (window.FB != undefined){
       FB.logout(function(response){
-        hashHistory.push('/');
-      });
+        PageActions.unsubscribeToUpdates(this.props.pageid)
+        hashHistory.push('/')
+      }.bind(this));
     }
   },
 
   homeButtonClicked: function(){
     if (window.FB !== undefined){
       FB.api('/me', function(response){
+        PageActions.unsubscribeToUpdates(this.props.pageId)
         let url = `user/${response.id}`
-        hashHistory.push(url)
-      })
+        hashHistory.push(url);
+      }.bind(this))
     }
   },
 

@@ -42,9 +42,9 @@ const PostDetail = React.createClass({
   },
 
   componentWillUnmount: function(){
-    let pageId = this.props.params.postId.split("_")[0];
-    PageActions.unsubscribeToUpdates(pageId);
-    window.channel.unbind('account_update', this.updateReceived);
+    // let pageId = this.props.params.postId.split("_")[0];
+    // PageActions.unsubscribeToUpdates(pageId);
+    // window.channel.unbind('account_update', this.updateReceived);
 
     this.commentListener.remove();
     this.postListener.remove();
@@ -200,9 +200,11 @@ const PostDetail = React.createClass({
   },
 
   render: function(){
+    let pageId = this.props.params.postId.split("_")[0];
+
     return (
       <div className="postDetail">
-        <NavBar />
+        <NavBar pageId={pageId}/>
         <div className="postDetailContent">
           <div className="postDetailInfoContainer">
             <div>
