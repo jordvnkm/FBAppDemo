@@ -50,18 +50,18 @@ const AccountPage = React.createClass({
   },
 
   accountChange: function(){
-    this.setState({account: AccountStore.getAccount()});
+    this.setState({errors: [], account: AccountStore.getAccount()});
   },
 
   postChange: function(){
     if (this.state.feedOption == "pageFeed"){
-      this.setState({feed: PostStore.getFeed()});
+      this.setState({errors: [] , feed: PostStore.getFeed()});
     }
     else if (this.state.feedOption == "published") {
-      this.setState({feed: PostStore.getPublishedPosts()});
+      this.setState({errors: [] , feed: PostStore.getPublishedPosts()});
     }
     else if (this.state.feedOption === "unpublished") {
-      this.setState({feed: PostStore.getUnpublishedPosts()});
+      this.setState({errors: [] , feed: PostStore.getUnpublishedPosts()});
     }
   },
 
@@ -73,7 +73,7 @@ const AccountPage = React.createClass({
       PageActions.subscribeToUpdates(this.props.params.account_id);
     }
     else {
-      console.log("not connected from account page");
+      hashHistory.push("/");
 
     }
   },

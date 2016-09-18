@@ -57,7 +57,7 @@ const PostDetail = React.createClass({
   },
 
   insightChange: function(){
-    this.setState({insights: InsightStore.getInsights(this.props.params.postId)});
+    this.setState({errors: [] , insights: InsightStore.getInsights(this.props.params.postId)});
   },
 
   postChange: function(){
@@ -67,14 +67,14 @@ const PostDetail = React.createClass({
       hashHistory.push(url);
     }
     else {
-      this.setState({authorImageUrl: PostStore.getProfileImage(this.props.params.postId) ,
+      this.setState({errors: [] , authorImageUrl: PostStore.getProfileImage(this.props.params.postId) ,
         post: PostStore.getCurrentPost()});
     }
 
   },
 
   commentChange: function(){
-    this.setState({comments: CommentStore.getComments(this.props.params.postId)});
+    this.setState({errors: [] , comments: CommentStore.getComments(this.props.params.postId)});
     PostActions.fetchPostInsights(this.props.params.postId);
   },
 
@@ -92,7 +92,7 @@ const PostDetail = React.createClass({
       PageActions.subscribeToUpdates(pageId);
     }
     else {
-      console.log("not connected from post detail");
+      hashHistory.push('/');
     }
   },
 

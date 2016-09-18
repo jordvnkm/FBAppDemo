@@ -21,7 +21,6 @@ const LoginPage = React.createClass({
       hashHistory.push(url)
     }
     else {
-      console.log("not connected from loginPage");
     }
   },
 
