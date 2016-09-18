@@ -21,6 +21,12 @@ const AccountPage = React.createClass({
   componentDidMount: function(){
     this.postListener = PostStore.addListener(this.postChange);
     this.accountListener = AccountStore.addListener(this.accountChange);
+    if (window.FB == undefined){
+      this.loadFBSDK();
+    }
+    else {
+      this.checkLoginState();
+    }
 
     Pusher.logToConsole = true;
 
@@ -32,6 +38,7 @@ const AccountPage = React.createClass({
     // var channel = window.pusher.subscribe('account_update');
     // var channel = window.pusher;
     window.channel.bind('account_update', function(data) {
+      console.log(this.props.params.account_id);
       PageActions.fetchFeed(this.props.params.account_id);
       PageActions.fetchPublishedPosts(this.props.params.account_id);
       PageActions.fetchUnpublishedPosts(this.props.params.account_id);
@@ -39,12 +46,6 @@ const AccountPage = React.createClass({
     }.bind(this));
 
 
-    if (window.FB == undefined){
-      this.loadFBSDK();
-    }
-    else {
-      this.checkLoginState();
-    }
   },
 
   componentWillUnmount: function(){
