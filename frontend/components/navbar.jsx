@@ -10,10 +10,10 @@ const NavBar = React.createClass({
 
   logout: function(){
     if (window.FB != undefined){
+      if (this.props.pageId !== undefined){
+        PageActions.unsubscribeToUpdates(this.props.pageId)
+      }
       FB.logout(function(response){
-        if (this.props.pageId){
-          PageActions.unsubscribeToUpdates(this.props.pageId)
-        }
         hashHistory.push('/')
       }.bind(this));
     }
@@ -21,10 +21,10 @@ const NavBar = React.createClass({
 
   homeButtonClicked: function(){
     if (window.FB !== undefined){
+      if (this.props.pageId !== undefined){
+        PageActions.unsubscribeToUpdates(this.props.pageId)
+      }
       FB.api('/me', function(response){
-        if (this.props.pageId){
-          PageActions.unsubscribeToUpdates(this.props.pageId)
-        }
         let url = `user/${response.id}`
         hashHistory.push(url);
       }.bind(this))

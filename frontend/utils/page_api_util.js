@@ -10,7 +10,6 @@ const PageApiUtil = {
           errorCB("No response from subscribeToUpdates");
         }
         else if (response.error){
-          console.log(response);
           errorCB(response.error);
         }
         else {
@@ -29,7 +28,7 @@ const PageApiUtil = {
           errorCB("No response from unsubscribeToUpdates");
         }
         else if (response.error){
-          errorCB(response);
+          errorCB(response.error);
         }
         else {
           console.log("unsubsubscribed to page");
@@ -45,7 +44,7 @@ const PageApiUtil = {
         successCB(type, response);
       },
       error: function(response){
-        errorCB(response);
+        errorCB(response.error);
       }
     })
   },
@@ -56,7 +55,7 @@ const PageApiUtil = {
       let url = `${postId}`;
       FB.api( url, 'delete', {access_token: token}, (response) =>{
         if (!response){
-          errorCB("ERROR Occured");
+          errorCB("No response from deletePublishedPosts");
         }
         else if (response.error){
           errorCB(response.error);
@@ -74,7 +73,7 @@ const PageApiUtil = {
       let url = `${postId}`;
       FB.api( url, 'delete', {access_token: token}, (response) =>{
         if (!response){
-          errorCB("ERROR Occured");
+          errorCB("No response from deleteUnpublishedPost");
         }
         else if (response.error){
           errorCB(response.error);
@@ -154,7 +153,7 @@ const PageApiUtil = {
       let url = `${postId}?fields=from,message,id,full_picture,caption,source,is_published`
       FB.api(url, {access_token: token, is_published: isPublished} , function(response){
         if (!response){
-          errorCB("ERROR Occured");
+          errorCB("No response from fetch post");
         }
         else if (response.error){
           errorCB(response.error);
@@ -172,7 +171,7 @@ const PageApiUtil = {
     let isPublished = true;
     FB.api( url, 'post', {access_token: accessToken, file_url: image.url, published: isPublished, description: content}, (response) =>{
       if (!response){
-        errorCB("ERROR Occured");
+        errorCB("No response from upload video as person");
       }
       else if (response.error){
         errorCB(response.error);
@@ -189,7 +188,7 @@ const PageApiUtil = {
       let url = `${pageId}/videos`;
       FB.api( url, 'post', {access_token: token, file_url: image.url, published: isPublished, description: content}, (response) =>{
         if (!response){
-          errorCB("ERROR Occured");
+          errorCB("No response from upload video as page");
         }
         else if (response.error){
           errorCB(response.error);
@@ -208,7 +207,7 @@ const PageApiUtil = {
       let url = `${pageId}/photos`;
       FB.api( url, 'post', {access_token: token, url: image.url, published: isPublished, caption: content}, (response) =>{
         if (!response){
-          errorCB("ERROR Occured");
+          errorCB("No response from upload photo as page");
         }
         else if (response.error){
           errorCB(response.error);
@@ -225,7 +224,7 @@ const PageApiUtil = {
     FB.api(`${pageId}/photos`, 'post', {access_token: accessToken, url: image.url, caption: content}, (response) =>{
       let isPublished = true;
       if (!response){
-        errorCB("ERROR Occured");
+        errorCB("No response from upload photo as person");
       }
       else if (response.error){
         errorCB(response.error);
@@ -242,15 +241,12 @@ const PageApiUtil = {
       let url = `${pageId}/feed`;
       FB.api( url, 'post', {access_token: token, published: isPublished, message: content}, (response) =>{
         if (!response){
-          console.log('error')
-          errorCB("ERROR Occured");
+          errorCB("No response from create post as page");
         }
         else if (response.error){
-          console.log(response);
           errorCB(response.error);
         }
         else {
-          console.log(response);
           successCB(response , isPublished, pageId)
         }
       })
@@ -262,7 +258,7 @@ const PageApiUtil = {
     FB.api(`${pageId}/feed`, 'post', {access_token: accessToken, message: content}, (response) =>{
       let isPublished = true;
       if (!response){
-        errorCB("ERROR Occured");
+        errorCB("No response from create post as person");
       }
       else if (response.error){
         errorCB(response.error);
