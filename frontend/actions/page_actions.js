@@ -177,6 +177,7 @@ const PageActions = {
 
 
   handleError: function(error){
+    console.log(error);
     AppDispatcher.dispatch({
       actionType: ErrorConstants.ERROR,
       errors: error

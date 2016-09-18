@@ -7,9 +7,11 @@ const PageApiUtil = {
       let url = `${pageId}/subscribed_apps`;
       FB.api( url, 'post', {access_token: token}, (response) =>{
         if (!response){
+          console.log("no resposne form subscribe")
           errorCB("ERROR Occured");
         }
         else if (response.error){
+          console.log(response);
           errorCB(response.error);
         }
         else {
