@@ -3,7 +3,7 @@ const UpdateConstants = require('../constants/update_constants');
 const AppDispatcher = require("../dispatcher/dispatcher");
 
 const UpdateActions = {
-  updateReceived: function(){
+  broadcastUpdate: function(){
     AppDispatcher.dispatch({
       actionType: UpdateConstants.UPDATE_RECEIVED
     })

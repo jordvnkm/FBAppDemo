@@ -4,6 +4,7 @@ const PostStore = require("../stores/post_store");
 const PageActions = require("../actions/page_actions");
 const AccountStore = require("../stores/account_store");
 const AccountActions = require("../actions/account_actions");
+const UpdateActions = require("../actions/update_actions");
 
 
 const NavBar = require("./navbar");
@@ -33,6 +34,7 @@ const AccountPage = React.createClass({
       PageActions.fetchFeed(this.props.params.account_id);
       PageActions.fetchPublishedPosts(this.props.params.account_id);
       PageActions.fetchUnpublishedPosts(this.props.params.account_id);
+      UpdateActions.broadcastUpdate();
     }.bind(this));
 
 

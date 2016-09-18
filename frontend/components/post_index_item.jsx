@@ -8,6 +8,7 @@ const CommentStore = require("../stores/comment_store");
 const CommentsIndex = require("./comments_index");
 const PostActions = require("../actions/post_actions");
 const CommentActions = require("../actions/comment_actions");
+const UpdateStore = require("../stores/update_store");
 
 const PostIndexItem = React.createClass({
   getInitialState: function(){

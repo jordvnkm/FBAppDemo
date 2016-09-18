@@ -13,6 +13,7 @@ UpdateStore.__onDispatch = function(payload){
   switch (payload.actionType){
     case UpdateConstants.UPDATE_RECEIVED:
       UpdateStore.__emitChange();
+      break;
   }
 }
 
