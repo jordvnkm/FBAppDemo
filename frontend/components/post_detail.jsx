@@ -35,6 +35,7 @@ const PostDetail = React.createClass({
       this.checkLoginStatus();
     }
 
+    // Pusher.logToConsole = true;
 
     window.channel.bind('account_update', this.updateReceived);
 

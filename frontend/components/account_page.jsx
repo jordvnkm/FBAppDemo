@@ -30,7 +30,7 @@ const AccountPage = React.createClass({
       this.checkLoginState();
     }
 
-    Pusher.logToConsole = true;
+    // Pusher.logToConsole = true;
     window.channel.bind('account_update', this.updateReceived);
   },
 

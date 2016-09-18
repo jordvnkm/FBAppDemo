@@ -13,7 +13,6 @@ const PageApiUtil = {
           errorCB(response.error);
         }
         else {
-          console.log("subscribed to page");
         }
       })
     }.bind(this))
@@ -31,7 +30,6 @@ const PageApiUtil = {
           errorCB(response.error);
         }
         else {
-          console.log("unsubsubscribed to page");
         }
       })
     }.bind(this))

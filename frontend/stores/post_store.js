@@ -69,7 +69,6 @@ PostStore.__onDispatch = function(payload){
       break;
     case PageConstants.ALL_POSTS_GATHERED:
       _allPostsGathered = true;
-      console.log("posts gathered");
       PostStore.__emitChange();
       break;
   }
