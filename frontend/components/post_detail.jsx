@@ -26,14 +26,9 @@ const PostDetail = React.createClass({
     this.insightListener = InsightStore.addListener(this.insightChange);
 
 
-    var pusher = new Pusher('f0ed6004e66da55f7fbf', {
-      encrypted: true
-    });
 
-
-    var channel = pusher.subscribe('account_update');
-    channel.bind('account_update', function(data) {
-      PostActions.fetchComments(this.props.post.id);
+    window.channel.bind('account_update', function(data) {
+      PostActions.fetchComments(this.props.params.postId);
     }.bind(this));
 
 
