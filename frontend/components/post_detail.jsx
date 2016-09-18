@@ -26,8 +26,8 @@ const PostDetail = React.createClass({
     this.insightListener = InsightStore.addListener(this.insightChange);
 
 
-
-    window.channel.bind('account_update', function(data) {
+    var channel = window.pusher.subscribe('account_update');
+    channel.bind('account_update', function(data) {
       PostActions.fetchComments(this.props.params.postId);
     }.bind(this));
 

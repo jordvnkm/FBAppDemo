@@ -27,10 +27,10 @@ const AccountPage = React.createClass({
     // var pusher = new Pusher('f0ed6004e66da55f7fbf', {
     //   encrypted: true
     // });
-    //
-    //
-    // var channel = pusher.subscribe('account_update');
-    window.channel.bind('account_update', function(data) {
+
+
+    var channel = window.pusher.subscribe('account_update');
+    channel.bind('account_update', function(data) {
       PageActions.fetchFeed(this.props.params.account_id);
       PageActions.fetchPublishedPosts(this.props.params.account_id);
       PageActions.fetchUnpublishedPosts(this.props.params.account_id);
