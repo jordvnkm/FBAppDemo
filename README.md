@@ -1,5 +1,7 @@
 # Facebook Page Manager
-Facebook page manager is an application to monitor and update pages owned by a Facebook user.  The application utilizes a lightweight representation of pages and posts to allow a user to interact with their target audience.
+Facebook page manager is a single page application to monitor and update pages owned by a Facebook user.  The application utilizes a lightweight representation of pages and posts to allow a user to interact with their target audience.  
+
+The application uses a React/JavaScript front end, with a Rails backend.  The flux pattern is used to handle the flow of information between the stores, components, actions, Facebook api, and the dispatcher.
 
 ##Login
 Facebook page manager utilizes the Facebook login component to authenticate users. There is no need for a user table as Facebook takes care of all the storage and authentication.  Users of the page manager need to grant the following permissions to the application:

@@ -24,20 +24,21 @@ const PostDetail = React.createClass({
     this.commentListener = CommentStore.addListener(this.commentChange);
     this.postListener = PostStore.addListener(this.postChange);
     this.insightListener = InsightStore.addListener(this.insightChange);
-
-
-    // var channel = window.pusher;
-    window.channel.bind('account_update', function(data) {
-      PostActions.fetchComments(this.props.params.postId);
-    }.bind(this));
-
-
     if (window.FB == undefined){
       this.loadFBSDK();
     }
     else {
       this.checkLoginStatus();
     }
+
+
+    window.channel.bind('account_update', this.updateReceived);
+
+
+  },
+
+  updateReceived: function(){
+    PostActions.fetchComments(this.props.params.postId);
   },
 
   componentWillUnmount: function(){
@@ -48,7 +49,7 @@ const PostDetail = React.createClass({
     this.insightListener.remove();
     PostStore.resetCurrentPost();
     PageActions.unsubscribeToUpdates(pageId);
-    window.channel.unbind('account_update', function(){});
+    window.channel.unbind('account_update', this.updateReceived);
   },
 
   insightChange: function(){
