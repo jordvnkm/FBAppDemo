@@ -37,15 +37,17 @@ const AccountPage = React.createClass({
 
     // var channel = window.pusher.subscribe('account_update');
     // var channel = window.pusher;
-    window.channel.bind('account_update', function(data) {
+    window.channel.bind('account_update', this.updateReceived);
+
+
+  },
+
+  updateReceived: function(data){
       console.log(this.props.params.account_id);
       PageActions.fetchFeed(this.props.params.account_id);
       PageActions.fetchPublishedPosts(this.props.params.account_id);
       PageActions.fetchUnpublishedPosts(this.props.params.account_id);
       UpdateActions.broadcastUpdate();
-    }.bind(this));
-
-
   },
 
   componentWillUnmount: function(){
@@ -53,7 +55,7 @@ const AccountPage = React.createClass({
     this.accountListener.remove();
     AccountStore.resetCurrentAccount();
     PageActions.unsubscribeToUpdates(this.props.params.account_id);
-    window.channel.unbind('account_update', function(){});
+    window.channel.unbind('account_update', this.updateReceived);
   },
 
   accountChange: function(){
