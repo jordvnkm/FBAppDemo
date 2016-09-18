@@ -10,7 +10,7 @@ const PostApiUtil = {
       let url = `${post.id}`;
       FB.api( url, 'post', {access_token: token, is_published: true}, (response) =>{
         if (!response){
-          errorCB("ERROR Occurred");
+          errorCB("No response from publishPost");
         }
         else if (response.error){
           errorCB(response.error);
@@ -28,7 +28,7 @@ const PostApiUtil = {
       let url = `${commentId}`;
       FB.api( url, 'delete', {access_token: token}, (response) =>{
         if (!response){
-          errorCB("ERROR Occurred");
+          errorCB("No response from delete comment");
         }
         else if (response.error){
           errorCB(response.error);
@@ -48,7 +48,7 @@ const PostApiUtil = {
       let url = `${postId}`;
       FB.api( url, 'delete', {access_token: token}, (response) =>{
         if (!response){
-          errorCB("ERROR Occured");
+          errorCB("No response from delete post");
         }
         else if (response.error){
           errorCB(response.error);
@@ -64,7 +64,7 @@ const PostApiUtil = {
     let url = `${postId}?fields=from,message,id,caption,source,full_picture,is_published`
     FB.api(url, function(response){
       if (!response){
-        errorCB("ERROR Occured");
+        errorCB("No response from fetch Post");
       }
       else if (response.error){
         errorCB(response.error);

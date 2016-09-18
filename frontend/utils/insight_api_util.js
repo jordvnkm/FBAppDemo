@@ -8,7 +8,7 @@ const InsightApiUtil = {
       let url = `${pageId}/insights/page_views_total,page_engaged_users,page_fans`
       FB.api(url, {access_token: token, } , function(response){
         if (!response){
-          errorCB("ERROR Occured");
+          errorCB("No response from fetch page insights");
         }
         else if (response.error){
           errorCB(response.error);
