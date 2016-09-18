@@ -78,14 +78,14 @@ const PostDetail = React.createClass({
     if (response.status == "connected"){
       this.accessToken = response.authResponse.accessToken;
 
-      let pageId = this.props.params.postId.split("_")[0];
-      PageActions.subscribeToUpdates(pageId);
-
-
       PostActions.fetchPostInsights(this.props.params.postId);
       PostActions.fetchComments(this.props.params.postId);
       PostActions.fetchPost(this.props.params.postId)
       PageActions.fetchProfileImage(this.props.params.userId, this.props.params.postId);
+
+
+      let pageId = this.props.params.postId.split("_")[0];
+      PageActions.subscribeToUpdates(pageId);
     }
     else {
       console.log("not connected from post detail");
