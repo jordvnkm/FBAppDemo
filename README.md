@@ -69,7 +69,8 @@ Creating comments takes a similar approach to creating posts.  Depending on the 
 
 
 ## Deleting posts and comments
-To delete a post or comment, the user may click on the delete button which triggers a DELETE request to the Graph Api.
+To delete a post or comment, the user may click on the delete button which triggers a DELETE request to the Graph Api.  The Post deletion api call uses a DELETE request to {:postId} and the Comment deletion api call uses a DELETE request to {:commentId}
+
 
 ![delete_buttons](https://github.com/jordvnkm/FBAppDemo/blob/master/docs/delete_buttons.png)
 
@@ -87,6 +88,11 @@ Post consumptions
 Similarly to the Page insight metrics, the Post insight metrics can easily be changed by adapting the following url:
 
 ![post_insight_url](https://github.com/jordvnkm/FBAppDemo/blob/master/docs/post_insight_url.png)
+
+## Pagination
+When a page requests posts from the Graph Api, the api responds with the 25 most recent posts.  The pagination url's are mapped to the feed that is requested.  For instance, when the published posts are requested, the pagination url's are kept in the PostStore.  To retrieve the next page of published posts, a PostStore.getPaging("published") method call is made.  The PageActions then uses that pagination url in an Ajax request to retrieve the next page of posts.
+
+![pagination](https://github.com/jordvnkm/FBAppDemo/blob/master/docs/pagination.png)
 
 
 ## Real time updates with Pusher
