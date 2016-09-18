@@ -17,26 +17,20 @@ const PostIndexItem = React.createClass({
   componentDidMount: function(){
     this.postListener = PostStore.addListener(this.postChange);
     this.commentListener = CommentStore.addListener(this.commentChange);
+    this.updateListener = UpdateStore.addListener(this.updateChange);
     PageActions.fetchProfileImage(this.props.post.from.id, this.props.post.id);
     PostActions.fetchComments(this.props.post.id);
-
-
-    var pusher = new Pusher('f0ed6004e66da55f7fbf', {
-      encrypted: true
-    });
-
-
-    var channel = pusher.subscribe('account_update');
-    channel.bind('account_update', function(data) {
-      PostActions.fetchComments(this.props.post.id);
-    }.bind(this));
-
 
   },
 
   componentWillUnmount: function(){
     this.postListener.remove();
     this.commentListener.remove();
+    this.updateListener.remove();
+  },
+
+  updateChange: function(){
+    PostActions.fetchComments(this.props.post.id);
   },
 
   commentChange: function(){
