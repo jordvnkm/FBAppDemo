@@ -64,4 +64,5 @@
 
 .postMessage {
   margin: 10px 15px;
+  word-wrap: break-word;
 }
