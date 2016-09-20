@@ -104,7 +104,7 @@ When a page requests posts from the Graph Api, the api responds with the 25 most
 ## Real time updates with Pusher
 Facebook page manager utilizes Facebook's webhooks to receive real time updates.  Currently, the app subscribes to changes in a Pages feed, video, and picture changes.  These subscriptions can be updated or changed through Facebook's app dashboard as well as through a graph api call.  When an account page is mounted, it subscribes to that pages updates.  On unmounting, the account page unsubscribes to the updates so that the application does not make unnecessary api calls.
 
-The webhook makes a GET request to "https://app-demo-fb.herokuapp.com" to verify the subscription.  Subsequent POST requests are then handled by the FacebooksController, which causes Pusher to trigger and update on the front end.
+The webhook makes a GET request to "https://app-demo-fb.herokuapp.com/facebook" to verify the subscription.  Subsequent POST requests are then handled by the FacebooksController, which causes Pusher to trigger and update on the front end.
 
 ![facebooks_controller](https://github.com/jordvnkm/FBAppDemo/blob/master/docs/facebooks_controller.png)
 
