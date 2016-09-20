@@ -158,7 +158,6 @@ const PostDetail = React.createClass({
 
   postComment: function(content, asPage){
     if (asPage){
-      console.log("create as page");
       CommentActions.createCommentAsPage(this.props.params.postId, content)
     }
     else {

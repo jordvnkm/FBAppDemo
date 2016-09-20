@@ -10,6 +10,7 @@ const PostActions = require("../actions/post_actions");
 const CommentActions = require("../actions/comment_actions");
 const UpdateStore = require("../stores/update_store");
 
+
 const PostIndexItem = React.createClass({
   getInitialState: function(){
     return {profileImageUrl: "", comments : []};
@@ -114,7 +115,7 @@ const PostIndexItem = React.createClass({
         </div>
         <div className="commentsDiv">
           {this.comments()}
-          <CreateCommentForm className="postIndexItemForm" onsubmit={this.submitComment}/>
+          <CreateCommentForm postId={this.props.post.id} className="postIndexItemForm" onsubmit={this.submitComment}/>
         </div>
       </li>
     );

@@ -17,14 +17,17 @@ const CreateCommentForm = React.createClass({
   },
 
   asPageRadioButtons: function(){
+    // id="asPageRadioButtonsComment"
     return (
-      <div id="asPageRadioButtonsComment" className="radioButtons">
-        <span>Comment as</span>
-        <input id="asPageComment" type="radio" name="asPage" value={true} checked={this.state.asPage == "true"} onChange={this.sourceChange} />
-        <label htmlFor="asPageComment">Page</label>
+      <div className="asPageRadioButtonsComment">
+        <div  className="radioButtons">
+          <span>Comment as</span>
+          <input id={"asPageComment_" + this.props.postId} type="radio" name={"asPageComment_" + this.props.postId} value={true} checked={this.state.asPage == "true"} onChange={this.sourceChange} />
+          <label htmlFor={"asPageComment_" + this.props.postId}>Page</label>
 
-        <input id="asPersonComment" type="radio" name="asPage" value={false} checked={this.state.asPage == "false"} onChange={this.sourceChange} />
-        <label htmlFor="asPersonComment">Individual</label>
+          <input id={"asPersonComment_" + this.props.postId} type="radio" name={"asPageComment_" + this.props.postId} value={false} checked={this.state.asPage == "false"} onChange={this.sourceChange} />
+          <label htmlFor={"asPersonComment_" + this.props.postId}>Individual</label>
+        </div>
       </div>
     );
   },
