@@ -26,7 +26,7 @@ The different pages are displayed and the user can click on a specific account t
 
 
 
-## Page insights
+## Page feed and insights
 When navigated to the account page, the application makes calls to the Facebook Graph Api to retrieve the account's feed.  The feed may be further filtered to only show the account's published or unpublished posts.
 
 ![feed_options](https://github.com/jordvnkm/FBAppDemo/blob/master/docs/feed_options.png)
@@ -46,7 +46,7 @@ Additional metrics can replace or be added to the current metrics by simply chan
 
 
 ## Creating posts as Page or Individual
-Users may create both published and unpublished posts using the page manager application.  All the user needs to do is click one of the "published" or "unpublished" radio buttons.  
+Users may create both published and unpublished posts using the page manager application.  All the user needs to do is click one of the "published" or "unpublished" radio buttons.  The api call's "published" parameter is set based on these radio buttons.
 
 The user may also choose between posting the content in the voice of the Page they are managing or in voice of their own personal account.  When making the Graph api call, an additional request for the page access token is made if the POST request is made in the voice of the Page.
 
@@ -54,9 +54,15 @@ The user may also choose between posting the content in the voice of the Page th
 
 ![page_access_req](https://github.com/jordvnkm/FBAppDemo/blob/master/docs/page_access_req.png)
 
+A user may also publish an unpublished post at a later date.  When viewing the Post's detail component, a "Publish" button will appear if the post is not already published.  Clicking on this button will trigger a POST request to update the post's is_published field to true.
+
 
 ## Publishing Photo / Video with Cloudinary
-When creating posts, the user may choose to add a photo or video to their content.  The image or video is hosted on cloudinary and the url is then used as the file_url in the Graph api POST request.
+When creating posts, the user may choose to add a photo or video to their content.  The image or video is hosted on cloudinary and the url is then used as the file_url in the Graph api POST request.  The application checks to make sure that the file format is acceptable for the graph api POST request.  Currently the file formats that are accepted are :
+
+Video: 3g2, 3gp, 3gpp, asf, avi, dat, divx, dv, f4v, flv, m2ts, m4v, mkv, mod, mov, mp4, mpe, mpeg, mpeg4, mpg, mts, nsv, ogm, ogv, qt, tod, ts, vob, and wmv.
+
+Image: JPEG BMP PNG GIF TIFF
 
 ![cloudinary_upload](https://github.com/jordvnkm/FBAppDemo/blob/master/docs/cloudinary_upload.png)
 
@@ -106,3 +112,9 @@ The webhook makes a GET request to "https://app-demo-fb.herokuapp.com" to verify
 Components such as the account page subscribe to Pusher's updates and re-render accordingly.
 
 ![pusher_subscribe](https://github.com/jordvnkm/FBAppDemo/blob/master/docs/pusher_subscribe.png)
+
+
+## Future improvements
+- Scheduling publish times
+- Code cleanup
+- Comment pagination
